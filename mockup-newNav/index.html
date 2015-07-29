@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="UTF-8">
+        <title>Tyson, Emilie & Isaac</title>
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    <body>
+        <header>
+            <h1>Tyson, Emilie & Isaac</h1>
+            <h2>Family Adventures</h2>
+            <nav class="minorMenu">
+                <ul>
+                    <li><a href="#">About</a>
+                    <li><form class="searchForm" action="http://j3.org/" method="get" role="search">
+                        <label>
+                            <input class="search-field" type="search" name="s" value="" placeholder="Search ..."/>
+                        </label>
+                        <button class="search-submit" type="submit">
+                            <img src="../images/toolbar_find.png" alt-text="Search"/>
+                        </button>
+                    </form>
+                </ul>
+            </nav>
+            <nav id="mainMenu">
+                <a class="responsiveMenu" onclick="toggleBySelector('#mainMenu > ul')" href="#">Menu</a>
+                <ul class="contains6">
+                    <li id="menu-1"><a href="#" >Home</a>
+                    <li id="menu-2" class="thisPage"><a href="#" >Browse Trip Reports</a>
+                        <ul class="contains5">
+                            <li id="submenu-1"><a href="#" >By Category</a>
+                            <li id="submenu-2" class="thisPage"><a href="#" >By Year</a>
+                            <li id="submenu-3"><a href="#" >By Club</a>
+                            <li id="submenu-4"><a href="#" >Best Reports</a>
+                            <li id="submenu-5"><a href="#" >Search</a>
+                        </ul>
+                    <li id="menu-3"><a href="#" >Photography</a>
+                        <ul class="contains2">
+                            <li id="submenu-6"><a href="#" >Photos</a>
+                            <li id="submenu-7"><a href="#" >Videos</a>
+                        </ul>
+                    <li id="menu-4"><a href="#" >Plan A Trip</a>
+                        <ul class="contains3">
+                            <li id="submenu-8"><a href="#" >Favorite Trips</a>
+                            <li id="submenu-9"><a href="#" >Clubs</a>
+                            <li id="submenu-10"><a href="#" >Weather</a>
+                        </ul>
+                    <li id="menu-5"><a href="#" >Recent Trips</a>
+                        <ul class="contains5">
+                            <li id="submenu-11"><a href="#" >All</a>
+                            <li id="submenu-12"><a href="#" >Flying and Airplanes</a>
+                            <li id="submenu-13"><a href="#" >Back Country Skiing</a>
+                            <li id="submenu-14"><a href="#" >Kayaking Trips</a>
+                            <li id="submenu-15"><a href="#" >Weather</a>
+                        </ul>
+                    <li id="menu-6"><a href="#" >Solar House</a>
+                        <ul class="contains3">
+                            <li id="submenu-16"><a href="#" >About</a>
+                            <li id="submenu-17"><a href="#" >Live Monitoring</a>
+                            <li id="submenu-18"><a href="#" >Status Updates</a>
+                        </ul>
+                </ul>
+            </nav>
+
+        </header>
+        <main>
+        <p>Some content</p>
+        </main>
+        <div id="pushFooter">
+        </div>
+        <footer>
+            <p>
+            Copyright Tyson and Emilie. 
+            <span class="alignRight">
+                <a class="rssLink" href="feed">Hiking and Backpacking RSS feed</a>
+                <a class="rssLink" href="feed">All topics RSS feed </a>
+                <!-- for main page, just "RSS feed" -->
+           </span>
+            </p>
+        </footer>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script src="scripts.js"></script>
+    </body>
+</html>

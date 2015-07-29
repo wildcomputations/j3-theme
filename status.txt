@@ -1,0 +1,50 @@
+Pages
+  - complete
+
+Home 
+  done
+     - rss feed
+     - prev/next
+  to do
+     - fancy photo: have formating for single and multiple posts. Now need query.
+
+content.php
+  done
+     - previous and next post navigation
+     - initial draft of existing comment formating in html
+     - added default comment list and form
+     - spruce up comments and comment form
+  to do
+
+photo gallery page
+  done
+     - general formating and date handling
+     - if no previous, link to page with picasa photos
+  to do
+     - page break at year rather than arbitrary number of posts
+
+Archive pages
+  done
+     - single year page complete
+     - using archive template page for multi-year access
+  to do
+
+Galleries
+  done
+     - remove nggallery pagination links, and instead just display "more"
+
+=== Enhancements ===
+  add randomly selected fancy photo.
+  posts
+     - manually specified related posts
+     - manually specified external resources links
+  footer
+     - sticky footer
+  style sheet
+     - clean up and organize
+  pagination
+     - comments need pagination
+     - paginated entries?
+  comments
+     - add custom comment rendering to match single.php
+

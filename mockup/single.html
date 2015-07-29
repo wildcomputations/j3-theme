@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="UTF-8">
+        <title>Tyson, Emilie & Isaac</title>
+        <!--<link href='http://fonts.googleapis.com/css?family=Raleway|Nothing+You+Could+Do' rel='stylesheet' type='text/css'>-->
+        <link rel="stylesheet" href="../SlickNav-master/slicknav.css?v=1.0.0">
+        <link rel="stylesheet" href="../style.css?v=2"/>
+    </head>
+    <body>
+        <header>
+            <h1>Tyson, Emilie & Isaac</h1>
+            <h2>A family adventure</h2>
+            <div class="rightContent">
+                <form class="searchForm" action="http://j3.org/" method="get" role="search">
+                    <label>
+                        <span class="screen-reader-text"></span>
+                        <input class="search-field" type="search" name="s" value="" placeholder="Search ..."/>
+                    </label>
+                    <input class="search-submit" type="submit" value="Search"/>
+                </form>
+                <nav>
+                    <div class="fullMenu">
+                        <ul id="menu">
+                            <li><a href="#" onClick="return menuAction();">Home</a>
+                            <ul>
+                                <li><a href="base.html">All</a>
+                                <li><a href="#">Flying and Airplanes</a>
+                                <li><a href="#">Back Country Skiing</a>
+                                <li><a href="#" onClick="return menuAction();">Kayaking Trips</a>
+                                <ul>
+                                    <li><a href="#">foo</a>
+                                    <li><a href="#">bar</a>
+                                </ul>
+                                <li><a href="#">Hiking and Backpacking</a>
+                                <li><a href="#">Energy Efficient House</a>
+                            </ul>
+                            <li><a href="photos.html">Photos</a>
+                            <li><a href="#">Videos</a>
+                            <li><a href="archives.html">Archives</a>
+                            <li><a href="#">About</a>
+                            <li><a href="#">J3 Cub</a>
+                        </ul>
+                    </div> <!-- fillMenu -->
+                </nav>
+            </div> <!-- rightContent -->
+        </header>
+        <div class="main"><!-- safari appears to not support main-->
+            <div class="hgroup hasPage">
+                <div class="rightContent">
+                    <article class="visualPage">
+                        <h1>Blog post foo</h1>
+                        <div class="date">Emilie Phillips. Jan 1, 2014</div>
+                        <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus condimentum aliquet lectus consectetur eleifend. Quisque dictum, purus sit amet aliquam sagittis, enim nisl vulputate ligula, in faucibus justo augue nec ipsum. Ut vel egestas nisi. Aliquam erat volutpat. Nulla vitae facilisis dui. Suspendisse interdum tortor ipsum, id tincidunt sem euismod vel. Nunc ut viverra orci. Nulla sed <a href="#">purus at urna luctus</a> rutrum. Mauris vel lectus ultricies, vehicula dolor tempus, placerat velit. Mauris aliquam vestibulum ultrices. Pellentesque metus dui, aliquet ut vehicula non, egestas in ligula. Sed non lectus consectetur, dapibus mauris quis, euismod lectus. In lacinia in eros vitae malesuada. Curabitur neque justo, laoreet quis posuere et, aliquam quis nisi. Pellentesque tincidunt justo orci, dapibus tempus felis rhoncus sed. Phasellus in auctor lorem.
+                        </p>
+                        <p>
+                        Aenean purus mauris, semper quis sapien et, tincidunt aliquet velit. Nulla risus leo, varius sodales molestie nec, vulputate eu massa. Vestibulum gravida laoreet sapien, vitae posuere nulla posuere sit amet. Pellentesque quis sem in lectus dictum porttitor. Ut facilisis varius nulla, eget semper ligula ullamcorper at. Integer sit amet nisi quis massa sodales vestibulum. Curabitur et turpis at diam accumsan fermentum sed non sapien.
+                        </p>
+                        <p>
+                        Vivamus auctor congue dui, ac ultrices risus rutrum ac. Integer nisi arcu, mattis non elit porttitor, posuere tincidunt dui. Nam sagittis tortor vel nulla ultrices, at auctor ligula dapibus. Vivamus non malesuada diam. Vestibulum aliquam libero ac tincidunt tincidunt. Nulla ullamcorper et odio et viverra. Cras risus ipsum, accumsan in metus vel, suscipit tincidunt nisl. Ut tempor dapibus egestas. Cras sed nisi interdum, fermentum sem vitae, convallis eros. Curabitur eu consectetur nisl, ac laoreet tortor. Mauris venenatis sapien nec neque varius, sed mattis leo sagittis. 
+                        </p>
+                        <div class="postLinks">
+                            <div class="navPrevious"><a href="#">Previous</a></div>
+                            <div class="navNext"><a href="#">Next</a></div>
+                        </div><!-- postLinks -->
+                    </article>
+                </div> <!-- rightContent -->
+                <aside>
+                    <div class="linkBlock">
+                        <h1>Related Posts</h1>
+                        <ul>
+                            <li><a href="#">Post foo</a>
+                            <li><a href="#">Post bar</a>
+                            <li><a href="#">Post really long name that keeps going and going, etc</a>
+                            <li><a href="#">Post another</a>
+                        </ul>
+                    </div>
+                    <div class="linkBlock">
+                        <h1>Topics</h1>
+                        <ul>
+                            <li><a href="#">All flying posts</a>
+                            <li><a href="#">All skiing posts</a>
+                        </ul>
+                    </div><!--linkBlock-->
+                    <div class="linkBlock">
+                        <h1>Resources</h1>
+                        <ul>
+                            <li><a href="#">Harris Center trail maps</a>
+                            <li><a href="#">Vans Airforce</a>
+                        </ul>
+                    </div><!--linkBlock-->
+                    <div class="linkBlock">
+                        <a href="#">4 Comments</a>
+                    </div><!--linkBlock-->
+                </aside>
+                <aside class="mini">
+                    <a href="#">More details ...</a>
+                </aside>
+            </div> <!-- hgroup -->
+            <div class="hgroup hasPage">
+                <div class="rightContent">
+                    <div class="visualPage commentBlock">
+                        <h1>Comments</h1>
+                        <ul>
+                            <li><div class="comment-body"><p>Coding standards are next.  Do they affect what your runtime executes?  Absolutely not.  Is your way of doing things right and my way wrong?  Well, no.  But I find the easiest, most effective way to make your code readable is to keep a consistent style everywhere that's possible.  Let me focus on the things that matter, rather than wondering if the author is just sloppy or is writing things to a different style than the other code.</p>
+                                <p>You want to find a tool that can be customized to match your standards, and which has an API that gives you a line number and filename of each standards violation.</p>
+                                <p class="date">12 January 2014 <a href="#">Jane Doe</a></p>
+                            </div>
+                            <li><div class="comment-body"><p>Here's where it gets interesting.  Up to this point, everything is just more mindless metrics that scroll by as your project manager stands behind you while you build the code.</p>
+                                <p class="date">13 January 2014 <a href="#">Eugene Doe</a></p>
+                                </div>
+                                <ul>
+                                    <li><div class="comment-body"><p>What can we quantify?  Some pretty important things, it turns out:</p>
+
+                                    <p>Code coverage</p>
+                                    <p>Complexity</p>
+                                    <p>Coding standards</p>
+                                    <p class="date">7 March 2014 <a href="#">Jane Doe</a></p>
+                                </div><!-- comment-body -->
+                                <li><div class="comment-body"><p>Yes, yes that</p>
+
+                                    <p class="date">7 March 2014 <a href="#">Xian Lu</a></p>
+                                </div><!-- comment-body -->
+
+                                </ul>
+
+                            <li><div class="comment-body"><p>flat comment</p>
+                                <p class="date">7 March 2014 <a href="#">Person A</a></p>
+                                </div><!-- comment-body -->
+                            <li><div class="comment-body"><p>Supper comment</p>
+                                <p class="date">7 March 2014 <a href="#">Person B</a></p>
+                                </div><!-- comment-body -->
+                                <ul>
+                                <li><div class="comment-body"><p>flat comment</p>
+                                    <p class="date">7 March 2014 <a href="#">Person A</a></p>
+                                    </div><!-- comment-body -->
+                                    <ul>
+                                    <li><div class="comment-body"><p>flat comment</p>
+                                        <p class="date">7 March 2014 <a href="#">Person A</a></p>
+                                        </div><!-- comment-body -->
+                                    <li><div class="comment-body"><p>Supper comment</p>
+                                        <p class="date">7 March 2014 <a href="#">Person B</a></p>
+                                        </div><!-- comment-body -->
+                                    <li><div class="comment-body"><p>Last comment</p>
+                                        <p class="date">7 March 2014 <a href="#">Person B</a></p>
+                                        </div><!-- comment-body -->
+                                    </ul>
+                                <li><div class="comment-body"><p>Supper comment</p>
+                                    <p class="date">7 March 2014 <a href="#">Person B</a></p>
+                                    </div><!-- comment-body -->
+                                <li><div class="comment-body"><p>Last comment</p>
+                                    <p class="date">7 March 2014 <a href="#">Person B</a></p>
+                                    </div><!-- comment-body -->
+                                </ul>
+                            <li><div class="comment-body"><p>Last comment</p>
+                                <p class="date">7 March 2014 <a href="#">Person B</a></p>
+                                </div><!-- comment-body -->
+                        </ul>
+                    </div>
+                </div> <!-- rightContent -->
+            </div> <!-- hgroup -->
+        </div><!--main-->
+        <footer>
+            <p>
+            Copyright Tyson and Emilie. 
+            <span class="alignRight">
+                <a class="rssLink" href="feed">Hiking and Backpacking RSS feed</a>
+                <a class="rssLink" href="feed">All topics RSS feed </a>
+                <!-- for main page, just "RSS feed" -->
+           </span>
+            </p>
+        </footer>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script src="SlickNav-master/jquery.slicknav.js?v=1.0.0"></script>
+        <script src="baseScripts.js"></script>
+    </body>
+</html>
