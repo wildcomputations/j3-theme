@@ -176,7 +176,11 @@ function j3FancyPhoto () {
     $query = new WP_Query( $args );
     if ($query->have_posts()) {
         $query->the_post();
-        get_template_part( 'content', get_post_format() );
+        echo '<div class="rightContent">
+            <div class="displayPhoto dualShadow">';
+        j3PostThumbnail('large', true);
+        echo '</div> 
+            </div> <!-- rightContent -->';
     }
 }
 
