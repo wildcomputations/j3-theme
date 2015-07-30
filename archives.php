@@ -1,16 +1,8 @@
 <?php
 /*
 Template Name: Archives
+This is a custom page template. Currently it is used for the "by year" page.
 */
-
-if (!function_exists('j3GetTagLinkByName')) :
-    function j3GetTagLinkByName($name)
-    {
-        $termData = get_term_by('name', $name, 'post_tag');
-        $tagId = (int)$termData->term_id;
-        return get_tag_link($tagId);
-    }
-endif;
 
 get_header(); ?>
 

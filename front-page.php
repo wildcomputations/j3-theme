@@ -28,7 +28,7 @@ function j3FrontRecentPosts()
             <h1 class="topicTitle">Recent Posts</h1>';
         while ( $query->have_posts() ) {
                 $query->the_post();
-                get_template_part( 'content', get_post_format() ); 
+                get_template_part( 'excerpt', get_post_format() ); 
         }
         echo '<div class="center">
               <a href="' . get_permalink( get_option( 'page_for_posts' ) ) . 
@@ -63,7 +63,7 @@ function j3RecentGalleries()
         while ( $query->have_posts() ) {
                 $query->the_post();
                 set_query_var('display_post', 'summary');
-                get_template_part( 'content', get_post_format() ); 
+                get_template_part( 'card', get_post_format() ); 
         }
         echo '<div class="albumSummary">
             <a href="' . get_post_format_link(get_post_format())

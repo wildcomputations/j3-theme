@@ -285,10 +285,8 @@ function j3NoLinkCategories()
 }
 
 /* Display stack of paper summary of a post */
-$j3InPostPreview = False;
-function j3PostPreview( $echo = True )
+function j3PagePreview( $echo = True )
 {
-    global $j3InPostPreview;
     global $post;
 
     $result = '<div class="stackPaper">
@@ -296,17 +294,6 @@ function j3PostPreview( $echo = True )
     $result .= esc_url( get_the_permalink() );
     $result .= '" class="noEmph">
         <div class="summary">';
-    if ($post->post_type == 'post') {
-        $result .= '<p class="date">';
-        // Date archives get day of week, and day of month.
-        // Everything else gets year and month
-        if (is_date()) {
-            $result .= get_the_date('D') . '<br>' . get_the_date('j');
-        } else {
-            $result .= get_the_date('Y') . '<br>' . get_the_date('M');
-        }
-        $result .= '</p>';
-    }
 
     if ( has_post_thumbnail()) {
         $result .= get_the_post_thumbnail($post->ID, 'thumbnail' );
@@ -314,12 +301,12 @@ function j3PostPreview( $echo = True )
     
     $result .= '<h1>' . get_the_title() . '</h1>';
     $result .= j3NoLinkCategories();
-    if ( ! has_post_thumbnail() or $post->post_type == 'page') {
-        $j3InPostPreview = True;
+    if ($post->post_type == 'page') {
+        j3SetShortExcerpt();
         $result .= '<p>' . get_the_excerpt() . "</p>";
         // we don't expect nested post previews, so this can just be set to 
         // false rather than having to remember the previous setting.
-        $j3InPostPreview = False;
+        j3EndShortExcerpt();
     }
     $result .= '</div> <!-- summary --> 
           </a>
@@ -330,94 +317,6 @@ function j3PostPreview( $echo = True )
         return $result;
     }
 }
-
-/* Display a gallery post as a stack of photos */
-function j3GallerySummaryNGG($echo = True)
-{
-    if ( post_password_required() ) {
-        $result =  '<div class="albumSummary">
-              <p>Authentication required</p>
-              </div>';
-        if ($echo) {
-            echo $result;
-            return;
-        } else {
-            return $result;
-        }
-    }
-    global $wpdb;
-    $myGallData = $wpdb->get_row("SELECT path, previewpic from " . $wpdb->nggallery . " where gid = " . get_the_content() . ";");
-    if (! $myGallData) {
-        $picFilePath ="";
-    } else {
-        $myPicData = $wpdb->get_row("SELECT filename FROM " . $wpdb->nggpictures . " where pid = " . $myGallData->previewpic . ";");
-        $picFilePath = site_url( $myGallData->path . '/thumbs/thumbs_' . $myPicData->filename );
-    }
-
-    $result = '<div class="albumSummary">
-        <div class="stackPhoto">
-            <a href="' . get_permalink() . '" class="photoLink">
-            <img src="'. $picFilePath . '"
-                 alt="' . get_the_title() . '"/>
-            </a>
-            </div> <!-- stacks-->
-            <p class="date">' . get_the_date('D j') . '</p>
-            <h1><a href="' . get_permalink() . '"> ' 
-                . get_the_title()
-                . '</a></h1>
-                </div>';
-    if ($echo == true) {
-        echo $result;
-    } else {
-        return $result;
-    }
-}
-
-function j3GallerySummaryNew($echo = true) 
-{
-    $result = '<div class="albumSummary">
-        <div class="stackPhoto">
-            <a href="' . get_permalink() . '" class="photoLink">';
-    $result .= get_the_post_thumbnail(null, 'thumbnail' );
-    $result .= '  </a>
-            </div> <!-- stacks-->
-            <p class="date">';
-    if (is_front_page()) {
-        $result .= get_the_date('M j');
-    } else {
-        $result .= get_the_date('D j');
-    }
-    $result .= '</p>
-            <h1><a href="' . get_permalink() . '"> ' 
-                . get_the_title()
-                . '</a></h1>
-                </div>';
-    if ($echo) {
-        echo $result;
-    } else {
-        return $result;
-    }
-}
-
-function j3GallerySummary( $echo = True) 
-{
-    if (is_numeric(get_the_content()) ) {
-        return j3GallerySummaryNGG($echo);
-    } else {
-        return j3GallerySummaryNew($echo);
-    }
-}
-
-function j3PostPageOrGalleryPreview( $echo = True ) 
-{
-    if (get_post_format() == "gallery" ) {
-        $result = j3GallerySummary($echo);
-    } else {
-        $result = j3PostPreview($echo);
-    }
-    return $result;
-}
-
 
 
 /* archive helper function */
@@ -554,7 +453,9 @@ function j3RecentPosts($atts) {
         $result .= '<div class="trippleStack">';
         while ( $query->have_posts() ) {
                 $query->the_post();
-                $result .= j3PostPreview($echo=False);
+                ob_start();
+                get_template_part( 'card', get_post_format() ); 
+                $result .= ob_get_clean();
         }
 
         if ($query->found_posts > $displayNum) {
@@ -619,7 +520,7 @@ function j3PostPreviewShortCode($atts) {
         $query = new WP_Query('pagename='.$pageSlug);
         if ( $query->have_posts() ) {
             $query->the_post();
-            $result .= j3PostPageOrGalleryPreview($echo=False);
+            $result .= j3PagePreview($echo=False);
         } else {
             $result .= "Unrecognized page " . $pageSlug;
         }
@@ -629,7 +530,9 @@ function j3PostPreviewShortCode($atts) {
         $query = new WP_Query('name='.$postSlug);
         if ( $query->have_posts() ) {
             $query->the_post();
-            $result .= j3PostPageOrGalleryPreview($echo=False);
+            ob_start();
+            get_template_part( 'card', get_post_format() ); 
+            $result .= ob_get_clean();
         } else {
             $result .= "Unrecognized post " . $postSlug;
         }
@@ -734,6 +637,15 @@ function j3Query( $query ) {
 }
 add_action( 'pre_get_posts', 'j3Query', 1 );
 
+$j3InPostPreview = False;
+function j3SetShortExcerpt() {
+    global $j3InPostPreview;
+    $j3InPostPreview = True;
+}
+function j3EndShortExcerpt() {
+    global $j3InPostPreview;
+    $j3InPostPreview = False;
+}
 function j3ArchiveExcerpt( $length ) {
     global $j3InPostPreview;
     if ($j3InPostPreview) {

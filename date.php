@@ -16,7 +16,7 @@ get_header(); ?>
                 the_post(); 
                 j3ArchiveDoYear();
                 j3ArchiveDoMonth();
-                j3PostPreview();
+                get_template_part( 'card', get_post_format() ); 
             } ?>
         </div> <!-- month -->
     </div> <!-- rightContent -->

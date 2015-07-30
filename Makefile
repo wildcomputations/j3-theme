@@ -7,16 +7,22 @@ standardTemplates = index.php \
 		    category.php \
 		    taxonomy-post_format-post-format-gallery.php \
 		    date.php \
-		    page.php 
+		    page.php \
+                    single.php
 pageTemplates = archives.php 
 phpFiles = $(standardTemplates) $(pageTemplates) \
 	   functions.php \
 	   header.php \
 	   footer.php \
 	   searchform.php \
-	   content.php \
-	   content-gallery.php \
-	   content-image.php \
+	   excerpt.php \
+	   excerpt-gallery.php \
+	   excerpt-image.php \
+	   full.php \
+	   full-gallery.php \
+	   full-image.php \
+	   card.php \
+	   card-gallery.php \
 	   content-none.php \
 	   comments.php
 styleSheets = style.css 
