@@ -55,6 +55,16 @@ if ( post_password_required() ) {
             j3ArticleCategories();
         ?>
     </aside>
+<?php if (function_exists('synved_social_share_markup')) {
+    echo '<aside>
+        <div class="linkBlock">
+        <h1>Share</h1>';
+    echo synved_social_share_markup();
+    echo '
+        </div><!--linkBlock-->
+        </aside>';
+}
+?>
     <aside class="mini">
         <a href="<?php the_permalink(); ?>">More details ...</a>
     </aside>
