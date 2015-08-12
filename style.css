@@ -308,8 +308,8 @@ nav.minorMenu li {
 /* sub menus for full screen */
 
 #mainMenu ul ul {
-    font-size: 0.9em;
-    line-height: 1.8em;
+    font-size: 0.95em;
+    line-height: 2em;
     font-family: 'Raleway', 'Ariel', sans-serif;
     position:absolute;
     left:0px;
@@ -337,8 +337,7 @@ nav.minorMenu li {
 #mainMenu li li a {
 }
 #mainMenu li li a::first-letter{
-    font-size:1.0em;
-
+    font-size: 1.0em;
 }
 
 /* only show the active sub-menu*/
