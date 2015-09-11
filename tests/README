@@ -1,0 +1,3 @@
+This directory contains unit tests and system tests for the php and css.
+
+Most of these tests have to be run by hand, and manually check the output.
