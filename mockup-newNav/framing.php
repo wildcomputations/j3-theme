@@ -80,19 +80,11 @@ if ( ! function_exists("start_page") ) {
         <header>
             <h1>Tyson, Emilie & Isaac</h1>
             <h2>Family Adventures</h2>
-            <nav class="minorMenu">
-                <ul>
-                    <li><a href="#">About</a>
-                    <li><form class="searchForm" action="http://j3.org/" method="get" role="search">
-                        <label>
-                            <input class="search-field" type="search" name="s" value="" placeholder="Search ..."/>
-                        </label>
-                        <button class="search-submit" type="submit">
-                            <img src="../images/toolbar_find.png" alt-text="Search"/>
-                        </button>
-                    </form>
-                </ul>
-            </nav>
+            <form class="searchForm" action="http://j3.org/" method="get" role="search">
+                <label>
+                    <input class="search-field" type="search" name="s" value="" placeholder="Search ..."/>
+                </label>
+            </form>
 <?php
         main_nav();
 ?>
