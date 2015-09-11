@@ -420,7 +420,7 @@ nav.minorMenu li {
 a {
     font-style: italic;
     text-decoration: none;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.24);
+    border-bottom: 2px solid rgba(128, 128, 128, 0.24);
     color: gray;
 }
 .photoLink, .wp-caption a, a[href^="http://picasaweb.google.com/lh/photo/"],
@@ -435,9 +435,16 @@ a.noEmph { /* reset*/
 a:hover ,
 a:focus,
 .history a h1:hover, .history a h1:focus {
-   font-weight: bold;
+    font-weight: bold;
     border-bottom: 1px solid gray;
     color: gray;
+}
+
+p a {
+    color: #4377D2;
+}
+p a:visited {
+    color: #587198;
 }
 
 /* reset */
