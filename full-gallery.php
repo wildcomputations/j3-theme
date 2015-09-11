@@ -22,7 +22,6 @@ function j3GalleryFull()
          <div class="date">' . get_the_date('M j, Y') . '</div>
          <p>' . $description . '</p>';
     echo do_shortcode( '[j3gallery id="' . get_the_content() . '"]');
-    j3PostNav();
     echo '</article>';
 }
 
@@ -32,7 +31,6 @@ function j3GalleryFullNew()
          <h1 class="articleTitle">'  . get_the_title() . '</h1>
          <div class="date">' . get_the_date('M j, Y') . '</div>';
     the_content();
-    j3PostNav();
     echo '</article>';
 }
 

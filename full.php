@@ -18,7 +18,6 @@ function j3ContentArticle() {
             . '. '. get_the_date('M j, Y') . '</div>';
     }
     the_content();
-    j3PostNav();
     echo '</article>';
 }
 

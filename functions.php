@@ -245,26 +245,6 @@ function j3PageNav($defaultPrev="", $defaultNext="", $standalone=false) {
     }
 }
 
-function j3PostNav( ) {
-    if ( ! is_single() ) { return; }
-
-    echo '<div class="postLinks">';
-
-    if ( get_previous_post_link() ) {
-        echo '<div class="navPrevious">';
-        previous_post_link("%link", "Previous");
-        echo '</div>';
-    }
-
-    if ( get_next_post_link() ) {
-        echo '<div class="navNext">';
-            next_post_link("%link", "Next");
-        echo '</div>';
-    }
-
-    echo '</div>';
-}
-
 /* Helper for j3InPostPreview. Generates a text list of categories. */
 function j3NoLinkCategories()
 {

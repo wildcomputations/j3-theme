@@ -951,35 +951,6 @@ padding-bottom : 40px;
     float: right;
 }
 
-
-.postLinks {
-    clear: both; 
-}
-
-.postLinks .navPrevious, .postLinks .navNext {
-    position: relative;
-    bottom:-36px;
-    height: 25px;
-    margin: 0px;
-    padding: 0px;
-}
-
-.postLinks .navPrevious {
-    left: -53px;
-}
-.postLinks .navNext {
-    right: -53px;
-}
-
-.postLinks .navPrevious a, .postLinks .navNext a {
-    background-position: left -45px;
-    background-image: url('images/pageTurn.png');
-}
-
-.postLinks .navNext a {
-    background-position: right 3px;
-}
-
 .commentBlock {
     padding: 30px;
 }
@@ -1475,16 +1446,6 @@ line-height: 1.1em;
         margin-top: 10px;
     }
 
-    .postLinks .navPrevious, .postLinks .navNext {
-        bottom:-26px;
-    }
-    .postLinks .navPrevious {
-        left: -33px;
-    }
-    .postLinks .navNext {
-        right: -33px;
-    }
-
     #menu {
         display:none;
     }
@@ -1568,16 +1529,6 @@ line-height: 1.1em;
     }
 }
 @media all and (max-width: 390px) {
-    .postLinks .navPrevious, .postLinks .navNext {
-        bottom:-16px;
-    }
-    .postLinks .navPrevious {
-        left: -18px;
-    }
-    .postLinks .navNext {
-        right: -18px;
-    }
-
     .commentBlock {
         padding: 10px;
     }

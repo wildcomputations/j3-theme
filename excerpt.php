@@ -41,7 +41,6 @@ function j3ContentArticle($useExcerpt) {
     } else {
         the_content();
     }
-    j3PostNav();
     echo '</article>';
 }
 
