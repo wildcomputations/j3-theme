@@ -590,6 +590,7 @@ article .wp-post-image {
 }
 .wp-caption-text {
     width: 100%;
+    display: table-caption;
 }
 
 /* if there is no caption, we need to add padding to the image */
