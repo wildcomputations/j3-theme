@@ -15,11 +15,12 @@ function j3FrontRecentPosts()
             'terms' => array( 'post-format-gallery', 'post-format-image' ),
             'operator' => 'NOT IN',
         ) );
-
     $query = new WP_Query(array(
         'posts_per_page' => $displayNum ,
         'orderby' => 'ID',
-        'tax_query' => $taxOnlyStd ));
+        'tax_query' => $taxOnlyStd,
+        'meta_query' => j3NotHiddenQueryArg(),
+        ));
 
     $result = "";
     // The Loop
@@ -54,6 +55,7 @@ function j3RecentGalleries()
                 'terms' => array( 'post-format-gallery' )
             )
         ),
+        'meta_query' => j3NotHiddenQueryArg(),
         'posts_per_page' => 5
     );
     $query = new WP_Query( $args );
