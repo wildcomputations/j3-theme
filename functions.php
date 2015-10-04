@@ -377,23 +377,6 @@ function j3FeedTime($theTime, $format='U', $gmt=false)
 }
 add_filter('get_post_time', 'j3FeedTime', 10, 3);
 
-function j3GalleryShortcode($atts) {
-    $args = shortcode_atts( array(
-        'id' => -1,
-    ), $atts );
-    if ($args['id'] == -1) {
-        return "";
-    }
-    if ( is_feed() ) {
-        return '<a href="' . get_permalink() . '">All photos ...</a>';
-    } elseif ( is_single() ) {
-        return do_shortcode('[nggallery id="' . $args['id'] . '" images=0]');
-    } else {
-        return do_shortcode('[nggallery id="' . $args['id'] . '"]');
-    }
-}
-add_shortcode('j3gallery', 'j3GalleryShortcode');
-
 /* Arguments
  * tag - optional tag name 
  *
@@ -534,14 +517,13 @@ function j3HelpBox ()
 {
     echo '<h3>Shortcodes</h3>
         <ul>
-            <li> j3recent -> argument tag="tagName". Displays previews of 
+            <li> <tt>j3recent</tt> -> argument tag="tagName". Displays previews of 
             recent posts with that tag.
-            <li> j3preview -> post="postSlug", page="pageSlug", posts="postSlugA,postSlugB", pages="pageSlugA,pageSlugB", start=1, end=1<br>
+            <li> <tt>j3preview</tt> -> post="postSlug", page="pageSlug", posts="postSlugA,postSlugB", pages="pageSlugA,pageSlugB", start=1, end=1<br>
             shows a preview of one or more pages or posts. The previews must be 
             contained in a div. By default the short code will generate the 
             start and end of that div. Either can be turned off for chaining 
             multiple calls to this shortcode.
-            <li> j3gallery -> deprecated, only nextgen galleries
         </ul>
         <h3>Making a Gallery</h3>
         <ol>

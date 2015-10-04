@@ -1065,21 +1065,6 @@ padding-bottom : 40px;
     margin-left: auto;
 }
 
-/* nextgen overrides */
-div.ngg-navigation {
-    padding-bottom: 15px;
-}
-
-.ngg-navigation a {
-    display:none;
-}
-.ngg-navigation a:last-of-type {
-    display: initial;
-}
-.ngg-navigation a:last-of-type:before {
-    content: "more...";
-}
-
 /* fancy photo */
 body.single-format-image {
     box-shadow: none;
@@ -1542,15 +1527,6 @@ line-height: 1.1em;
     }
     .commentBlock li {
         min-width: 100%;
-    }
-
-/* photo album overrides */
-    .ngg-gallery-thumbnail-box {
-        margin-right: 0px !important;
-    }
-    .ngg-gallery-thumbnail img {
-        height: auto;
-        max-width: 80% !important;
     }
 
 }
