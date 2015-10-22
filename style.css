@@ -590,7 +590,6 @@ article .wp-post-image {
 }
 .wp-caption-text {
     width: 100%;
-    display: table-caption;
 }
 
 /* if there is no caption, we need to add padding to the image */
@@ -618,12 +617,25 @@ img.alignright {
 .gallery-item {
     display: inline-block;
     margin: 5px;
+    vertical-align: top;
 }
 .gallery .collapseMore, 
 .gallery .collapseLess {
     padding-left: 1em;
     font-style: italic;
     color: gray;
+}
+
+.gallery {
+    caption-side: bottom;
+}
+
+.gallery-icon {
+    display: table-cell;
+}
+
+.gallery-caption {
+    display: table-caption;
 }
 
 #swipebox-slider .slide {
