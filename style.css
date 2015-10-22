@@ -1091,6 +1091,10 @@ body.single-format-image {
     width:100%;
 }
 
+.single-format-image header {
+    background: inherit;
+}
+
 .single-format-image h1 {
     color: #F2DCC5;
 }
