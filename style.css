@@ -1235,11 +1235,7 @@ article ul, article ol {
     list-style-type: initial;
     line-height:1.4;
     padding: 0 0 0 2em;
-}
-
-/* get rid of extra space after preceeding paragraph*/
-article p ~ ul, article p ~ ol {
-     margin-top: -1.5em;
+    margin-bottom: 1.5em;
 }
 
 article ol {
