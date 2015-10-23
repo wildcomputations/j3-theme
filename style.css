@@ -623,7 +623,17 @@ img.alignright {
 .gallery .collapseLess {
     padding-left: 1em;
     font-style: italic;
-    color: gray;
+    color: #4377D2;
+    font-weight: bold;
+}
+
+.gallery .collapseMore p,
+.gallery .collapseLess {
+    border-bottom: 1px solid #808080;
+}
+
+.gallery-item.collapseShow {
+    vertical-align: middle;
 }
 
 .gallery {
