@@ -31,7 +31,7 @@ function j3FrontRecentPosts()
                 $query->the_post();
                 get_template_part( 'excerpt', get_post_format() ); 
         }
-        echo '<div class="center">
+        echo '<div class="aligncenter">
               <a href="' . get_permalink( get_option( 'page_for_posts' ) ) . 
              '">All Posts ... </a>
               </div>';
