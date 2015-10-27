@@ -44,7 +44,7 @@ if ( post_password_required() ) {
 ?>
 <div class="hgroup hasPage">
     <div class="rightContent">
-        <?php j3ContentArticle(false); ?>
+        <?php j3ContentArticle(); ?>
     </div> <!-- rightContent -->
     <aside>
         <div class="linkBlock">

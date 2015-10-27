@@ -19,16 +19,10 @@ function j3ContentMeta() {
 }
 
 // Everything that goes in the article
-function j3ContentArticle($useExcerpt) {
-    echo '<article class="visualPage';
-    if ($useExcerpt) echo ' postExcerpt';
-    echo '">';
+function j3ContentExcerpt() {
+    echo '<article class="visualPage postExcerpt ">';
 
-    if ($useExcerpt) {
-        j3PostThumbnail('medium', true);
-    } else {
-        j3PostThumbnail();
-    }
+    j3PostThumbnail('medium', true);
     echo '<h1 class="articleTitle"><a href="' . get_permalink() . '">';
     the_title();
     echo '</a></h1>';
@@ -36,11 +30,8 @@ function j3ContentArticle($useExcerpt) {
         echo '<div class="date">' . get_the_author()
             . '. '. get_the_date('M j, Y') . '</div>';
     }
-    if ($useExcerpt) {
-        the_excerpt();
-    } else {
-        the_content();
-    }
+    the_excerpt();
+    echo '<p><a class="moretag" href="'. get_permalink($post->ID) . '"> Read Full Post</a></p>';
     echo '</article>';
 }
 
@@ -65,40 +56,22 @@ if ( post_password_required() ) {
 	return;
 }
 
-if (is_search() || is_tag()) { ?>
-
-<div class="hgroup hasPage">
-    <div class="rightContent">
-        <?php j3ContentArticle(true); ?>
-    </div> <!-- rightContent -->
-    <aside>
-        <?php 
-            j3ArticleCategories();
-        ?>
-    </aside>
-</div> <!-- hgroup -->
-
-<?php } else if (is_front_page()) {
-    j3ContentArticle(true);
+if (is_front_page()) {
+    j3ContentExcerpt();
 
 } else { ?>
 
 <div class="hgroup hasPage">
     <div class="rightContent">
-        <?php j3ContentArticle(false); ?>
+        <?php j3ContentExcerpt(); ?>
     </div> <!-- rightContent -->
     <aside>
-        <div class="linkBlock">
-            <?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?>
-        </div><!--linkBlock-->
         <?php 
             j3ArticleCategories();
-            j3ContentMeta(); 
         ?>
     </aside>
-    <aside class="mini">
-        <a href="<?php the_permalink(); ?>">More details ...</a>
-    </aside>
 </div> <!-- hgroup -->
-<?php comments_template(); 
+
+
+<?php
 } ?>

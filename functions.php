@@ -668,17 +668,6 @@ function j3ArchiveExcerpt( $length ) {
 }
 add_filter('excerpt_length', 'j3ArchiveExcerpt');
 
-function j3ExcerptMore($more) {
-    global $post;
-    global $j3InPostPreview;
-    if ($j3InPostPreview) {
-        return ' [...]';
-    } else {
-        return ' [...] <a class="moretag" href="'. get_permalink($post->ID) . '"> Read More</a>';
-    }
-}
-add_filter('excerpt_more', 'j3ExcerptMore');
-
 function j3IsFancyPhoto() {
     return is_single() && get_post_format() == "image" ;
 }
