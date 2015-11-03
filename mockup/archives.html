@@ -5,7 +5,6 @@
         <meta charset="UTF-8">
         <title>Tyson, Emilie & Isaac</title>
         <!--<link href='http://fonts.googleapis.com/css?family=Raleway|Nothing+You+Could+Do' rel='stylesheet' type='text/css'>-->
-        <link rel="stylesheet" href="../SlickNav-master/slicknav.css?v=1.0.0">
         <link rel="stylesheet" href="../style.css?v=1"/>
     </head>
     <body>
@@ -20,6 +19,8 @@
                 <input class="search-submit" type="submit" value="Search"/>
             </form>
             <nav id="mainMenu">
+                <a class="responsiveMenu" href="#"
+                    onclick="toggleBySelector('#mainMenu > ul')">Menu</a>
                 <ul id="menu">
                     <li><a href="#" onClick="return menuAction();">Home</a>
                     <ul>
