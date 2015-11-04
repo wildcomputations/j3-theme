@@ -187,6 +187,14 @@ button img {
     height: 1em;
 }
 
+.searchBar {
+    float: left;
+    display: block;
+    background: rgba(255, 255, 255, .5);
+    padding: 0.5em;
+    height: 100%;
+}
+
 nav ul {
     list-style-type:none;
     margin:0;
@@ -1170,6 +1178,30 @@ article:after,
     height: 100%;
 }
 
+.calendar td {
+    position:relative;
+}
+.calendar label {
+    background: #F6EDE2;
+    border-left: 1px solid #CECECE;
+    border-right: 1px solid #9E9082;
+    border-bottom: 1px solid #606060;
+    border-top: 1px solid #FFF;
+    display: block;
+    padding: 0.1em 0.3em;
+}
+
+.calendar input:checked + label {
+    font-weight: bold;
+    background: white;
+    box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.8) inset;
+    border: none;
+}
+
+.calendar input {
+    position:absolute;
+    visibility: hidden;
+}
 /********** Dynamics/javascript *******/
 .collapseHide {
     display:none;

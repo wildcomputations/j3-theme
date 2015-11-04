@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width">
         <meta charset="UTF-8">
-        <title>Tyson, Emilie & Isaac</title>
+        <title>Tyson, Emilie & Isaac: search</title>
         <link rel="stylesheet" href="style.css"/>
     </head>
     <body>
@@ -19,13 +19,13 @@
                 <a class="responsiveMenu" onclick="toggleBySelector('#mainMenu > ul')" href="#">Menu</a>
                 <ul>
                     <li id="menu-1" class="item-count-6"><a href="#" >Home</a>
-                    <li id="menu-2" class="thisPage item-count-6"><a href="#" >Browse Trip Reports</a>
+                    <li id="menu-2" class="item-count-6 thisPage"><a href="#" >Browse Trip Reports</a>
                         <ul>
                             <li id="submenu-1" class="item-count-5"><a href="#" >By Category</a>
-                            <li id="submenu-2" class="thisPage item-count-5"><a href="#" >By Year</a>
+                            <li id="submenu-2" class="item-count-5"><a href="#" >By Year</a>
                             <li id="submenu-3" class="item-count-5"><a href="#" >By Club</a>
                             <li id="submenu-4" class="item-count-5"><a href="#" >Best Reports</a>
-                            <li id="submenu-5" class="item-count-5"><a href="search.html" >Search</a>
+                            <li id="submenu-5" class="item-count-5 thisPage"><a href="#" >Search</a>
                         </ul>
                     <li id="menu-3" class="item-count-6"><a href="#" >Photography</a>
                         <ul class="contains2">
@@ -56,8 +56,62 @@
             </nav>
 
         </header>
+        <div class="searchBar">
+            <form>
+                <input type="search"><br>
+                <button type="submit">Search</button>
+            </form>
+            <h1>File Types</h1>
+            <form>
+                <input type="checkbox">Trip Reports<br>
+                <input type="checkbox">Photo Albums<br>
+                <input type="checkbox">Pages<br>
+                <input type="checkbox">Photos<br><!-- this is both photo posts and individual photo attachments-->
+            </form>
+            <h1>Topics</h1>
+            <form><!-- autogenerate these-->
+                <input type="checkbox">Flying and Airplanes<br>
+                <input type="checkbox">Back Country Skiing<br>
+                <input type="checkbox">Kayaking Trips<br>
+                <input type="checkbox">Energy Efficient House<br>
+                <input type="checkbox">Uncategorized<br>
+            </form>
+            <h1>Dates</h1>
+            <form>
+                <table class="calendar">
+                    Month
+                    <tr>
+                        <td><input type="checkbox" id="boxJan"><label for="boxJan">Jan</label></td>
+                        <td><input type="checkbox" id="boxFeb"><label for="boxFeb">Feb</label></td>
+                        <td><input type="checkbox" id="boxMar"><label for="boxMar">Mar</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="boxApr"><label for="boxApr">Apr</label></td>
+                        <td><input type="checkbox" id="boxMay"><label for="boxMay">May</label></td>
+                        <td><input type="checkbox" id="boxJun"><label for="boxJun">Jun</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="boxJul"><label for="boxJul">Jul</label></td>
+                        <td><input type="checkbox" id="boxAug"><label for="boxAug">Aug</label></td>
+                        <td><input type="checkbox" id="boxSep"><label for="boxSep">Sep</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" id="boxOct"><label for="boxOct">Oct</label></td>
+                        <td><input type="checkbox" id="boxNov"><label for="boxNov">Nov</label></td>
+                        <td><input type="checkbox" id="boxDec"><label for="boxDec">Dec</label></td>
+                    </tr>
+                </table>
+                Year <input type="text" style="width:5em;"> to <input type="text" style="width:5em;">
+            </form>
+            <h1>Tags</h1>
+            <form><!-- autogenerate these-->
+                <input type="checkbox">AMC<br>
+                <input type="checkbox">MITA<br>
+                <input type="checkbox">starred<br>
+            </form>
+        </div>
         <main>
-        <p>Some content</p>
+        Help
         </main>
         <div id="pushFooter">
         </div>
@@ -75,3 +129,4 @@
         <script src="scripts.js"></script>
     </body>
 </html>
+
