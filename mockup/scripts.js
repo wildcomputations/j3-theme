@@ -87,20 +87,34 @@ function populateMenuClicks()
 // Window load event used just in case window height is dependant upon images
 $(window).bind("load", function() { 
        
-       var $expandBox = $("#pushFooter");
-       var $heightNoPush = $(document.body).height() - $expandBox.height();
+       var expandBox = $("#pushFooter");
+       var heightNoPush = $(document.body).height() - expandBox.height();
+       var searchRight = $('#searchRight');
+       var searchBar = $('#searchBar');
            
        sizeWindow();
        
        function sizeWindow() {
-           if ( $heightNoPush < $(window).height() ) {
-                $expandBox.css({
-                    height: $(window).height() - $heightNoPush
+           if ( heightNoPush < $(window).height() ) {
+                expandBox.css({
+                    height: $(window).height() - heightNoPush
                 })
            } else {
-                $expandBox.css({
+                expandBox.css({
                     height: "0"
                 })
+           }
+
+           if (searchRight) {
+               if ($(window).width() <= 800) {
+                   searchRight.css({
+                       width: $(window).width() - 11
+                   });
+               } else {
+                   searchRight.css({
+                       width: $(window).width() - searchBar.outerWidth() - 11
+                   });
+               }
            }
 
            mainMenuResize();

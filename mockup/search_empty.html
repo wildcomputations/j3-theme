@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta charset="UTF-8">
+        <title>Tyson, Emilie & Isaac: search</title>
+        <link rel="stylesheet" href="style.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <header>
+            <h1>Tyson, Emilie & Isaac</h1>
+            <h2>Family Adventures</h2>
+            <form class="searchForm" action="http://j3.org/" method="get" role="search">
+                <label>
+                    <input class="search-field" type="search" name="s" value="" placeholder="Search ..."/>
+                </label>
+            </form>
+            <nav id="mainMenu">
+                <a class="responsiveMenu" onclick="toggleBySelector('#mainMenu > ul')" href="#">Menu</a>
+                <ul>
+                    <li id="menu-1" class="item-count-6"><a href="#" >Home</a>
+                    <li id="menu-2" class="item-count-6 thisPage"><a href="#" >Browse Trip Reports</a>
+                        <ul>
+                            <li id="submenu-1" class="item-count-5"><a href="#" >By Category</a>
+                            <li id="submenu-2" class="item-count-5"><a href="#" >By Year</a>
+                            <li id="submenu-3" class="item-count-5"><a href="#" >By Club</a>
+                            <li id="submenu-4" class="item-count-5"><a href="#" >Best Reports</a>
+                            <li id="submenu-5" class="item-count-5 thisPage"><a href="#" >Search</a>
+                        </ul>
+                    <li id="menu-3" class="item-count-6"><a href="#" >Photography</a>
+                        <ul class="contains2">
+                            <li id="submenu-6" class="item-count-2"><a href="#" >Photos</a>
+                            <li id="submenu-7" class="item-count-2"><a href="#" >Videos</a>
+                        </ul>
+                    <li id="menu-4" class="item-count-6"><a href="#" >Plan A Trip</a>
+                        <ul>
+                            <li id="submenu-8" class="item-count-3"><a href="#" >Favorite Trips</a>
+                            <li id="submenu-9" class="item-count-3"><a href="#" >Clubs</a>
+                            <li id="submenu-10" class="item-count-3"><a href="#" >Weather</a>
+                        </ul>
+                    <li id="menu-5" class="item-count-6"><a href="#" >Recent Trips</a>
+                        <ul>
+                            <li id="submenu-11" class="item-count-5"><a href="#" >All</a>
+                            <li id="submenu-12" class="item-count-5"><a href="#" >Flying and Airplanes</a>
+                            <li id="submenu-13" class="item-count-5"><a href="#" >Back Country Skiing</a>
+                            <li id="submenu-14" class="item-count-5"><a href="#" >Kayaking Trips</a>
+                            <li id="submenu-15" class="item-count-5"><a href="#" >Weather</a>
+                        </ul>
+                    <li id="menu-6" class="item-count-6"><a href="#" >Solar House</a>
+                        <ul>
+                            <li id="submenu-16" class="item-count-3"><a href="#" >About</a>
+                            <li id="submenu-17" class="item-count-3"><a href="#" >Live Monitoring</a>
+                            <li id="submenu-18" class="item-count-3"><a href="#" >Status Updates</a>
+                        </ul>
+                </ul>
+            </nav>
+
+        </header>
+        <main>
+        <div class="searchBar searchHide" id="searchBar">
+            <form class="search">
+                <input type="search">
+                <button type="submit">Search</button>
+            </form>
+            <a href="#" class="searchOpen" onclick="toggleClassBySelector('#searchBar', 'searchHide')">Filter Results <i class="fa">&#xf0d7;</i></a>
+            <a href="#" class="searchClose" onclick="toggleClassBySelector('#searchBar', 'searchHide')">Close <i class="fa">&#xf0d8;</i></a>
+            <div class="searchAdvanced">
+                <h1>Result Type</h1>
+                <form>
+                    <input type="checkbox">Trip Reports<br>
+                    <input type="checkbox">Photo Albums<br>
+                    <input type="checkbox">Pages<br>
+                    <input type="checkbox">Photos<br><!-- this is both photo posts and individual photo attachments-->
+                </form>
+                <h1>Topics</h1>
+                <form><!-- autogenerate these-->
+                    <input type="checkbox">Flying and Airplanes<br>
+                    <input type="checkbox">Back Country Skiing<br>
+                    <input type="checkbox">Kayaking Trips<br>
+                    <input type="checkbox">Energy Efficient House<br>
+                    <input type="checkbox">Uncategorized<br>
+                </form>
+                <h1>Dates</h1>
+                <form>
+                    <p>Month</p>
+                    <table class="calendar">
+                        <tr>
+                            <td><input type="checkbox" id="boxJan"><label for="boxJan">Jan</label></td>
+                            <td><input type="checkbox" id="boxFeb"><label for="boxFeb">Feb</label></td>
+                            <td><input type="checkbox" id="boxMar"><label for="boxMar">Mar</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id="boxApr"><label for="boxApr">Apr</label></td>
+                            <td><input type="checkbox" id="boxMay"><label for="boxMay">May</label></td>
+                            <td><input type="checkbox" id="boxJun"><label for="boxJun">Jun</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id="boxJul"><label for="boxJul">Jul</label></td>
+                            <td><input type="checkbox" id="boxAug"><label for="boxAug">Aug</label></td>
+                            <td><input type="checkbox" id="boxSep"><label for="boxSep">Sep</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" id="boxOct"><label for="boxOct">Oct</label></td>
+                            <td><input type="checkbox" id="boxNov"><label for="boxNov">Nov</label></td>
+                            <td><input type="checkbox" id="boxDec"><label for="boxDec">Dec</label></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <p>Year <input type="text" style="width:5em;"> to <input type="text" style="width:5em;"></p>
+                </form>
+                <h1>Tags</h1>
+                <form><!-- autogenerate these-->
+                    <input type="checkbox">AMC<br>
+                    <input type="checkbox">MITA<br>
+                    <input type="checkbox">starred<br>
+                </form>
+            </div><!--searchAdvanced-->
+        </div>
+            <div class="searchRight hasPage" id="searchRight">
+                <div class="rightContent">
+                <article class="visualPage">
+                    <h2>Sorry, nothing could be found.</h2>
+                    <p>Please try a different search</p>
+                </article>
+            </div>
+            </div>
+        </main>
+        <div id="pushFooter">
+        </div>
+        <footer>
+            <p>
+            Copyright Tyson and Emilie. 
+            <span class="alignright">
+                <a class="rssLink" href="feed">Hiking and Backpacking RSS feed</a>
+                <a class="rssLink" href="feed">All topics RSS feed </a>
+                <!-- for main page, just "RSS feed" -->
+           </span>
+            </p>
+        </footer>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script src="scripts.js"></script>
+    </body>
+</html>
+

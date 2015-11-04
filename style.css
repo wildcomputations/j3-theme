@@ -1253,6 +1253,17 @@ article:after,
     position:absolute;
     visibility: hidden;
 }
+
+.searchRight {
+    float:left;
+    display:block;
+    margin:0px 5px;
+}
+.searchRight .rightContent {
+    float:none;
+    margin-left:auto;
+    margin-right:auto;
+}
 /********** Dynamics/javascript *******/
 .collapseHide {
     display:none;
@@ -1322,7 +1333,7 @@ article p:last-child {
 
 article > h1 {
     font-family: "Raleway","Ariel",sans-serif;
-    font-size 1.7rem;
+    font-size: 1.7rem;
     text-transform: uppercase;
 }
 article h1.articleTitle:first-child {
@@ -1566,6 +1577,11 @@ line-height: 1.1em;
     .searchBar {
         float:none;
         height:initial;
+        width:initial;
+        margin-bottom: 10px;
+    }
+    .searchRight {
+        float:none;
     }
 }
 
