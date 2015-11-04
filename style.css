@@ -109,6 +109,10 @@ header h2 {
     padding-left: 220px;
 }
 
+#pushFooter {
+    clear: both;
+}
+
 /********* style ***********/
 body {
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .8) inset,
@@ -160,10 +164,25 @@ input[type="search"],
 select,
 textarea {
     color: #666;
-    border: 1px solid #F2F2F2;
-    border-radius: 3px;
-    max-width:100%;
+    border: none;
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2) inset;
+    margin-bottom: 2px;
+    padding: 2px;
+    width:100%;
 }
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+select:focus,
+textarea:focus {
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.5),
+                1px 1px 0px rgba(0, 0, 0, 0.2) inset;
+    border-radius: 1px;
+}
+
 form.searchForm input[type="submit"] {
   position: absolute;
   z-index: 1;
@@ -181,18 +200,12 @@ input[type="search"] {
   background-repeat: no-repeat;
   background-size: 1.5em auto;
   background-position: right center;
+  width: 100%;
+  max-width: 40em;
 }
 
 button img {
     height: 1em;
-}
-
-.searchBar {
-    float: left;
-    display: block;
-    background: rgba(255, 255, 255, .5);
-    padding: 0.5em;
-    height: 100%;
 }
 
 nav ul {
@@ -446,7 +459,7 @@ a:hover ,
 a:focus,
 .history a h1:hover, .history a h1:focus {
     font-weight: bold;
-    border-bottom: 1px solid gray;
+    border-bottom: 2px solid gray;
     color: gray;
 }
 
@@ -1178,17 +1191,55 @@ article:after,
     height: 100%;
 }
 
+.searchBar {
+    float: left;
+    display: block;
+    background: rgba(255, 255, 255, .5);
+    padding: 0.5em;
+    height: 100%;
+}
+.searchBar > *~* {
+    margin-top: 1em;
+}
+
+.searchOpen, .searchHide .searchOpen,
+.searchClose {
+    display:none;
+    border:none;
+    text-align:center;
+}
+.searchClose {
+    border-top: 1px solid rgba(215, 200, 165, 0.82);
+    padding-top: 0.1em;
+}
+.searchOpen:hover,
+.searchOpen:focus,
+.searchClose:hover,
+.searchClose:focus
+{
+    border-bottom:none;
+}
+.searchAdvanced > * {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.searchAdvanced > h1 {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.calendar {
+    margin: 2px 0px;
+}
 .calendar td {
     position:relative;
 }
 .calendar label {
     background: #F6EDE2;
-    border-left: 1px solid #CECECE;
-    border-right: 1px solid #9E9082;
-    border-bottom: 1px solid #606060;
-    border-top: 1px solid #FFF;
     display: block;
     padding: 0.1em 0.3em;
+    box-shadow: 1px 1px 0px 1px rgba(255, 251, 242, 0.9) inset, 1px 1px 0px rgba(90, 53, 11, 0.77);
+    margin: 0px 1px 1px 0px;
 }
 
 .calendar input:checked + label {
@@ -1260,12 +1311,12 @@ header h2 {
    font-size:1.4rem;
 }
 
-p {
+article p {
      margin-bottom: 1.5em;
      line-height:1.4;
 }
 
-p:last-child {
+article p:last-child {
     margin-bottom: 0;
 }
 
@@ -1499,6 +1550,22 @@ line-height: 1.1em;
         margin-left: auto;
         margin-right: auto;
         width:100%;
+    }
+
+    .searchOpen,
+    .searchHide .searchClose {
+        display:none;
+    }
+    .searchHide .searchOpen,
+    .searchClose {
+        display:block;
+    }
+    .searchHide .searchAdvanced {
+        display:none;
+    }
+    .searchBar {
+        float:none;
+        height:initial;
     }
 }
 

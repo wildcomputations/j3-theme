@@ -40,6 +40,11 @@ function toggleBySelector(selector) {
     }
 }
 
+function toggleClassBySelector(selector, className) {
+    var element = $(selector);
+    element.toggleClass(className);
+}
+
 function menuClick(menuId)
 {
     var menuItem = $("#" + menuId);

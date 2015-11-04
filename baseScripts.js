@@ -156,3 +156,8 @@ function toggleBySelector(selector) {
     }
 }
 
+function toggleClassBySelector(selector, className) {
+    var element = jQuery(selector);
+    element.toggleClass(className);
+}
+
