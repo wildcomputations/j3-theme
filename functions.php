@@ -54,7 +54,7 @@ function j3AddExternals() {
         array(), "2.21" );
     wp_enqueue_style('j3BaseStyle');
 
-    wp_register_style( 'fontAwesome',"https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css", array(), "4.4.0");
+    wp_register_style( 'fontAwesome', $styleDir . "/font-awesome-4.4.0/css/font-awesome.min.css", array(), "4.4.0");
     wp_enqueue_style('fontAwesome');
 
 }
