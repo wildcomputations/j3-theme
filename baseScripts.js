@@ -97,14 +97,14 @@ function sizeWindow() {
 function sizeSearch() {
     var searchRight = jQuery("#searchRight");
     var searchBar = jQuery("#searchBar");
-    if (searchRight && searchBar) {
-        if ($(window).width() <= 800) {
+    if (searchRight) {
+        if (jQuery(window).width() <= 800) {
             searchRight.css({
-                width: $(window).width() - 11
+                width: jQuery(window).width() - 11
             });
         } else {
             searchRight.css({
-                width: $(window).width() - searchBar.outerWidth() - 11
+                width: jQuery(window).width() - searchBar.outerWidth() - 11
             });
         }
     }
