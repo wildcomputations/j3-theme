@@ -47,13 +47,16 @@ function j3AddExternals() {
 
     wp_enqueue_script('j3Scripts', 
         $templateDir."/baseScripts.js",
-        array(), "2.1", true);
+        array(), "2.2", true);
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
-        array(), "2.20" );
-
+        array(), "2.21" );
     wp_enqueue_style('j3BaseStyle');
+
+    wp_register_style( 'fontAwesome',"https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css", array(), "4.4.0");
+    wp_enqueue_style('fontAwesome');
+
 }
 add_action( 'wp_enqueue_scripts', 'j3AddExternals' );
 

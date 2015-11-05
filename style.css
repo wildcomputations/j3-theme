@@ -305,6 +305,11 @@ nav.minorMenu li {
     border-bottom: none;
     width:100%;
     display:block;
+    padding: 3px 0.4em 0px;
+}
+
+#mainMenu a:hover,
+#mainMenu a:focus {
     padding: 3px 0.2em 0px;
 }
 
@@ -424,6 +429,12 @@ nav.minorMenu li {
 #mainMenu .current-menu-ancestor ul {
     display: block;
 }
+}
+
+/* we artificially cut off the menus at depth 2 */
+.menu > .menu-item-has-children > a::after {
+    content: " \f0d7";
+    font-family: FontAwesome;
 }
 
 .main {
