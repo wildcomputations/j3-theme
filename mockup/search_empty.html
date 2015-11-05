@@ -59,30 +59,49 @@
         </header>
         <main>
         <div class="searchBar searchHide" id="searchBar">
-            <form class="search">
-                <input type="search">
+            <form class="search" action="http://j3.org/" method="get">
+                <input type="search" name="s" />
                 <button type="submit">Search</button>
-            </form>
             <a href="#" class="searchOpen" onclick="toggleClassBySelector('#searchBar', 'searchHide')">Filter Results <i class="fa">&#xf0d7;</i></a>
             <a href="#" class="searchClose" onclick="toggleClassBySelector('#searchBar', 'searchHide')">Close <i class="fa">&#xf0d8;</i></a>
             <div class="searchAdvanced">
-                <h1>Result Type</h1>
-                <form>
+                <fieldset>
+                    <legend>Result Type</legend>
                     <input type="checkbox">Trip Reports<br>
                     <input type="checkbox">Photo Albums<br>
                     <input type="checkbox">Pages<br>
                     <input type="checkbox">Photos<br><!-- this is both photo posts and individual photo attachments-->
-                </form>
-                <h1>Topics</h1>
-                <form><!-- autogenerate these-->
-                    <input type="checkbox">Flying and Airplanes<br>
-                    <input type="checkbox">Back Country Skiing<br>
-                    <input type="checkbox">Kayaking Trips<br>
-                    <input type="checkbox">Energy Efficient House<br>
-                    <input type="checkbox">Uncategorized<br>
-                </form>
-                <h1>Dates</h1>
-                <form>
+                </fieldset>
+                <fieldset>
+                    <legend>Topics</legend>
+                    <!-- documenation:
+                         https://codex.wordpress.org/WordPress_Query_Vars -->
+                    <!-- these need to generate a query like ?cat=1,2 -->
+                    <!--  onChange="this.form.submit()" -->
+                    <label>
+                        <input type="checkbox"
+                        name="cat" value="4">Flying and Airplanes
+                    </label><br>
+                    <label>
+                        <input type="checkbox"
+                        name="cat" value="3">Back Country Skiing
+                    </label><br>
+                    <label>
+                        <input type="checkbox"
+                        name="cat" value="5">Kayaking Trips
+                    </label><br>
+                    <label>
+                        <input type="checkbox"
+                        name="cat" value="6">Energy Efficient House
+                    </label><br>
+                    <label>
+                        <input type="checkbox"
+                        name="cat" value="1">Uncategorized
+                    </label><br>
+                    <button type="button" onclick="queryAllBoxes(this.form, 'cat');">Update</button>
+                </fieldset>
+                <fieldset>
+                    <legend>Date</legend>
                     <p>Month</p>
                     <table class="calendar">
                         <tr>
@@ -108,14 +127,17 @@
                     </table>
                     <br>
                     <p>Year <input type="text" style="width:5em;"> to <input type="text" style="width:5em;"></p>
-                </form>
-                <h1>Tags</h1>
-                <form><!-- autogenerate these-->
+                    <button type="submit">Update</button>
+                </fieldset>
+                <fieldset>
+                <legend>Tag</legend>
+                    <!-- autogenerate these-->
                     <input type="checkbox">AMC<br>
                     <input type="checkbox">MITA<br>
                     <input type="checkbox">starred<br>
-                </form>
+                </fieldset>
             </div><!--searchAdvanced-->
+        </form>
         </div>
             <div class="searchRight hasPage" id="searchRight">
                 <div class="hgroup hasPage">

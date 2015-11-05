@@ -15,6 +15,7 @@ phpFiles = $(standardTemplates) $(pageTemplates) \
 	   header.php \
 	   footer.php \
 	   searchform.php \
+	   search.php \
 	   excerpt.php \
 	   excerpt-gallery.php \
 	   excerpt-image.php \

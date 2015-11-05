@@ -47,7 +47,7 @@ function j3AddExternals() {
 
     wp_enqueue_script('j3Scripts', 
         $templateDir."/baseScripts.js",
-        array(), "2.2", true);
+        array(), "2.3", true);
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 

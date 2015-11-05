@@ -84,6 +84,17 @@ function populateMenuClicks()
     }
 }
 
+function queryAllBoxes(container, name)
+{
+    var values = [];
+    $(container).find('input[type="checkbox"]:checked').each(
+            function()
+            {
+                values.push(this.value);
+            });
+    window.location = 'http://j3.org/?' + name + "=" + values.join(',');
+}
+
 // Window load event used just in case window height is dependant upon images
 $(window).bind("load", function() { 
        

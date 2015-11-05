@@ -305,11 +305,6 @@ nav.minorMenu li {
     border-bottom: none;
     width:100%;
     display:block;
-    padding: 3px 0.4em 0px;
-}
-
-#mainMenu a:hover,
-#mainMenu a:focus {
     padding: 3px 0.2em 0px;
 }
 
@@ -472,6 +467,7 @@ a:focus,
     font-weight: bold;
     border-bottom: 2px solid gray;
     color: gray;
+    letter-spacing: -0.02em;
 }
 
 p a {
@@ -1230,13 +1226,13 @@ article:after,
 {
     border-bottom:none;
 }
-.searchAdvanced > * {
-    margin-left: 5%;
-    margin-right: 5%;
+.searchBar fieldset {
+    padding-left:5%;
+    padding-right:5%;
 }
-.searchAdvanced > h1 {
-    margin-left: 2%;
-    margin-right: 2%;
+.searchBar legend {
+    margin-left:-3%;
+    margin-right:-3%;
 }
 
 .calendar {
@@ -1315,7 +1311,8 @@ b {
     font-weight: bold;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5,
+.searchBar legend {
     font-size: 1.5rem;
     font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
     font-weight: normal;
@@ -1720,7 +1717,8 @@ line-height: 1.1em;
 
 @media all and (max-width: 300px) {
     /* Make all headings smaller at this size */
-    h1, h2, h3, h4, h5 {
+    h1, h2, h3, h4, h5,
+    .searchBar legend {
         font-size: 1.2rem;
     }
     header h1 {
