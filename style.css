@@ -483,6 +483,7 @@ a.noEmph:hover, a.noEmph:focus {
     font-weight: inherit;
     border-bottom: inherit;
     color: inherit;
+    letter-spacing: initial;
 }
 
 .photoLink:hover, .wp-caption a:hover, 
