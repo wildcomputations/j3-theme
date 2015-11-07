@@ -11,6 +11,9 @@
  * @package j3Custom
  */
 
+if (j3IsGalleryFormat()) {
+    get_template_part('taxonomy-post_format', 'post-format-gallery');
+} else {
 get_header(); ?>
 
 <div class="main"><!-- safari appears to not support main-->
@@ -26,4 +29,5 @@ if ( have_posts() ) {
 j3PageNav("", "", $standalone = true); ?>
 </div><!--main-->
 
-<?php get_footer(); ?>
+<?php get_footer();
+} ?>
