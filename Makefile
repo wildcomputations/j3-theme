@@ -25,7 +25,8 @@ phpFiles = $(standardTemplates) $(pageTemplates) \
 	   card.php \
 	   card-gallery.php \
 	   content-none.php \
-	   comments.php
+	   comments.php \
+	   random-template.php
 styleSheets = style.css 
 files = $(jsFiles) $(phpFiles) $(styleSheets) screenshot.png
 images = arrows.png feedicons-standard/feed-icon-14x14.png lightpaperfibers.png toolbar_find.png green_cup.png seamlesstexture15_500.jpg pageTurn.png bookBinding.png
