@@ -30,7 +30,7 @@ phpFiles = $(standardTemplates) $(pageTemplates) \
 styleSheets = style.css 
 files = $(jsFiles) $(phpFiles) $(styleSheets) screenshot.png
 images = arrows.png feedicons-standard/feed-icon-14x14.png lightpaperfibers.png toolbar_find.png green_cup.png seamlesstexture15_500.jpg pageTurn.png bookBinding.png
-fontAwesome = $(themeName)/font-awesome-4.4.0/css/font-awesome.min.css
+fontAwesome = $(themeName)/font-awesome-4.5.0/css/font-awesome.min.css
 
 installedFiles = $(patsubst %,$(themeName)/%,$(files)) 
 installedImages = $(patsubst %,$(themeName)/images/%,$(images)) 
@@ -45,10 +45,10 @@ $(installedImages) : $(themeName)/% : %
 	mkdir -p $(dir $@)
 	cp $< $@
 
-font-awesome-4.4.0.zip:
-	wget http://fortawesome.github.io/Font-Awesome/assets/font-awesome-4.4.0.zip &> download.log
+font-awesome-4.5.0.zip:
+	wget https://fortawesome.github.io/Font-Awesome/assets/font-awesome-4.5.0.zip &> download.log
 
-$(fontAwesome): font-awesome-4.4.0.zip
+$(fontAwesome): font-awesome-4.5.0.zip
 	mkdir -p $(themeName)
 	unzip -u -o -d $(themeName) $< 
 

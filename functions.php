@@ -786,16 +786,13 @@ function j3GalleryFilter($content, $attr)
 
     $i = 0;
     foreach ( $attachments as $id => $attachment ) {
+        $image_meta  = wp_get_attachment_metadata( $id );
+
         if ($i == $showOnly) {
-            $output .= "<{$itemtag} class='gallery-item collapseShow' ";
-            $output .= "onclick='j3Show(this)'>";
-            $output .= "
-                <{$icontag} class='collapseMore'>
-                <p>
+            $output .= "<p class='collapseMore collapseShow' ";
+            $output .= "onclick='j3Show(this)'>
                 More ...
-                </p>
-                </{$icontag}>
-                </{$itemtag}>";
+                </p>";
         }
         $link = isset($attr['link']) && 'file' == $attr['link'] ? wp_get_attachment_link($id, $size, false, false) : wp_get_attachment_link($id, $size, true, false);
 
@@ -804,7 +801,8 @@ function j3GalleryFilter($content, $attr)
             $itemClass .= " collapseHide";
         }
 
-        $output .= "<{$itemtag} class='{$itemClass}'>";
+        $output .= "<{$itemtag} class='{$itemClass}' data-width='" . $image_meta['width'] . "'"
+            . " data-height='" . $image_meta['height'] . "' >";
         $output .= "
             <{$icontag} class='gallery-icon'>
             $link
@@ -837,3 +835,4 @@ function add_query_vars_filter( $vars ){
     return $vars;
 }
 add_filter( 'query_vars', 'add_query_vars_filter' );
+

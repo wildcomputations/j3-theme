@@ -663,13 +663,14 @@ img.alignright {
 }
 .gallery .collapseMore, 
 .gallery .collapseLess {
-    padding-left: 1em;
+    margin-top: 2em;
+    margin-left: 1em;
     font-style: italic;
     color: #4377D2;
     font-weight: bold;
 }
 
-.gallery .collapseMore p,
+.gallery .collapseMore,
 .gallery .collapseLess {
     border-bottom: 1px solid #808080;
 }
