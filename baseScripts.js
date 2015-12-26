@@ -183,61 +183,74 @@ function toggleClassBySelector(selector, className) {
 
 /* Gallery interface to photoswipe */
 // items - list of image objects with src, w (width), h (height)
-function openLightbox(items, index) {
-    var pswpElement = document.querySelectorAll('.pswp')[0];
-
-    // define options (if needed)
-    var options = {
-        // optionName: 'option value'
-        // for example:
-        index: index
-    };
-
-    // Initializes and opens PhotoSwipe
-    var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
-    gallery.init();
-
-}
-
+// index - index of the photo to open first
 function makeOpenLightbox(items, index) {
     return function() {
-        openLightbox(items, index);
+        var pswpElement = document.querySelectorAll('.pswp')[0];
+
+        // define options (if needed)
+        var options = {
+            index: index
+        };
+
+        // Initializes and opens PhotoSwipe
+        var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+        gallery.init();
+
+        // Don't follow the href from the current event
         event.preventDefault();
     };
 }
 
+/* extract the size, url, and caption from a gallery item (<dl>) */
+function galleryItemInfo(galleryItem) {
+    /* Get the image url */
+    var link = galleryItem.find('a');
+    if (link.length == 0) {
+        var item = {
+            'w' : 1000,
+            'h' : 500,
+            'src' : window.location.hostname + "/404"
+        };
+
+        return item;
+    }
+    var first = jQuery(link[0]);
+    var srcUrl = first.attr('href');
+
+    var item = {
+        'w' : galleryItem.attr('data-width'),
+        'h' : galleryItem.attr('data-height'),
+        'src' : srcUrl
+    };
+
+    /* Get the caption */
+    var captionElements = galleryItem.find('dd.wp-caption-text');
+    if (captionElements.length != 0) {
+        var caption = jQuery(captionElements[0]).html();
+        item.title = caption;
+    }
+
+    return item;
+}
+
+/* Parse the whole page to find galleries and set the onClick action for each
+ * thumbnail to load the photo swipe lightbox */
 function galleryInit() {
     var galleries = jQuery('.gallery');
     for (var i = 0; i < galleries.length; ++i) {
         var gallery = jQuery(galleries[i]);
+
+        /* Create the list of items for this photo swipe gallery */
         var items = [];
-        var thumbnails = gallery.children('dl.gallery-item');
-        for (var j = 0; j < thumbnails.length; ++j) {
-            var thumb = jQuery(thumbnails[j]);
+        var pictures = gallery.children('dl.gallery-item');
+        for (var j = 0; j < pictures.length; ++j) {
+            var thumb = jQuery(pictures[j]);
 
-            /* Get the image url */
-            var link = thumb.find('a');
-            if (link.length == 0) continue;
-            var first = jQuery(link[0]);
-            var srcUrl = first.attr('href');
-
-            var item = {
-                'w' : thumb.attr('data-width'),
-                'h' : thumb.attr('data-height'),
-                'src' : srcUrl
-            };
-
-            /* Get the caption */
-            var captionElements = thumb.find('dd.wp-caption-text');
-            if (captionElements.length != 0) {
-                var caption = jQuery(captionElements[0]).html();
-                item.title = caption;
-            }
-
-            items.push(item);
+            items.push(galleryItemInfo(thumb));
         }
-        console.log(items);
 
+        /* modify all the links to open the gallery lightbox */
         var links = gallery.find('a');
         for (var j = 0; j < links.length; ++j) {
             jQuery(links[j]).click(
