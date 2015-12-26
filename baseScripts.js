@@ -182,9 +182,26 @@ function toggleClassBySelector(selector, className) {
 
 
 /* Gallery interface to photoswipe */
-function makeOpenLightbox(items) {
+// items - list of image objects with src, w (width), h (height)
+function openLightbox(items, index) {
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+
+    // define options (if needed)
+    var options = {
+        // optionName: 'option value'
+        // for example:
+        index: index
+    };
+
+    // Initializes and opens PhotoSwipe
+    var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+    gallery.init();
+
+}
+
+function makeOpenLightbox(items, index) {
     return function() {
-        console.log(items);
+        openLightbox(items, index);
         event.preventDefault();
     };
 }
@@ -197,25 +214,35 @@ function galleryInit() {
         var thumbnails = gallery.children('dl.gallery-item');
         for (var j = 0; j < thumbnails.length; ++j) {
             var thumb = jQuery(thumbnails[j]);
+
+            /* Get the image url */
             var link = thumb.find('a');
             if (link.length == 0) continue;
             var first = jQuery(link[0]);
             var srcUrl = first.attr('href');
 
             var item = {
-                'width' : thumb.attr('data-width'),
-                'height' : thumb.attr('data-height'),
+                'w' : thumb.attr('data-width'),
+                'h' : thumb.attr('data-height'),
                 'src' : srcUrl
             };
+
+            /* Get the caption */
+            var captionElements = thumb.find('dd.wp-caption-text');
+            if (captionElements.length != 0) {
+                var caption = jQuery(captionElements[0]).html();
+                item.title = caption;
+            }
 
             items.push(item);
         }
         console.log(items);
 
-        jQuery(gallery.find('a')).each(function(index) {
-            jQuery(this).click(
-                makeOpenLightbox(items)
+        var links = gallery.find('a');
+        for (var j = 0; j < links.length; ++j) {
+            jQuery(links[j]).click(
+                makeOpenLightbox(items, j)
             );
-        });
+        }
     }
 }

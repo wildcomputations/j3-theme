@@ -691,6 +691,11 @@ img.alignright {
     display: table-caption;
 }
 
+#wpadminbar {
+    /* just below photoswipe lightbox */
+    z-index: 1000;
+}
+
 #swipebox-slider .slide {
     /* or white */
     background: #f2dcc5 url("images/seamlesstexture15_500.jpg");

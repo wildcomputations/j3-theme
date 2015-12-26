@@ -48,14 +48,32 @@ function j3AddExternals() {
     wp_enqueue_script('j3Scripts', 
         $templateDir."/baseScripts.js",
         array('jquery'), "2.3", true);
+    // need to switch to min once debugged
+    wp_enqueue_script('photoswipe',
+        $templateDir."/photoswipe/photoswipe.js",
+        array('jquery'), "4.1.full", true);
+    wp_enqueue_script('photoswipe-ui',
+        $templateDir."/photoswipe/photoswipe-ui-default.min.js",
+        array('jquery', 'photoswipe'), "4.1", true);
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
         array(), "2.21" );
     wp_enqueue_style('j3BaseStyle');
 
-    wp_register_style( 'fontAwesome', $styleDir . "/font-awesome-4.5.0/css/font-awesome.min.css", array(), "4.5.0");
+    wp_register_style( 'fontAwesome',
+        $styleDir . "/font-awesome-4.5.0/css/font-awesome.min.css",
+        array(), "4.5.0");
     wp_enqueue_style('fontAwesome');
+
+    wp_register_style('photoswipe',
+        $styleDir . "/photoswipe/photoswipe.css",
+        array(), "4.1");
+    wp_enqueue_style('photoswipe');
+    wp_register_style('photoswipe-default',
+        $styleDir . "/photoswipe/default-skin/default-skin.css",
+        array('photoswipe'), "4.1");
+    wp_enqueue_style('photoswipe-default');
 
 }
 add_action( 'wp_enqueue_scripts', 'j3AddExternals' );
@@ -794,7 +812,7 @@ function j3GalleryFilter($content, $attr)
                 More ...
                 </p>";
         }
-        $link = isset($attr['link']) && 'file' == $attr['link'] ? wp_get_attachment_link($id, $size, false, false) : wp_get_attachment_link($id, $size, true, false);
+        $link = wp_get_attachment_link($id, $size, false, false);
 
         $itemClass = 'gallery-item';
         if ($showOnly > 0 && $i >= $showOnly) {

@@ -31,6 +31,7 @@ styleSheets = style.css
 files = $(jsFiles) $(phpFiles) $(styleSheets) screenshot.png
 images = arrows.png feedicons-standard/feed-icon-14x14.png lightpaperfibers.png toolbar_find.png green_cup.png seamlesstexture15_500.jpg pageTurn.png bookBinding.png
 fontAwesome = $(themeName)/font-awesome-4.5.0/css/font-awesome.min.css
+photoSwipe = $(themeName)/photoswipe/photoswipe.css
 
 installedFiles = $(patsubst %,$(themeName)/%,$(files)) 
 installedImages = $(patsubst %,$(themeName)/images/%,$(images)) 
@@ -52,8 +53,15 @@ $(fontAwesome): font-awesome-4.5.0.zip
 	mkdir -p $(themeName)
 	unzip -u -o -d $(themeName) $< 
 
+master.zip:
+	wget https://github.com/dimsemenov/PhotoSwipe/archive/master.zip
 
-$(themeName).zip: $(installedFiles) $(installedImages) $(fontAwesome)
+$(photoSwipe): master.zip
+	mkdir -p $(themeName)
+	unzip -u -o -d /tmp/ $< PhotoSwipe-master/dist/*
+	cp -a /tmp/PhotoSwipe-master/dist $(themeName)/photoswipe/
+
+$(themeName).zip: $(installedFiles) $(installedImages) $(fontAwesome) $(photoSwipe)
 	zip -r $@ $(themeName)
 
 .phony: clean install
