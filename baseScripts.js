@@ -79,15 +79,15 @@ function populateMenuClicks()
     }
 }
 
-$expandBox = jQuery("#pushFooter");
-$heightNoPush = jQuery(document.body).height() - $expandBox.height();
+expandBox = jQuery("#pushFooter");
+heightNoPush = jQuery(document.body).height() - expandBox.height();
 function sizeWindow() {
-    if ( $heightNoPush < jQuery(window).height() ) {
-        $expandBox.css({
-            height: jQuery(window).height() - $heightNoPush
+    if ( heightNoPush < jQuery(window).height() ) {
+        expandBox.css({
+            height: jQuery(window).height() - heightNoPush
         })
     } else {
-        $expandBox.css({
+        expandBox.css({
             height: "0"
         })
     }
@@ -118,18 +118,19 @@ function j3ResizeWindow()
     sizeSearch();
 }
 
-jQuery(function ($) {
+jQuery(function () {
 
-    $(document).ready(function(){
+    jQuery(document).ready(function(){
         mainMenuResize();
+        galleryInit();
     });
 
 
     // Window load event used just in case window height is dependant upon images
-    $(window).bind("load", function() { 
+    jQuery(window).bind("load", function() { 
            
                
-           $(window)
+           jQuery(window)
                    .scroll(sizeWindow)
                    .resize(j3ResizeWindow);
 
@@ -142,26 +143,26 @@ jQuery(function ($) {
 
 /* Gallery collapsing */
 function j3Show(moreObj) {
-    var $galleryObj = moreObj.parentNode;
-    var $hideElements = $galleryObj.getElementsByClassName("collapseHide");
-    for (var i = 0 ; i < $hideElements.length; ++i) {
-        $hideElements.item(i).style.display = "inline-block";
+    var galleryObj = moreObj.parentNode;
+    var hideElements = galleryObj.getElementsByClassName("collapseHide");
+    for (var i = 0 ; i < hideElements.length; ++i) {
+        hideElements.item(i).style.display = "inline-block";
     }
-    var $showElements = $galleryObj.getElementsByClassName("collapseShow");
-    for (var i = 0 ; i < $showElements.length; ++i) {
-        $showElements.item(i).style.display = "none";
+    var showElements = galleryObj.getElementsByClassName("collapseShow");
+    for (var i = 0 ; i < showElements.length; ++i) {
+        showElements.item(i).style.display = "none";
     }
 }
 
 function j3Hide(lessObj) {
-    var $galleryObj = lessObj.parentNode;
-    var $hideElements = $galleryObj.getElementsByClassName("collapseHide");
-    for (var i = 0 ; i < $hideElements.length; ++i) {
-        $hideElements.item(i).style.display = "none";
+    var galleryObj = lessObj.parentNode;
+    var hideElements = galleryObj.getElementsByClassName("collapseHide");
+    for (var i = 0 ; i < hideElements.length; ++i) {
+        hideElements.item(i).style.display = "none";
     }
-    var $showElements = $galleryObj.getElementsByClassName("collapseShow");
-    for (var i = 0 ; i < $showElements.length; ++i) {
-        $showElements.item(i).style.display = "inline-block";
+    var showElements = galleryObj.getElementsByClassName("collapseShow");
+    for (var i = 0 ; i < showElements.length; ++i) {
+        showElements.item(i).style.display = "inline-block";
     }
 }
 
@@ -179,3 +180,42 @@ function toggleClassBySelector(selector, className) {
     element.toggleClass(className);
 }
 
+
+/* Gallery interface to photoswipe */
+function makeOpenLightbox(items) {
+    return function() {
+        console.log(items);
+        event.preventDefault();
+    };
+}
+
+function galleryInit() {
+    var galleries = jQuery('.gallery');
+    for (var i = 0; i < galleries.length; ++i) {
+        var gallery = jQuery(galleries[i]);
+        var items = [];
+        var thumbnails = gallery.children('dl.gallery-item');
+        for (var j = 0; j < thumbnails.length; ++j) {
+            var thumb = jQuery(thumbnails[j]);
+            var link = thumb.find('a');
+            if (link.length == 0) continue;
+            var first = jQuery(link[0]);
+            var srcUrl = first.attr('href');
+
+            var item = {
+                'width' : thumb.attr('data-width'),
+                'height' : thumb.attr('data-height'),
+                'src' : srcUrl
+            };
+
+            items.push(item);
+        }
+        console.log(items);
+
+        jQuery(gallery.find('a')).each(function(index) {
+            jQuery(this).click(
+                makeOpenLightbox(items)
+            );
+        });
+    }
+}
