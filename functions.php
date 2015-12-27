@@ -854,3 +854,18 @@ function add_query_vars_filter( $vars ){
 }
 add_filter( 'query_vars', 'add_query_vars_filter' );
 
+
+function add_size_to_images($content) {
+    $content = preg_replace_callback('/wp-image-(\\d*)[^\'"]*[\'"]/',
+        function($match) {
+            $orig = $match[0];
+            $attachment_id = $match[1];
+            $image_meta  = wp_get_attachment_metadata( $attachment_id );
+            return $orig . ' data-width="' . $image_meta['width'] . '"'
+                . ' data-height="' . $image_meta['height'] . '"';
+        },
+        $content);
+    return $content;
+}
+// add at priority 10 before shortcodes have been expanded
+add_filter( 'the_content', 'add_size_to_images', 10);

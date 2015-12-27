@@ -123,6 +123,7 @@ jQuery(function () {
     jQuery(document).ready(function(){
         mainMenuResize();
         galleryInit();
+        singlePhotosInit();
     });
 
 
@@ -202,10 +203,12 @@ function makeOpenLightbox(items, index) {
     };
 }
 
-/* extract the size, url, and caption from a gallery item (<dl>) */
-function galleryItemInfo(galleryItem) {
-    /* Get the image url */
-    var link = galleryItem.find('a');
+/* extract size, url, and caption from dom elements 
+ * \param size - element that should have data-width and data-height
+ * \param link - length 0 or 1 array of link surrounding the image
+ * \param caption - length 0 or 1 item containing a caption
+ */
+function lightBoxInfo(size, link, caption) {
     if (link.length == 0) {
         var item = {
             'w' : 1000,
@@ -215,23 +218,29 @@ function galleryItemInfo(galleryItem) {
 
         return item;
     }
-    var first = jQuery(link[0]);
-    var srcUrl = first.attr('href');
 
     var item = {
-        'w' : galleryItem.attr('data-width'),
-        'h' : galleryItem.attr('data-height'),
-        'src' : srcUrl
+        'w' : size.attr('data-width'),
+        'h' : size.attr('data-height'),
+        'src' : jQuery(link[0]).attr('href')
     };
 
-    /* Get the caption */
-    var captionElements = galleryItem.find('dd.wp-caption-text');
-    if (captionElements.length != 0) {
-        var caption = jQuery(captionElements[0]).html();
-        item.title = caption;
+    if (caption.length != 0) {
+        item.title = jQuery(caption[0]).html();
     }
 
     return item;
+}
+
+/* extract the size, url, and caption from a gallery item (<dl>) */
+function galleryItemInfo(galleryItem) {
+    /* Get the image url */
+    var link = galleryItem.find('a');
+
+    /* Get the caption */
+    var captionElements = galleryItem.find('dd.wp-caption-text');
+
+    return lightBoxInfo(galleryItem, link, captionElements);
 }
 
 /* Parse the whole page to find galleries and set the onClick action for each
@@ -257,5 +266,24 @@ function galleryInit() {
                 makeOpenLightbox(items, j)
             );
         }
+    }
+}
+
+function singlePhotosInit() {
+    var images = jQuery('[class*="wp-image-"]');
+    for (var i = 0; i < images.length; ++i) {
+        var image = jQuery(images[i]);
+
+        /* get the parent link. If there is no parent, we can't open the image anyway */
+        var links = image.parent('a');
+        if (links.length == 0) return;
+
+        var captionContainers = jQuery(links.parent('.wp-caption')).children('.wp-caption-text');
+
+        var items = [lightBoxInfo(image, links, captionContainers)];
+
+        jQuery(links[0]).click(
+                makeOpenLightbox(items, 0)
+                );
     }
 }
