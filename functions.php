@@ -45,9 +45,6 @@ add_action('after_setup_theme', 'j3Setup');
 function j3AddExternals() {
     $templateDir = get_template_directory_uri();
 
-    wp_enqueue_script('j3Scripts', 
-        $templateDir."/baseScripts.js",
-        array('jquery'), "2.3", true);
     // need to switch to min once debugged
     wp_enqueue_script('photoswipe',
         $templateDir."/photoswipe/photoswipe.js",
@@ -55,6 +52,10 @@ function j3AddExternals() {
     wp_enqueue_script('photoswipe-ui',
         $templateDir."/photoswipe/photoswipe-ui-default.min.js",
         array('jquery', 'photoswipe'), "4.1", true);
+
+    wp_enqueue_script('j3Scripts', 
+        $templateDir."/baseScripts.js",
+        array('jquery', 'photoswipe'), "2.5", true);
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 

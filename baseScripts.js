@@ -199,7 +199,7 @@ function makeOpenLightbox(items, index) {
         gallery.init();
 
         // Don't follow the href from the current event
-        event.preventDefault();
+        return false;
     };
 }
 
@@ -275,8 +275,8 @@ function singlePhotosInit() {
         var image = jQuery(images[i]);
 
         /* get the parent link. If there is no parent, we can't open the image anyway */
-        var links = image.parent('a');
-        if (links.length == 0) return;
+        var links = image.parent('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"]');
+        if (links.length == 0) continue;
 
         var captionContainers = jQuery(links.parent('.wp-caption')).children('.wp-caption-text');
 
