@@ -191,7 +191,8 @@ function makeOpenLightbox(items, index) {
 
         // define options (if needed)
         var options = {
-            index: index
+            index: index,
+            loop: false,
         };
 
         // Initializes and opens PhotoSwipe

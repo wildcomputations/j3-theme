@@ -4,7 +4,7 @@
  *
  * @package j3Custom
  */
-?>
+if (!is_front_page()) {?>
 
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -73,6 +73,7 @@
 
 </div>
 
+<?php } ?>
 
         <div id="pushFooter"></div>
         <footer>

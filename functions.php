@@ -45,17 +45,22 @@ add_action('after_setup_theme', 'j3Setup');
 function j3AddExternals() {
     $templateDir = get_template_directory_uri();
 
-    // need to switch to min once debugged
-    wp_enqueue_script('photoswipe',
-        $templateDir."/photoswipe/photoswipe.js",
-        array('jquery'), "4.1.full", true);
-    wp_enqueue_script('photoswipe-ui',
-        $templateDir."/photoswipe/photoswipe-ui-default.min.js",
-        array('jquery', 'photoswipe'), "4.1", true);
+    if (!is_front_page()) {
+        wp_enqueue_script('photoswipe',
+            $templateDir."/photoswipe/photoswipe.min.js",
+            array('jquery'), "4.1", true);
+        wp_enqueue_script('photoswipe-ui',
+            $templateDir."/photoswipe/photoswipe-ui-default.min.js",
+            array('jquery', 'photoswipe'), "4.1", true);
 
-    wp_enqueue_script('j3Scripts', 
-        $templateDir."/baseScripts.js",
-        array('jquery', 'photoswipe'), "2.5", true);
+        wp_enqueue_script('j3Scripts', 
+            $templateDir."/baseScripts.js",
+            array('jquery', 'photoswipe'), "2.5", true);
+    } else {
+        wp_enqueue_script('j3Scripts', 
+            $templateDir."/baseScripts.js",
+            array('jquery'), "2.5", true);
+    }
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
@@ -67,14 +72,16 @@ function j3AddExternals() {
         array(), "4.5.0");
     wp_enqueue_style('fontAwesome');
 
-    wp_register_style('photoswipe',
-        $styleDir . "/photoswipe/photoswipe.css",
-        array(), "4.1");
-    wp_enqueue_style('photoswipe');
-    wp_register_style('photoswipe-default',
-        $styleDir . "/photoswipe/default-skin/default-skin.css",
-        array('photoswipe'), "4.1");
-    wp_enqueue_style('photoswipe-default');
+    if (!is_front_page()) {
+        wp_register_style('photoswipe',
+            $styleDir . "/photoswipe/photoswipe.css",
+            array(), "4.1");
+        wp_enqueue_style('photoswipe');
+        wp_register_style('photoswipe-default',
+            $styleDir . "/photoswipe/default-skin/default-skin.css",
+            array('photoswipe'), "4.1");
+        wp_enqueue_style('photoswipe-default');
+    }
 
 }
 add_action( 'wp_enqueue_scripts', 'j3AddExternals' );
