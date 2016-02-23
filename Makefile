@@ -9,13 +9,14 @@ standardTemplates = index.php \
 		    date.php \
 		    page.php \
                     single.php
-pageTemplates = archives.php 
+pageTemplates = page-templates/archives.php \
+	   page-templates/random-template.php \
+	   page-templates/search.php
 phpFiles = $(standardTemplates) $(pageTemplates) \
 	   functions.php \
 	   header.php \
 	   footer.php \
 	   searchform.php \
-	   search.php \
 	   excerpt.php \
 	   excerpt-gallery.php \
 	   excerpt-image.php \
@@ -25,8 +26,7 @@ phpFiles = $(standardTemplates) $(pageTemplates) \
 	   card.php \
 	   card-gallery.php \
 	   content-none.php \
-	   comments.php \
-	   random-template.php
+	   comments.php
 styleSheets = style.css 
 files = $(jsFiles) $(phpFiles) $(styleSheets) screenshot.png
 images = arrows.png feedicons-standard/feed-icon-14x14.png lightpaperfibers.png toolbar_find.png green_cup.png seamlesstexture15_500.jpg pageTurn.png bookBinding.png
@@ -39,7 +39,7 @@ installedImages = $(patsubst %,$(themeName)/images/%,$(images))
 all: $(themeName).zip
 
 $(installedFiles) : $(themeName)/% : %
-	mkdir -p $(themeName)       
+	mkdir -p $(dir $@)
 	cp $< $@
 
 $(installedImages) : $(themeName)/% : %
