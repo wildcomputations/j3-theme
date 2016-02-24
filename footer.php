@@ -11,7 +11,7 @@ if (!is_front_page()) {?>
 
     <!-- Background of PhotoSwipe. 
          It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
+    <div class="pswp__bg pswp__custom_bg"></div>
 
     <!-- Slides wrapper with overflow:hidden. -->
     <div class="pswp__scroll-wrap">
@@ -63,7 +63,7 @@ if (!is_front_page()) {?>
             <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
             </button>
 
-            <div class="pswp__caption">
+            <div class="pswp__caption pswp__customized">
                 <div class="pswp__caption__center"></div>
             </div>
 

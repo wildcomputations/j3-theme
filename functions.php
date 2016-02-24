@@ -22,6 +22,9 @@ function j3Setup() {
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
 
+        // support html5
+	add_theme_support( 'html5' );
+
 	// Enable support for Post Thumbnails on posts and pages.
 	add_theme_support( 'post-thumbnails' );
         set_post_thumbnail_size(160, 160, true ); // 160x160 pixels, crop mode
@@ -64,7 +67,7 @@ function j3AddExternals() {
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
-        array(), "2.21" );
+        array(), "2.28" );
     wp_enqueue_style('j3BaseStyle');
 
     wp_register_style( 'fontAwesome',

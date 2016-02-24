@@ -437,8 +437,6 @@ nav.minorMenu li {
     padding-top: 0px;
     padding-bottom: 20px;
     margin: 0px;
-    /*background-color: rgba(0, 0, 256, 0.4);*/
-
 }
 
 .twoColumn {
@@ -612,6 +610,9 @@ article img {
     border: 1px solid rgba(0,0,0,0.3);
     max-width:100%;
     height: auto;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box; 
 }
 article .wp-post-image {
     display: block;
@@ -627,19 +628,17 @@ article .wp-post-image {
 }
 
 .wp-caption {
-    margin: 0.5em 0em;
     max-width: 100%;
 }
 .wp-caption-text {
     width: 100%;
 }
 
-/* if there is no caption, we need to add padding to the image */
-img.alignleft {
+.alignleft {
     margin: 0px 0.5em 0 auto;
 }
 
-img.alignright {
+.alignright {
     margin: 0px auto 0 0.5em;
 }
 
@@ -691,27 +690,29 @@ img.alignright {
     display: table-caption;
 }
 
-#wpadminbar {
-    /* just below photoswipe lightbox */
-    z-index: 1000;
-}
 
-#swipebox-slider .slide {
-    /* or white */
+.pswp__bg.pswp__custom_bg {
+    background-color: #f2dcc5;
     background: #f2dcc5 url("images/seamlesstexture15_500.jpg");
 }
-
-/* very similar to .wp-post-image */
-#swipebox-slider .slide img {
+.pswp__img {
     padding: 10px;
     border: 1px solid rgba(0,0,0,0.3);
-    max-width:85%;
-    max-height:85%;
-    width: auto;
-    height: auto;
     -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.pswp__caption.pswp__customized small {
+font-size: 11px;
+color: #BBB; }
+
+.pswp__customized .pswp__caption__center{
+font-size: inherit;
+color: inherit;
+}
+.pswp__ui--fit .pswp__caption.pswp__customized {
+  background-color: transparent;
 }
 
 .visualPage {
@@ -807,10 +808,11 @@ div[class*='stack'] img {
     max-width: none;
 }
 
-/* style for photo stack. Any photos using this must be square, preferably 160x160 */
+/* style for photo stack. Any photos using this must be square, preferably
+ * 160x160. Add 12 for 6px border in .stackPhoto img */
 .stackPhoto img, .stackPhoto:before, .stackPhoto:after {
     margin: 5px 0px;
-    height: 160px; width: 160px;
+    height: 172px; width: 172px;
 } 
 .stackPhoto:before {
     background: #eff4de;
@@ -1576,11 +1578,6 @@ line-height: 1.1em;
 }
 
 @media all and (max-width:800px) {
-    #swipebox-slider .slide img {
-        max-width:95%;
-        max-height:95%;
-    }
-
     .rightColumn,
     .leftColumn {
         float:none;
@@ -1638,11 +1635,6 @@ line-height: 1.1em;
         padding: 20px;
     }
 
-    #swipebox-slider .slide img {
-        max-width:99%;
-        max-height:99%;
-        padding: 6px;
-    }
     nav.minorMenu li {
         margin: 5px;
     }
@@ -1763,10 +1755,6 @@ line-height: 1.1em;
 
     .previous, .next {
         font-size: 1em;
-    }
-
-    #swipebox-slider .slide img {
-        padding: 3px;
     }
 }
 
