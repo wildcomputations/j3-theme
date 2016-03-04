@@ -668,7 +668,7 @@ function j3Query( $query ) {
         $photoPostFormat = true;
     }
 
-    if ( is_home() || is_category() || is_feed() ) {
+    if ( (is_home() || is_category() || is_feed()) && ! is_search() ) {
         $query->set( 'orderby', 'ID' );
         $query->set( 'meta_query', j3NotHiddenQueryArg());
     } else if ( is_date() ) {
