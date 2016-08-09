@@ -30,15 +30,15 @@ start_page(); ?>
     <div class="hasPage leftColumn">
         <h1 class="topicTitle">Recent Posts</h1>
         <article class="visualPage postExcerpt">
-        <h1><a href="http://j3.org/2012/08/1137/">Stairs varnished</a></h1><div class="date">Emilie. Aug 1, 2012</div><p>Mom and Dad were up these past couple of weeks helping out. They finished the stairs, made lots of meals, wrote a better temperature plot, and went out hiking and kayaking with us. I don&#8217;t seem to be very good at instructing kayak surfing, but the waves were mild enough that everyone had fun. We [&hellip;]</p>
+        <h1 class="articleTitle"><a href="http://j3.org/2012/08/1137/">Stairs varnished</a></h1><div class="date">Emilie. Aug 1, 2012</div><p>Mom and Dad were up these past couple of weeks helping out. They finished the stairs, made lots of meals, wrote a better temperature plot, and went out hiking and kayaking with us. I don&#8217;t seem to be very good at instructing kayak surfing, but the waves were mild enough that everyone had fun. We [&hellip;]</p>
         </article>
 
         <article class="visualPage postExcerpt">
-        <h1><a href="http://j3.org/2012/05/weekend-15/">Weekend</a></h1><div class="date">Emilie. May 9, 2012</div><p>Last weekend I tried to fit too much in. So I got a whole bunch of stuff done, but I also did not get a whole bunch of stuff done. There were household chores to catch up on, the remaining plants to plant, practice flying, motorcycle repairs, and hopefully a day of kayaking. I got [&hellip;]</p>
+        <h1 class="articleTitle"><a href="http://j3.org/2012/05/weekend-15/">Weekend</a></h1><div class="date">Emilie. May 9, 2012</div><p>Last weekend I tried to fit too much in. So I got a whole bunch of stuff done, but I also did not get a whole bunch of stuff done. There were household chores to catch up on, the remaining plants to plant, practice flying, motorcycle repairs, and hopefully a day of kayaking. I got [&hellip;]</p>
         </article>
 
         <article class="visualPage postExcerpt">
-        <h1><a href="http://j3.org/2012/05/kayaking-sunday-lake-contoocook/">Kayaking Sunday &#8211; lake Contoocook</a></h1><div class="date">Emilie. May 1, 2012</div><p>I forget the exact wind forecast for sunday, but in general recently it has been gusting 25mph. The wind was offshore, and the wave forecast was miniscule. So we decided that local lake paddling was a more interesting idea. We ended up picking the particular lake based on it being an excuse to visit Tyson&#8217;s [&hellip;]</p>
+        <h1 class="articleTitle"><a href="http://j3.org/2012/05/kayaking-sunday-lake-contoocook/">Kayaking Sunday &#8211; lake Contoocook</a></h1><div class="date">Emilie. May 1, 2012</div><p>I forget the exact wind forecast for sunday, but in general recently it has been gusting 25mph. The wind was offshore, and the wave forecast was miniscule. So we decided that local lake paddling was a more interesting idea. We ended up picking the particular lake based on it being an excuse to visit Tyson&#8217;s [&hellip;]</p>
         </article>
 
     </div>

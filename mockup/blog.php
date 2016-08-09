@@ -167,6 +167,7 @@ start_page(); ?>
                         Aenean purus mauris, semper quis sapien et, tincidunt aliquet velit. Nulla risus leo, varius sodales molestie nec, vulputate eu massa. Vestibulum gravida laoreet sapien, vitae posuere nulla posuere sit amet. Pellentesque quis sem in lectus dictum porttitor. Ut facilisis varius nulla, eget semper ligula ullamcorper at. Integer sit amet nisi quis massa sodales vestibulum. Curabitur et turpis at diam accumsan fermentum sed non sapien.
                         </p>
                         <h3>Vestibulum gravida</h3>
+                        <p><a href="http://j3.org/wp-content/uploads/2016/07/20160703-204-NancyPond.jpg"><img class="alignleft size-thumbnail wp-image-10781" data-width="1024" data-height="768" src="http://j3.org/wp-content/uploads/2016/07/20160703-204-NancyPond-160x160.jpg" alt="20160703-204-NancyPond" width="160" height="160" /></a></p>
                         <p>
                         Aenean purus mauris, semper quis sapien et, tincidunt aliquet velit. Nulla risus leo, varius sodales molestie nec, vulputate eu massa. Vestibulum gravida laoreet sapien, vitae posuere nulla posuere sit amet. Pellentesque quis sem in lectus dictum porttitor. Ut facilisis varius nulla, eget semper ligula ullamcorper at. Integer sit amet nisi quis massa sodales vestibulum. Curabitur et turpis at diam accumsan fermentum sed non sapien.
                         </p>

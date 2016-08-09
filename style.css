@@ -629,30 +629,27 @@ article .wp-post-image {
 
 .wp-caption {
     max-width: 100%;
+    margin-top: 1.5em;
 }
 .wp-caption-text {
     width: 100%;
 }
 
 .alignleft {
-    margin: 0px 0.5em 0 auto;
+    margin-right: auto;
+    margin- left: 0.5em;
 }
 
 .alignright {
-    margin: 0px auto 0 0.5em;
+    margin-left: auto;
+    margin-right: 0.5em;
 }
 
 .gallery {
     text-align: center;
     padding: 1em 0px;
-    border-bottom: 1px solid grey;
-    border-top: 1px solid grey;
-    box-shadow: -10px 0px white, 10px 0px white, 
-             0px  2px 2px rgba(0, 0, 0, 0.3),
-             0px -2px 2px rgba(0, 0, 0, 0.3);
-    background: rgba(0, 0, 0, 0.1);
     /* left and right margin are oposite gallery-item. Top and bottom margin match <p> */
-    margin: 0px -5px 1.5em -5px;
+    margin: 1.0em -5px 0 -5px;
     clear: both;
 }
 .gallery-item {
@@ -1336,7 +1333,7 @@ h2, h4, h5 {
 h2, h3, h4, h5 {
     font-size: 1.3rem;
     margin-top: 1em;
-    margin-bottom: 0.3em;
+    margin-bottom: 0.1em;
 }
 
 h1:first-child, h2:first-child, h3:first-child,
@@ -1352,13 +1349,20 @@ header h2 {
    font-size:1.4rem;
 }
 
-article p {
-     margin-bottom: 1.5em;
+article > p {
+     margin-top: 1.5em;
      line-height:1.4;
 }
+article > h1 + p,
+article > h2 + p,
+article > h3 + p,
+article > h4 + p,
+article > h5 + p {
+     margin-top: 0pt;
+}
 
-article p:last-child {
-    margin-bottom: 0;
+article p:first-child {
+    margin-top: 0em;
 }
 
 article > h1 {
