@@ -636,13 +636,13 @@ article .wp-post-image {
 }
 
 .alignleft {
-    margin-right: auto;
-    margin- left: 0.5em;
+    margin-left: auto;
+    margin-right: 0.5em;
 }
 
 .alignright {
-    margin-left: auto;
-    margin-right: 0.5em;
+    margin-right: auto;
+    margin-left: 0.5em;
 }
 
 .gallery {
