@@ -69,11 +69,9 @@ $(themeName).zip: $(installedFiles) $(installedImages) $(fontAwesome) $(photoSwi
 clean:
 	rm -rf $(themeName)
 
-installDir = /volume1/web/wordpress/wp-content/themes/
+installDir = /Applications/MAMP/htdocs/wordpress/wp-content/themes/
 install: $(themeName).zip
-	scp $< emilie@mansfield.local:$(installDir)
-	ssh emilie@mansfield.local \
-		 unzip -u -o -d $(installDir) $(installDir)/$(themeName).zip
+	unzip -u -o -d $(installDir) $(themeName).zip
 
 j3HomeDir = /home/jorg
 j3InstallDir = $(j3HomeDir)/public_html/wp-content/themes/

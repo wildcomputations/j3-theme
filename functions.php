@@ -601,7 +601,7 @@ function j3MetaBoxSave($post_id)
     }
      
     // if our current user can't edit this post, bail
-    if( !current_user_can( 'edit_post' ) ) return;
+    if( !current_user_can( 'edit_post', $post_id ) ) return;
 
     $hidden = isset( $_POST['hidepost'] ) && $_POST['hidepost'] ? 'hide' : 'show';
     update_post_meta( $post_id, 'hidepost', $hidden );
