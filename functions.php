@@ -5,6 +5,7 @@
  * @package WordPress
  * @since 1.0
  */
+require "meta-boxes.php";
 
 if (!isset($content_width)) {
     $content_width = 940; //pixels
@@ -566,18 +567,6 @@ function j3HelpBox ()
         </ol>';
 }
 
-function j3PostHideHtml($post)
-{
-    $currentlyHidden = get_post_meta($post->ID, "hidepost", true);
-    // We'll use this nonce field later on when saving.
-    wp_nonce_field( 'j3MetaBoxNonce', 'meta_box_nonce' );
-?>
-<input type="checkbox" name="hidepost"
-<?php checked( $currentlyHidden, 'hide' ); ?> />
-<label for="hidepost">Only show in archives</label>
-<?php
-}
-
 function j3AddMetaBoxes ()
 {
     $screens = array( 'post', 'page' );
@@ -585,7 +574,10 @@ function j3AddMetaBoxes ()
         add_meta_box("j3helpdiv", "J3 Theme Help", 'j3HelpBox', $screen, 'normal', 'default');
     }
 
-    add_meta_box("j3hidepostdiv", "Visibility of Post", 'j3PostHideHtml', 'post', 'side');
+    add_meta_box("j3hidepostdiv", "Visibility of Post", 'j3PostHideHtml',
+            'post', 'side');
+    add_meta_box("j3tripdatedive", "Trip Date", 'j3PostDateHtml',
+        'post', 'side');
 }
 add_action( 'add_meta_boxes', 'j3AddMetaBoxes');
 
@@ -594,17 +586,15 @@ function j3MetaBoxSave($post_id)
     // Bail if we're doing an auto save
     if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
      
-    // if our nonce isn't there, or we can't verify it, bail
-    if( !isset( $_POST['meta_box_nonce'] )
-        || !wp_verify_nonce( $_POST['meta_box_nonce'], 'j3MetaBoxNonce' ) ) {
-            return;
-    }
-     
     // if our current user can't edit this post, bail
     if( !current_user_can( 'edit_post', $post_id ) ) return;
 
-    $hidden = isset( $_POST['hidepost'] ) && $_POST['hidepost'] ? 'hide' : 'show';
-    update_post_meta( $post_id, 'hidepost', $hidden );
+    // if our nonce is there, we trust the hidden request
+    if( isset( $_POST['meta_box_nonce'] )
+        && !wp_verify_nonce( $_POST['meta_box_nonce'], 'j3MetaBoxHide' ) ) {
+        $hidden = isset( $_POST['hidepost'] ) && $_POST['hidepost'] ? 'hide' : 'show';
+        update_post_meta( $post_id, 'hidepost', $hidden );
+    }
 }
 add_action( 'save_post', 'j3MetaBoxSave');
 
