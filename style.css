@@ -1360,6 +1360,13 @@ article > h4 + p,
 article > h5 + p {
      margin-top: 0pt;
 }
+article > blockquote {
+     margin-top: 1.5em;
+     line-height:1.4;
+     font-style: italic;
+     padding-left: 4em;
+     color: #888;
+}
 
 article p:first-child {
     margin-top: 0em;
