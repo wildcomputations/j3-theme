@@ -75,7 +75,7 @@ install: $(themeName).zip
 	ssh emilie@mansfield.local \
 		 unzip -u -o -d $(installDir) $(installDir)/$(themeName).zip
 
-j3HomeDir = /home/j3test31
+j3HomeDir = /home/jorg
 j3InstallDir = $(j3HomeDir)/public_html/wp-content/themes/
 install-j3: $(themeName).zip
 	scp $< j3.org:
