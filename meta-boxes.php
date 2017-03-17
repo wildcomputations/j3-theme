@@ -55,6 +55,7 @@ function j3PostDateHtml($post)
 {
     // We'll use this nonce field later on when saving.
     wp_nonce_field( 'j3MetaBoxDate', 'j3_save_trip_date' );
+    $current_trip_date = get_post_meta($post->ID, "tripdate", true);
 ?>
 <div class="tripdate">
 <?php j3_time_chooser( 0,  "", "trip_date"); ?>
