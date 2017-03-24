@@ -16,3 +16,7 @@ wp-content/wp-cache-config.php
 doc/
 j3Custom.zip
 j3Custom/
+*.zip
+
+*.swp
+*.swo

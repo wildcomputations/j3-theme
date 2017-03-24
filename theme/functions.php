@@ -576,8 +576,6 @@ function j3AddMetaBoxes ()
 
     add_meta_box("j3hidepostdiv", "Visibility of Post", 'j3PostHideHtml',
             'post', 'side');
-    add_meta_box("j3tripdatedive", "Trip Date", 'j3PostDateHtml',
-        'post', 'side');
 }
 add_action( 'add_meta_boxes', 'j3AddMetaBoxes');
 
