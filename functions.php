@@ -72,7 +72,7 @@ function j3AddExternals() {
     wp_enqueue_style('j3BaseStyle');
 
     wp_register_style( 'fontAwesome',
-        $styleDir . "/font-awesome-4.5.0/css/font-awesome.min.css",
+        $styleDir . "/font-awesome-4.6.3/css/font-awesome.min.css",
         array(), "4.5.0");
     wp_enqueue_style('fontAwesome');
 
