@@ -31,7 +31,7 @@ function j3ContentExcerpt() {
             . '. '. get_the_date('M j, Y') . '</div>';
     }
     the_excerpt();
-    echo '<p><a class="moretag" href="'. get_permalink($post->ID) . '"> Read Full Post</a></p>';
+    echo '<p><a class="moretag" href="'. get_permalink() . '"> Read Full Post</a></p>';
     echo '</article>';
 }
 
