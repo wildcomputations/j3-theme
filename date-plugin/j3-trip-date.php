@@ -87,6 +87,35 @@ function j3DateMetaBoxes ()
 }
 add_action( 'add_meta_boxes', 'j3DateMetaBoxes');
 
+function j3ValidYear($key)
+{
+    // Y2.1k bug
+    return ( isset( $_POST[$key] )
+            && is_numeric( $_POST[$key] )
+            && $_POST[$key] > 1900
+            && $_POST[$key] <= 2100);
+}
+
+function j3ValidMonth($key)
+{
+    return ( isset( $_POST[$key] )
+            && is_numeric( $_POST[$key] )
+            && $_POST[$key] > 0
+            && $_POST[$key] <= 12);
+}
+
+function j3ValidDay($key, $month, $year)
+{
+    if ( ! isset( $_POST[$key] )
+        || ! is_numeric( $_POST[$key] )
+        || $_POST[$key] <= 0)
+    {
+            return FALSE;
+    }
+
+    return $_POST[$key] <= cal_days_in_month(CAL_GREGORIAN,$month,$year);
+}
+
 function j3DateMetaBoxSave($post_id)
 {
     // Bail if we're doing an auto save
@@ -97,9 +126,17 @@ function j3DateMetaBoxSave($post_id)
 
     // if our nonce is there, we trust the hidden request
     if( check_admin_referer( 'save_trip_date'.$post_id, 'j3-date' ) ) {
-        if (isset( $_POST['trip_date_valid'] )) {
-            // TODO validate the date fields and save them
-            update_post_meta( $post_id, 'j3tripdate', '2017');
+        if (isset( $_POST['trip_date_valid'] ))
+        {
+            if (j3ValidYear( 'trip_date_year' )
+                && j3ValidMonth( 'trip_date_month' )
+                && j3ValidDay( 'trip_date_day',  $_POST['trip_date_month'],
+                    $_POST['trip_date_year']) )
+            {
+                update_post_meta( $post_id, 'j3tripdate',
+                    $_POST['trip_date_year'] . $_POST['trip_date_month']
+                    . $_POST['trip_date_day']);
+            } 
         } else {
             delete_post_meta( $post_id, 'j3tripdate');
         }
