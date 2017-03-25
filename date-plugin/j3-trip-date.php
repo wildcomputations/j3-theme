@@ -135,7 +135,7 @@ function j3DateMetaBoxSave($post_id)
             {
                 update_post_meta( $post_id, 'j3tripdate',
                     $_POST['trip_date_year'] . $_POST['trip_date_month']
-                    . $_POST['trip_date_day']);
+                    . $sprintf('%02d', _POST['trip_date_day']));
             } 
         } else {
             delete_post_meta( $post_id, 'j3tripdate');
