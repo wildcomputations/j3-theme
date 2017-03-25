@@ -12,11 +12,6 @@ Version: 1.0
 Author URI: http://j3.org/
 */
 
-function post_has_trip_date() {
-    $post = get_post();
-    $edit = ! ( in_array($post->post_status, array('draft', 'pending') ) && (!$post->post_date_gmt || '0000-00-00 00:00:00' == $post->post_date_gmt ) );
-}
-
 /** Generates a user selection for date.
  * The input fields are 
  * $id_prefix . 'day'
@@ -27,9 +22,9 @@ function j3_time_chooser( $has_date, $date, $id_prefix ) {
     global $wp_locale;
 
     $time_adj = current_time('timestamp');
-    $day = ($has_date) ? substr($date, 6, 2) : gmdate( 'd', $time_adj );
-    $month = ($has_date) ? substr($date, 4, 2) : gmdate( 'm', $time_adj );
-    $year = ($has_date) ? substr($date, 0, 4) : gmdate( 'Y', $time_adj );
+    $day = ($has_date) ? mysql2date( 'd', $date, false ) : gmdate( 'd', $time_adj );
+    $month = ($has_date) ? mysql2date( 'm', $date, false ) : gmdate( 'm', $time_adj );
+    $year = ($has_date) ? mysql2date( 'Y', $date, false ) : gmdate( 'Y', $time_adj );
 
     $month_html = '<label>
         <span class="screen-reader-text">' . __( 'Month' ) . '</span>
@@ -68,8 +63,6 @@ function j3PostDateHtml($post)
     // We'll use this nonce field later on when saving.
     wp_nonce_field( 'save_trip_date'.$post->ID, 'j3-date' );
     $current_trip_date = get_post_meta($post->ID, "j3tripdate", true);
-    echo "Curent trip date ";
-    print_r($current_trip_date);
 ?>
 <div class="tripdate">
 <input type="checkbox" name="trip_date_valid"
@@ -135,8 +128,9 @@ function j3DateMetaBoxSave($post_id)
                     $_POST['trip_date_year']) )
             {
                 update_post_meta( $post_id, 'j3tripdate',
-                    $_POST['trip_date_year']
+                    $_POST['trip_date_year'] . '-'
                     . sprintf('%02d', $_POST['trip_date_month'])
+                    . '-'
                     . sprintf('%02d', $_POST['trip_date_day']));
             } 
         } else {
