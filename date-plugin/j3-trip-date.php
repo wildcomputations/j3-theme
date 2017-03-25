@@ -27,9 +27,9 @@ function j3_time_chooser( $has_date, $date, $id_prefix ) {
     global $wp_locale;
 
     $time_adj = current_time('timestamp');
-    $day = ($has_date) ? mysql2date( 'd', $date, false ) : gmdate( 'd', $time_adj );
-    $month = ($has_date) ? mysql2date( 'm', $date, false ) : gmdate( 'm', $time_adj );
-    $year = ($has_date) ? mysql2date( 'Y', $date, false ) : gmdate( 'Y', $time_adj );
+    $day = ($has_date) ? substr($date, 6, 2) : gmdate( 'd', $time_adj );
+    $month = ($has_date) ? substr($date, 4, 2) : gmdate( 'm', $time_adj );
+    $year = ($has_date) ? substr($date, 0, 4) : gmdate( 'Y', $time_adj );
 
     $month_html = '<label>
         <span class="screen-reader-text">' . __( 'Month' ) . '</span>
@@ -75,7 +75,8 @@ function j3PostDateHtml($post)
 <input type="checkbox" name="trip_date_valid"
 <?php checked( ! empty($current_trip_date));  ?> />
 Set trip date<br>
-<?php j3_time_chooser( 0,  "", "trip_date"); ?>
+<?php j3_time_chooser( ! empty($current_trip_date),  $current_trip_date,
+                      "trip_date"); ?>
 </div>
 <?php
 }
@@ -134,8 +135,9 @@ function j3DateMetaBoxSave($post_id)
                     $_POST['trip_date_year']) )
             {
                 update_post_meta( $post_id, 'j3tripdate',
-                    $_POST['trip_date_year'] . $_POST['trip_date_month']
-                    . $sprintf('%02d', _POST['trip_date_day']));
+                    $_POST['trip_date_year']
+                    . sprintf('%02d', $_POST['trip_date_month'])
+                    . sprintf('%02d', $_POST['trip_date_day']));
             } 
         } else {
             delete_post_meta( $post_id, 'j3tripdate');
