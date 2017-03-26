@@ -139,3 +139,54 @@ function j3DateMetaBoxSave($post_id)
     }
 }
 add_action( 'save_post', 'j3DateMetaBoxSave');
+
+function j3_date_get_year_link( $year )
+{
+    if ( !$year )
+    {
+        $year = gmdate('Y', current_time('timestamp'));
+    }
+    return home_url( '/trip-date/' . $year );
+}
+
+function j3_date_get_archives($args = '')
+{
+    global $wpdb;
+    $defaults = array(
+        'format' => 'html', 'before' => '',
+        'after' => '',
+        'order' => 'DESC',
+        'echo' => 1,
+    );
+
+    $r = wp_parse_args( $args, $defaults );
+
+    $order = strtoupper( $r['order'] );
+    if ( $order !== 'ASC' ) {
+        $order = 'DESC';
+    }
+
+    $query = "SELECT DISTINCT YEAR(meta_value) AS year "
+        . "FROM " . $wpdb->prefix . "postmeta "
+        . "WHERE meta_key = 'j3tripdate' "
+        . "ORDER BY year " . $order;
+
+    $results = $wpdb->get_results($query);
+
+    $output = "";
+    if ( $results )
+    {
+        foreach ( (array) $results as $result )
+        {
+            $url = j3_date_get_year_link( $result->year );
+            $text = sprintf( '%d', $result->year );
+            $output .= get_archives_link( $url, $text,
+                $r['format'], $r['before'], $r['after'] );
+        }
+    }
+    if ( $r['echo'] ) {
+        echo $output;
+    } else {
+        return $output;
+    }
+}
