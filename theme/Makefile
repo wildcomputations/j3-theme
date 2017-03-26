@@ -12,7 +12,7 @@ standardTemplates = index.php \
 pageTemplates = page-templates/archives.php \
 	   page-templates/random-template.php \
 	   page-templates/search.php
-phpFiles = $(standardTemplates) $(pageTemplates) \
+phpFiles = $(standardTemplates) \
 	   functions.php \
 	   header.php \
 	   footer.php \
@@ -36,11 +36,16 @@ fontAwesome = $(themeName)/font-awesome-$(fontAwesomeVersion)/css/font-awesome.m
 photoSwipe = $(themeName)/photoswipe/photoswipe.css
 
 installedFiles = $(patsubst %,$(themeName)/%,$(files)) 
+installedPageTemplates = $(patsubst page-templates/%,$(themeName)/%,$(pageTemplates))
 installedImages = $(patsubst %,$(themeName)/images/%,$(images)) 
 
 all: $(themeName).zip
 
 $(installedFiles) : $(themeName)/% : %
+	mkdir -p $(dir $@)
+	cp $< $@
+
+$(installedPageTemplates) : $(themeName)/% : page-templates/%
 	mkdir -p $(dir $@)
 	cp $< $@
 
@@ -63,7 +68,7 @@ $(photoSwipe): master.zip
 	unzip -u -o -d /tmp/ $< PhotoSwipe-master/dist/*
 	cp -a /tmp/PhotoSwipe-master/dist $(themeName)/photoswipe/
 
-$(themeName).zip: $(installedFiles) $(installedImages) $(fontAwesome) $(photoSwipe)
+$(themeName).zip: $(installedFiles) $(installedPageTemplates) $(installedImages) $(fontAwesome) $(photoSwipe)
 	zip -r $@ $(themeName)
 
 .phony: clean install
