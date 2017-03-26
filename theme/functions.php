@@ -657,7 +657,6 @@ function j3Query( $query ) {
     }
 
     if ( (is_home() || is_category() || is_feed()) && ! is_search() ) {
-        $query->set( 'orderby', 'ID' );
         $query->set( 'meta_query', j3NotHiddenQueryArg());
     } else if ( is_date() ) {
         // Display all posts on the same page, and do not display gallery or

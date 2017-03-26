@@ -190,3 +190,51 @@ function j3_date_get_archives($args = '')
         return $output;
     }
 }
+
+function j3_date_register_query_vars( $vars )
+{
+    $vars[] = 'tripyear';
+    return $vars;
+}
+add_filter( 'query_vars', 'j3_date_register_query_vars');
+
+function j3_date_pre_get_posts( $query )
+{
+    if ( is_admin() || ! $query->is_main_query() ) {
+        return;
+    }
+
+    $tripyear = get_query_var( 'tripyear' );
+    error_log("trip date query Basic " . $tripyear);
+    if ( !empty($tripyear) and is_numeric($tripyear))
+    {
+        $meta_query = array( 'key' => 'j3tripdate',
+            'value' => array($tripyear . '-01-01', $tripyear . '-12-31'),
+            'compare' => 'BETWEEN',
+            'type' => 'DATE');
+        $query->set('meta_query', $meta_query);
+        $query->set('meta_key', 'j3tripdate');
+        $query->set('orderby', 'meta_value');
+        $query->set('posts_per_page', '-1');
+        error_log("trip date query" . var_export($meta_query, True));
+    }
+}
+add_action( 'pre_get_posts', 'j3_date_pre_get_posts');
+
+// Display the trip date in the summary admin page
+function j3_date_add_admin_column($columns)
+{
+    return array_merge( $columns,
+        array('j3tripdate' => __('Trip Date')) );
+}
+add_filter('manage_posts_columns', 'j3_date_add_admin_column');
+
+function j3_data_populate_columns($column, $post_id)
+{
+    if ($column != 'j3tripdate')
+    {
+        return;
+    }
+    echo get_post_meta($post_id, "j3tripdate", true);
+}
+add_action( 'manage_posts_custom_column', 'j3_data_populate_columns', 10, 2);
