@@ -204,9 +204,10 @@ function j3_date_pre_get_posts( $query )
         return;
     }
 
+    //error_log("Pre get post" . print_r($query->query_vars, True));
+
     $tripyear = get_query_var( 'tripyear' );
-    error_log("trip date query Basic " . $tripyear);
-    if ( !empty($tripyear) and is_numeric($tripyear))
+    if ( !empty($tripyear) && is_numeric($tripyear))
     {
         $meta_query = array( 'key' => 'j3tripdate',
             'value' => array($tripyear . '-01-01', $tripyear . '-12-31'),
@@ -215,8 +216,6 @@ function j3_date_pre_get_posts( $query )
         $query->set('meta_query', $meta_query);
         $query->set('meta_key', 'j3tripdate');
         $query->set('orderby', 'meta_value');
-        $query->set('posts_per_page', '-1');
-        error_log("trip date query" . var_export($meta_query, True));
     }
 }
 add_action( 'pre_get_posts', 'j3_date_pre_get_posts');
@@ -229,7 +228,7 @@ function j3_date_add_admin_column($columns)
 }
 add_filter('manage_posts_columns', 'j3_date_add_admin_column');
 
-function j3_data_populate_columns($column, $post_id)
+function j3_date_populate_columns($column, $post_id)
 {
     if ($column != 'j3tripdate')
     {
@@ -237,4 +236,18 @@ function j3_data_populate_columns($column, $post_id)
     }
     echo get_post_meta($post_id, "j3tripdate", true);
 }
-add_action( 'manage_posts_custom_column', 'j3_data_populate_columns', 10, 2);
+add_action( 'manage_posts_custom_column', 'j3_date_populate_columns', 10, 2);
+
+function j3_date_add_rewrite_rules()
+{
+    add_rewrite_rule('^trip-date/([0-9]+)/?$', 'index.php?tripyear=$matches[1]',
+    'top');
+}
+add_action('init', 'j3_date_add_rewrite_rules', 10, 0);
+
+function j3_date_is_archive()
+{
+    $tripyear = get_query_var( 'tripyear' );
+    return !is_admin() && $query->is_main_query()
+        && !empty($tripyear) && is_numeric($tripyear);
+}
