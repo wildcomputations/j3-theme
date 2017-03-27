@@ -216,6 +216,7 @@ function j3_date_pre_get_posts( $query )
         $query->set('meta_query', $meta_query);
         $query->set('meta_key', 'j3tripdate');
         $query->set('orderby', 'meta_value');
+        $query->set('order', 'DESC');
     }
 }
 add_action( 'pre_get_posts', 'j3_date_pre_get_posts');
@@ -245,9 +246,25 @@ function j3_date_add_rewrite_rules()
 }
 add_action('init', 'j3_date_add_rewrite_rules', 10, 0);
 
-function j3_date_is_archive()
+function j3_date_is_archive( )
 {
     $tripyear = get_query_var( 'tripyear' );
-    return !is_admin() && $query->is_main_query()
-        && !empty($tripyear) && is_numeric($tripyear);
+    return !empty($tripyear) && is_numeric($tripyear);
 }
+
+function j3_date_archive_template( $template )
+{
+    $new_template = locate_template(
+        array( 'trip-date.php', 'date.php' ) );
+    if ('' != $new_template) return $new_template;
+    return $template;
+}
+
+function j3_date_template_hierarchy()
+{
+    if (j3_date_is_archive())
+    {
+        add_filter( 'template_include', 'j3_date_archive_template');
+    }
+}
+add_action( 'template_redirect', 'j3_date_template_hierarchy');
