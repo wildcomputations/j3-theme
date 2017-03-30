@@ -18,14 +18,16 @@ function j3GallerySummary($echo = true)
             <a href="' . get_permalink() . '" class="photoLink">';
     $result .= get_the_post_thumbnail(null, 'thumbnail' );
     $result .= '  </a>
-            </div> <!-- stacks-->
-            <p class="date">';
+            </div> <!-- stacks-->';
     if (is_front_page()) {
-        $result .= get_the_date('M j');
+        $display_date = j3_date_post('M j');
     } else {
-        $result .= get_the_date('D j');
+        $display_date = j3_date_post('D j');
     }
-    $result .= '</p>
+    if (! empty($display_date) ) {
+        $result .= '<p class="date">' . $display_date . '</p>';
+    }
+    $result .= '
             <h1><a href="' . get_permalink() . '"> ' 
                 . get_the_title()
                 . '</a></h1>
