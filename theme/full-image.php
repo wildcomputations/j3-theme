@@ -8,6 +8,10 @@
         the_title();
         echo '</p><p class="author">Photographer: ';
         the_author();
-        echo '</p><p class="date">' . get_the_date('M j, Y') . '</p>
-            </div>';
+        echo '</p>';
+        $trip_date = j3_date_post('M j, Y');
+        if (!empty($trip_date)) {
+            echo '<p class="date">' . $trip_date . '</p>';
+        }
+        echo '</div>';
 ?>
