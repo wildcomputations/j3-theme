@@ -334,10 +334,9 @@ function j3PagePreview( $echo = True )
 
 /* archive helper function */
 $j3LastYear = "";
-function j3IsNewYear()
+function j3IsNewYear($thisYear)
 {
     global $j3LastYear;
-    $thisYear = get_the_date('Y');
     if ($j3LastYear === $thisYear) {
         return false;
     } else {
@@ -347,10 +346,9 @@ function j3IsNewYear()
 }
 
 $j3LastMonth = "";
-function j3IsNewMonth()
+function j3IsNewMonth($thisMonth)
 {
     global $j3LastMonth;
-    $thisMonth = get_the_date('Y-m');
     if ($j3LastMonth === $thisMonth) {
         return false;
     } else {
@@ -360,32 +358,38 @@ function j3IsNewMonth()
 }
 
 $j3ArchiveHasYear = false;
-function j3ArchiveDoYear()
+function j3ArchiveDoYear($year=NULL)
 {
     global $j3ArchiveHasYear;
     global $j3ArchiveHasMonth ;
-    if (j3IsNewYear()) {
+    if (empty($year)) {
+        $year = get_the_date('Y');
+    }
+    if (j3IsNewYear($year)) {
         if ($j3ArchiveHasYear) {
             echo '</div></div>
                 </div><!-- hgroup-->
                 <div class="hgroup hasPage">';
             $j3ArchiveHasMonth  = false;
         }
-        echo '<h1 class="topicTitle">' . get_the_date('Y') . "</h1>";
+        echo '<h1 class="topicTitle">' . $year . "</h1>";
         echo '<div class="rightContent visualPage history hasStack">';
     }
     $j3ArchiveHasYear = true;
 }
 
 $j3ArchiveHasMonth = false;
-function j3ArchiveDoMonth()
+function j3ArchiveDoMonth($yearMonth=NULL)
 {
     global $j3ArchiveHasMonth;
-    if (j3IsNewMonth()) {
+    if (empty($yearMonth)) {
+        $yearMonth = get_the_date('Y-m');
+    }
+    if (j3IsNewMonth($yearMonth)) {
         if ($j3ArchiveHasMonth) {
             echo "</div>";
         }
-        echo "<h1>" . get_the_date('F') . "</h1>";
+        echo "<h1>" . mysql2date('F', $yearMonth . '-01', false) . "</h1>";
         echo '<div class="month">';
     }
     $j3ArchiveHasMonth = true;

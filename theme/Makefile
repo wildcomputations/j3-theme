@@ -11,7 +11,8 @@ standardTemplates = index.php \
                     single.php
 pageTemplates = page-templates/archives.php \
 	   page-templates/random-template.php \
-	   page-templates/search.php
+	   page-templates/search.php \
+	   page-templates/trip-date.php
 phpFiles = $(standardTemplates) \
 	   functions.php \
 	   header.php \

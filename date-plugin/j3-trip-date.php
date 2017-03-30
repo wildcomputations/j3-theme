@@ -252,6 +252,20 @@ function j3_date_is_archive( )
     return !empty($tripyear) && is_numeric($tripyear);
 }
 
+function j3_date_post( $format, $post=NULL )
+{
+    if (empty($post)) {
+        $post = get_post();
+    }
+    $current_trip_date = get_post_meta($post->ID, "j3tripdate", true);
+
+    if (empty($current_trip_date)) {
+        return;
+    } else {
+        return mysql2date( $format, $current_trip_date, false);
+    }
+}
+
 function j3_date_archive_template( $template )
 {
     $new_template = locate_template(
