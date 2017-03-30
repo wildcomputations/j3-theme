@@ -19,7 +19,7 @@ function j3GalleryExcerpt()
             <h1 class="articleTitle"><a href="' . get_permalink() . '">' 
                 . get_the_title() . '</a></h1>
                 <h2>Photo Album</h2>
-                <div class="date">' . get_the_date('M j, Y') . '</div>';
+                <div class="date">' . j3_date_post('M j, Y') . '</div>';
     the_excerpt();
     echo ' </article>';
 }
