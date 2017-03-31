@@ -5,6 +5,7 @@ standardTemplates = index.php \
 		    home.php \
 		    front-page.php \
 		    category.php \
+		    taxonomy-post_format-post-format-gallery.php \
 		    date.php \
 		    page.php \
                     single.php

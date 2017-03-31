@@ -118,6 +118,9 @@ function j3DateMetaBoxSave($post_id)
     // if our current user can't edit this post, bail
     if( !current_user_can( 'edit_post', $post_id ) ) return;
 
+    // make sure we're on a post not a page
+    if (get_post_type($post_id) != "post") return;
+
     // if our nonce is there, we trust the hidden request
     if( check_admin_referer( 'save_trip_date'.$post_id, 'j3-date' ) ) {
         if (isset( $_POST['trip_date_valid'] ))
@@ -203,8 +206,6 @@ function j3_date_pre_get_posts( $query )
     if ( is_admin() || ! $query->is_main_query() ) {
         return;
     }
-
-    //error_log("Pre get post" . print_r($query->query_vars, True));
 
     $tripyear = get_query_var( 'tripyear' );
     if ( !empty($tripyear) && is_numeric($tripyear))

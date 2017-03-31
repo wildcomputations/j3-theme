@@ -11,6 +11,9 @@
  * @package j3Custom
  */
 
+if (j3IsGalleryFormat()) {
+    get_template_part('taxonomy-post_format', 'post-format-gallery');
+} else {
 get_header(); ?>
 
 <div class="main"><!-- safari appears to not support main-->
@@ -20,11 +23,11 @@ if ( have_posts() ) {
         the_post(); 
         get_template_part( 'excerpt', get_post_format() ); 
     }
+    j3PageNav("", "", $standalone = true);
 } else { 
     get_template_part( 'content', 'none' ); 
-} 
-j3PageNav("", "", $standalone = true); ?>
+}  ?>
 </div><!--main-->
 
 <?php get_footer();
-?>
+}?>
