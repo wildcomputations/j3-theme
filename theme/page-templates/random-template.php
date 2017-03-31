@@ -17,7 +17,6 @@ $query = new WP_Query(array(
     'posts_per_page' => 1 ,
     'orderby' => 'rand',
     'tax_query' => $taxOnlyStd,
-    'meta_query' => j3NotHiddenQueryArg(),
     ));
 
 // Really just want to run single.php for the rest of this

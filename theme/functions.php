@@ -5,7 +5,6 @@
  * @package WordPress
  * @since 1.0
  */
-require "meta-boxes.php";
 
 if (!isset($content_width)) {
     $content_width = 940; //pixels
@@ -577,28 +576,8 @@ function j3AddMetaBoxes ()
     foreach ( $screens as $screen ) {
         add_meta_box("j3helpdiv", "J3 Theme Help", 'j3HelpBox', $screen, 'normal', 'default');
     }
-
-    add_meta_box("j3hidepostdiv", "Visibility of Post", 'j3PostHideHtml',
-            'post', 'side');
 }
 add_action( 'add_meta_boxes', 'j3AddMetaBoxes');
-
-function j3MetaBoxSave($post_id)
-{
-    // Bail if we're doing an auto save
-    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
-     
-    // if our current user can't edit this post, bail
-    if( !current_user_can( 'edit_post', $post_id ) ) return;
-
-    // if our nonce is there, we trust the hidden request
-    if( isset( $_POST['meta_box_nonce'] )
-        && !wp_verify_nonce( $_POST['meta_box_nonce'], 'j3MetaBoxHide' ) ) {
-        $hidden = isset( $_POST['hidepost'] ) && $_POST['hidepost'] ? 'hide' : 'show';
-        update_post_meta( $post_id, 'hidepost', $hidden );
-    }
-}
-add_action( 'save_post', 'j3MetaBoxSave');
 
 /* Determine if the current page is an archive page for photo galleries
  */
@@ -624,22 +603,6 @@ function j3IsGalleryFormat($query = '')
     }
 }
 
-function j3NotHiddenQueryArg()
-{
-    $notHidden = array( 
-        'relation' => 'OR',
-        array(
-            'key' => 'hidepost',
-            'value' => 'hide',
-            'compare' => '!=',),
-        array(
-            'key' => 'hidepost',
-            'compare' => 'NOT EXISTS',),
-    );
-
-    return $notHidden;
-}
-
 /* special archives */
 /* http://www.billerickson.net/customize-the-wordpress-query/ */
 function j3Query( $query ) {
@@ -660,9 +623,7 @@ function j3Query( $query ) {
         $photoPostFormat = true;
     }
 
-    if ( (is_home() || is_category() || is_feed()) && ! is_search() ) {
-        $query->set( 'meta_query', j3NotHiddenQueryArg());
-    } else if ( j3_date_is_archive( ) ) {
+    if ( j3_date_is_archive( ) ) {
         // Display all posts on the same page, and do not display gallery or
         // image posts
         $query->set( 'posts_per_page', -1);

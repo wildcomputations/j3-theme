@@ -12,6 +12,95 @@ Version: 1.0
 Author URI: http://j3.org/
 */
 
+/*****************************************************************
+ * API Functions that themes can call                            *
+ *****************************************************************/
+
+/* Is the current page an archive for a year of posts based on trip date. */
+function j3_date_is_archive( )
+{
+    $tripyear = get_query_var( 'tripyear' );
+    return !empty($tripyear) && is_numeric($tripyear);
+}
+
+/* Get the post date of the current post. Returns NULL if no trip date. Returns
+ * the trip date in the requested format.
+ */
+function j3_date_post( $format, $post=NULL )
+{
+    if (empty($post)) {
+        $post = get_post();
+    }
+    $current_trip_date = get_post_meta($post->ID, "j3tripdate", true);
+
+    if (empty($current_trip_date)) {
+        return;
+    } else {
+        return mysql2date( $format, $current_trip_date, false);
+    }
+}
+
+/* Link to a archives for a year. Only posts with trip dates within that year
+ * will show up. Templates for the archive page are 'trip-date.php' or the
+ * default 'date.php' */
+function j3_date_get_year_link( $year )
+{
+    if ( !$year )
+    {
+        $year = gmdate('Y', current_time('timestamp'));
+    }
+    return home_url( '/trip-date/' . $year );
+}
+
+/* Generate links to archives per trip date year. This is similar to
+ * wp_get_archives(type=>'yearly') but for trip date.
+ */
+function j3_date_get_archives($args = '')
+{
+    global $wpdb;
+    $defaults = array(
+        'format' => 'html', 'before' => '',
+        'after' => '',
+        'order' => 'DESC',
+        'echo' => 1,
+    );
+
+    $r = wp_parse_args( $args, $defaults );
+
+    $order = strtoupper( $r['order'] );
+    if ( $order !== 'ASC' ) {
+        $order = 'DESC';
+    }
+
+    $query = "SELECT DISTINCT YEAR(meta_value) AS year "
+        . "FROM " . $wpdb->prefix . "postmeta "
+        . "WHERE meta_key = 'j3tripdate' "
+        . "ORDER BY year " . $order;
+
+    $results = $wpdb->get_results($query);
+
+    $output = "";
+    if ( $results )
+    {
+        foreach ( (array) $results as $result )
+        {
+            $url = j3_date_get_year_link( $result->year );
+            $text = sprintf( '%d', $result->year );
+            $output .= get_archives_link( $url, $text,
+                $r['format'], $r['before'], $r['after'] );
+        }
+    }
+    if ( $r['echo'] ) {
+        echo $output;
+    } else {
+        return $output;
+    }
+}
+
+/*****************************************************************
+ * Internal plugin implementations                               *
+ *****************************************************************/
+
 /** Generates a user selection for date.
  * The input fields are 
  * $id_prefix . 'day'
@@ -58,6 +147,8 @@ function j3_time_chooser( $has_date, $date, $id_prefix ) {
 }
 
 
+/* HTML for picking the post date in the admin page.
+ */
 function j3PostDateHtml($post)
 {
     // We'll use this nonce field later on when saving.
@@ -74,6 +165,7 @@ Set trip date<br>
 <?php
 }
 
+/* Register our meta box so it gets displayed */
 function j3DateMetaBoxes ()
 {
     add_meta_box("j3tripdatediv", "Trip Date", 'j3PostDateHtml',
@@ -110,6 +202,7 @@ function j3ValidDay($key, $month, $year)
     return $_POST[$key] <= cal_days_in_month(CAL_GREGORIAN,$month,$year);
 }
 
+/* Save the trip date when a post is saved. */
 function j3DateMetaBoxSave($post_id)
 {
     // Bail if we're doing an auto save
@@ -143,57 +236,7 @@ function j3DateMetaBoxSave($post_id)
 }
 add_action( 'save_post', 'j3DateMetaBoxSave');
 
-function j3_date_get_year_link( $year )
-{
-    if ( !$year )
-    {
-        $year = gmdate('Y', current_time('timestamp'));
-    }
-    return home_url( '/trip-date/' . $year );
-}
-
-function j3_date_get_archives($args = '')
-{
-    global $wpdb;
-    $defaults = array(
-        'format' => 'html', 'before' => '',
-        'after' => '',
-        'order' => 'DESC',
-        'echo' => 1,
-    );
-
-    $r = wp_parse_args( $args, $defaults );
-
-    $order = strtoupper( $r['order'] );
-    if ( $order !== 'ASC' ) {
-        $order = 'DESC';
-    }
-
-    $query = "SELECT DISTINCT YEAR(meta_value) AS year "
-        . "FROM " . $wpdb->prefix . "postmeta "
-        . "WHERE meta_key = 'j3tripdate' "
-        . "ORDER BY year " . $order;
-
-    $results = $wpdb->get_results($query);
-
-    $output = "";
-    if ( $results )
-    {
-        foreach ( (array) $results as $result )
-        {
-            $url = j3_date_get_year_link( $result->year );
-            $text = sprintf( '%d', $result->year );
-            $output .= get_archives_link( $url, $text,
-                $r['format'], $r['before'], $r['after'] );
-        }
-    }
-    if ( $r['echo'] ) {
-        echo $output;
-    } else {
-        return $output;
-    }
-}
-
+/* add a query var that can be used in the url to search by trip year */
 function j3_date_register_query_vars( $vars )
 {
     $vars[] = 'tripyear';
@@ -201,6 +244,7 @@ function j3_date_register_query_vars( $vars )
 }
 add_filter( 'query_vars', 'j3_date_register_query_vars');
 
+/* Handle the tripyear url query */
 function j3_date_pre_get_posts( $query )
 {
     if ( is_admin() || ! $query->is_main_query() ) {
@@ -240,32 +284,13 @@ function j3_date_populate_columns($column, $post_id)
 }
 add_action( 'manage_posts_custom_column', 'j3_date_populate_columns', 10, 2);
 
+/* Add a user friendly url to see ?tripyear archive pages*/
 function j3_date_add_rewrite_rules()
 {
     add_rewrite_rule('^trip-date/([0-9]+)/?$', 'index.php?tripyear=$matches[1]',
     'top');
 }
 add_action('init', 'j3_date_add_rewrite_rules', 10, 0);
-
-function j3_date_is_archive( )
-{
-    $tripyear = get_query_var( 'tripyear' );
-    return !empty($tripyear) && is_numeric($tripyear);
-}
-
-function j3_date_post( $format, $post=NULL )
-{
-    if (empty($post)) {
-        $post = get_post();
-    }
-    $current_trip_date = get_post_meta($post->ID, "j3tripdate", true);
-
-    if (empty($current_trip_date)) {
-        return;
-    } else {
-        return mysql2date( $format, $current_trip_date, false);
-    }
-}
 
 function j3_date_archive_template( $template )
 {
@@ -275,6 +300,7 @@ function j3_date_archive_template( $template )
     return $template;
 }
 
+/* Let the user customize the look of a trip date archive. */
 function j3_date_template_hierarchy()
 {
     if (j3_date_is_archive())

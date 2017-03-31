@@ -17,9 +17,7 @@ function j3FrontRecentPosts()
         ) );
     $query = new WP_Query(array(
         'posts_per_page' => $displayNum ,
-        'orderby' => 'ID',
         'tax_query' => $taxOnlyStd,
-        'meta_query' => j3NotHiddenQueryArg(),
         ));
 
     $result = "";
@@ -47,7 +45,6 @@ function j3RecentGalleries()
 {
     $args = array(
         'post_type' => 'post',
-        'orderby' => 'ID',
         'tax_query' => array(
             array(
                 'taxonomy' => 'post_format',
@@ -55,7 +52,6 @@ function j3RecentGalleries()
                 'terms' => array( 'post-format-gallery' )
             )
         ),
-        'meta_query' => j3NotHiddenQueryArg(),
         'posts_per_page' => 5
     );
     $query = new WP_Query( $args );
