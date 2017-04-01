@@ -10,6 +10,10 @@ Description: Add a trip date to posts and functions to load posts by trip date.
 Author: Emilie Phillips
 Version: 1.0
 Author URI: http://j3.org/
+
+To mass add trip dates to existing posts:
+INSERT INTO wp_postmeta (post_id, meta_key, meta_value)
+SELECT ID, 'j3tripdate', DATE(post_date) FROM `wp_posts` WHERE post_type LIKE 'post'
 */
 
 /*****************************************************************
@@ -72,6 +76,8 @@ function j3_date_get_archives($args = '')
         $order = 'DESC';
     }
 
+    # Note, this will find all posts of all post_formats. If you later filter
+    # out some post types, you may get a blank page for the link target.
     $query = "SELECT DISTINCT YEAR(meta_value) AS year "
         . "FROM " . $wpdb->prefix . "postmeta "
         . "WHERE meta_key = 'j3tripdate' "
