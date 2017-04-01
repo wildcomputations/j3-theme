@@ -1385,12 +1385,14 @@ article h1.articleTitle {
     font-size: 1.5rem;
     font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
     text-transform: initial;
+    margin-bottom: .25em;
 }
 
 article .date, .wp-caption-text, .single-format-image .photoData {
     text-align : center; 
     color: #888;
     font-size: .8em;
+    line-height: 1.3em;
 }
 
 article ul, article ol {
@@ -1420,13 +1422,6 @@ article li {
 .photoData .date, .photoData .author{
     text-align: right;
     float: none;
-}
-
-article h1:first-child ~ .date {
-   display:block;
-    margin-left: auto;
-     margin-right: auto;
-    border-bottom : 1px solid brown;
 }
 
 article h1:first-child ~ p:first-of-type::first-letter {

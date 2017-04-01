@@ -71,8 +71,8 @@ function j3AddExternals() {
     wp_enqueue_style('j3BaseStyle');
 
     wp_register_style( 'fontAwesome',
-        $styleDir . "/font-awesome-4.5.0/css/font-awesome.min.css",
-        array(), "4.5.0");
+        $styleDir . "/font-awesome-4.6.3/css/font-awesome.min.css",
+        array(), "4.6.3");
     wp_enqueue_style('fontAwesome');
 
     if (!is_front_page()) {
@@ -333,10 +333,9 @@ function j3PagePreview( $echo = True )
 
 /* archive helper function */
 $j3LastYear = "";
-function j3IsNewYear()
+function j3IsNewYear($thisYear)
 {
     global $j3LastYear;
-    $thisYear = get_the_date('Y');
     if ($j3LastYear === $thisYear) {
         return false;
     } else {
@@ -346,10 +345,9 @@ function j3IsNewYear()
 }
 
 $j3LastMonth = "";
-function j3IsNewMonth()
+function j3IsNewMonth($thisMonth)
 {
     global $j3LastMonth;
-    $thisMonth = get_the_date('Y-m');
     if ($j3LastMonth === $thisMonth) {
         return false;
     } else {
@@ -359,32 +357,38 @@ function j3IsNewMonth()
 }
 
 $j3ArchiveHasYear = false;
-function j3ArchiveDoYear()
+function j3ArchiveDoYear($year=NULL)
 {
     global $j3ArchiveHasYear;
     global $j3ArchiveHasMonth ;
-    if (j3IsNewYear()) {
+    if (empty($year)) {
+        $year = get_the_date('Y');
+    }
+    if (j3IsNewYear($year)) {
         if ($j3ArchiveHasYear) {
             echo '</div></div>
                 </div><!-- hgroup-->
                 <div class="hgroup hasPage">';
             $j3ArchiveHasMonth  = false;
         }
-        echo '<h1 class="topicTitle">' . get_the_date('Y') . "</h1>";
+        echo '<h1 class="topicTitle">' . $year . "</h1>";
         echo '<div class="rightContent visualPage history hasStack">';
     }
     $j3ArchiveHasYear = true;
 }
 
 $j3ArchiveHasMonth = false;
-function j3ArchiveDoMonth()
+function j3ArchiveDoMonth($yearMonth=NULL)
 {
     global $j3ArchiveHasMonth;
-    if (j3IsNewMonth()) {
+    if (empty($yearMonth)) {
+        $yearMonth = get_the_date('Y-m');
+    }
+    if (j3IsNewMonth($yearMonth)) {
         if ($j3ArchiveHasMonth) {
             echo "</div>";
         }
-        echo "<h1>" . get_the_date('F') . "</h1>";
+        echo "<h1>" . mysql2date('F', $yearMonth . '-01', false) . "</h1>";
         echo '<div class="month">';
     }
     $j3ArchiveHasMonth = true;
@@ -566,47 +570,14 @@ function j3HelpBox ()
         </ol>';
 }
 
-function j3PostHideHtml($post)
-{
-    $currentlyHidden = get_post_meta($post->ID, "hidepost", true);
-    // We'll use this nonce field later on when saving.
-    wp_nonce_field( 'j3MetaBoxNonce', 'meta_box_nonce' );
-?>
-<input type="checkbox" name="hidepost"
-<?php checked( $currentlyHidden, 'hide' ); ?> />
-<label for="hidepost">Only show in archives</label>
-<?php
-}
-
 function j3AddMetaBoxes ()
 {
     $screens = array( 'post', 'page' );
     foreach ( $screens as $screen ) {
         add_meta_box("j3helpdiv", "J3 Theme Help", 'j3HelpBox', $screen, 'normal', 'default');
     }
-
-    add_meta_box("j3hidepostdiv", "Visibility of Post", 'j3PostHideHtml', 'post', 'side');
 }
 add_action( 'add_meta_boxes', 'j3AddMetaBoxes');
-
-function j3MetaBoxSave($post_id)
-{
-    // Bail if we're doing an auto save
-    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
-     
-    // if our nonce isn't there, or we can't verify it, bail
-    if( !isset( $_POST['meta_box_nonce'] )
-        || !wp_verify_nonce( $_POST['meta_box_nonce'], 'j3MetaBoxNonce' ) ) {
-            return;
-    }
-     
-    // if our current user can't edit this post, bail
-    if( !current_user_can( 'edit_post' ) ) return;
-
-    $hidden = isset( $_POST['hidepost'] ) && $_POST['hidepost'] ? 'hide' : 'show';
-    update_post_meta( $post_id, 'hidepost', $hidden );
-}
-add_action( 'save_post', 'j3MetaBoxSave');
 
 /* Determine if the current page is an archive page for photo galleries
  */
@@ -632,22 +603,6 @@ function j3IsGalleryFormat($query = '')
     }
 }
 
-function j3NotHiddenQueryArg()
-{
-    $notHidden = array( 
-        'relation' => 'OR',
-        array(
-            'key' => 'hidepost',
-            'value' => 'hide',
-            'compare' => '!=',),
-        array(
-            'key' => 'hidepost',
-            'compare' => 'NOT EXISTS',),
-    );
-
-    return $notHidden;
-}
-
 /* special archives */
 /* http://www.billerickson.net/customize-the-wordpress-query/ */
 function j3Query( $query ) {
@@ -668,10 +623,7 @@ function j3Query( $query ) {
         $photoPostFormat = true;
     }
 
-    if ( (is_home() || is_category() || is_feed()) && ! is_search() ) {
-        $query->set( 'orderby', 'ID' );
-        $query->set( 'meta_query', j3NotHiddenQueryArg());
-    } else if ( is_date() ) {
+    if ( is_date() || j3_date_is_archive( ) ) {
         // Display all posts on the same page, and do not display gallery or
         // image posts
         $query->set( 'posts_per_page', -1);

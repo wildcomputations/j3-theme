@@ -23,11 +23,11 @@ if ( have_posts() ) {
         the_post(); 
         get_template_part( 'excerpt', get_post_format() ); 
     }
+    j3PageNav("", "", $standalone = true);
 } else { 
     get_template_part( 'content', 'none' ); 
-} 
-j3PageNav("", "", $standalone = true); ?>
+}  ?>
 </div><!--main-->
 
 <?php get_footer();
-} ?>
+}?>

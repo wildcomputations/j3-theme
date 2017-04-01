@@ -15,12 +15,15 @@ get_header(); ?>
             <?php the_content(); ?>
             <h1>Chronological Log of All Posts</h1>
             <ul>
-            <?php wp_get_archives(array(
-                'type' => 'yearly',
+<?php if(function_exists('j3_date_get_archives')) {
+j3_date_get_archives(array(
                 'format' => 'custom',
                 'before' => '<li><div class="stackBook">',
                 'after' => '</div></li>'
-            )); ?>
+            ));
+            } else {
+                echo "Missing date plugin";
+            }?>
             </ul>
         </div>
     </div>
