@@ -19,7 +19,7 @@ function j3GallerySummary($echo = true)
     $result .= get_the_post_thumbnail(null, 'thumbnail' );
     $result .= '  </a>
             </div> <!-- stacks-->';
-    if (j3_date_is_archive()) {
+    if (is_date() || j3_date_is_archive()) {
         $display_date = j3_date_post('D j');
     } else {
         $display_date = j3_date_post('M j');

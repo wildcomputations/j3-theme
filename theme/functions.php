@@ -72,7 +72,7 @@ function j3AddExternals() {
 
     wp_register_style( 'fontAwesome',
         $styleDir . "/font-awesome-4.6.3/css/font-awesome.min.css",
-        array(), "4.5.0");
+        array(), "4.6.3");
     wp_enqueue_style('fontAwesome');
 
     if (!is_front_page()) {
@@ -623,7 +623,7 @@ function j3Query( $query ) {
         $photoPostFormat = true;
     }
 
-    if ( j3_date_is_archive( ) ) {
+    if ( is_date() || j3_date_is_archive( ) ) {
         // Display all posts on the same page, and do not display gallery or
         // image posts
         $query->set( 'posts_per_page', -1);
