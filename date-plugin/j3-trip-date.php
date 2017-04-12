@@ -213,6 +213,7 @@ function j3DateMetaBoxSave($post_id)
 {
     // Bail if we're doing an auto save
     if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+    if( get_post_status($post_id) == 'auto-draft' ) return;
      
     // if our current user can't edit this post, bail
     if( !current_user_can( 'edit_post', $post_id ) ) return;
