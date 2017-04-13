@@ -222,7 +222,8 @@ function j3DateMetaBoxSave($post_id)
     if (get_post_type($post_id) != "post") return;
 
     // if our nonce is there, we trust the hidden request
-    if( ! empty( $_POST ) && check_admin_referer( 'save_trip_date'.$post_id, 'j3-date' ) ) {
+    if( ! empty( $_POST )
+        && check_admin_referer( 'save_trip_date'.$post_id, 'j3-date' ) ) {
         if (isset( $_POST['trip_date_valid'] ))
         {
             if (j3ValidYear( 'trip_date_year' )
