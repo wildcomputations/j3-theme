@@ -791,7 +791,8 @@ function j3_add_fb_to_head() {
         <meta property="og:url"
             content="<? echo get_permalink(); ?>" />
         <meta property="og:description"
-            content="<?php echo get_the_excerpt(); ?>" />
+            content="<?php global $wp_query;
+        echo get_the_excerpt($wp_query->posts[0]); ?>" />
 <?php
     } else {
 ?>
