@@ -317,3 +317,13 @@ function j3_date_template_hierarchy()
     }
 }
 add_action( 'template_redirect', 'j3_date_template_hierarchy');
+
+function j3_date_archive_title( $title )
+{
+    if (j3_date_is_archive())
+    {
+        return "Posts by trip date";
+    }
+    return $title;
+}
+add_action( 'pre_get_document_title', 'j3_date_archive_title');

@@ -25,6 +25,9 @@ function j3Setup() {
         // support html5
 	add_theme_support( 'html5' );
 
+        // not modifying the title
+        add_theme_support( 'title-tag' );
+
 	// Enable support for Post Thumbnails on posts and pages.
 	add_theme_support( 'post-thumbnails' );
         set_post_thumbnail_size(160, 160, true ); // 160x160 pixels, crop mode
@@ -154,76 +157,6 @@ function j3PostThumbnail( $size='large', $forceLink=false) {
     } // end has_post_thumbnail
 }
 
-function j3HouseTempImg () {
-    echo '
-                <div class="rightContent">
-                    <div class="visualPage displayPhoto">
-                        <a href="/house/" class="photoLink">
-                            <img src="/house/oneWeekTemps-basic.png" alt="latest temperatures"/>
-                        </a>
-                        <p>
-                        <a href="/house/">
-                            Live temperature plots
-                        </a>
-                        </p>
-                    </div> 
-                </div> <!-- rightContent -->';
-}
-
-
-function j3TopicTitle() {
-    if (is_category() ) {
-        echo '<h1 class="topicTitle">';
-        single_cat_title(); 
-        echo '</h1>';
-    }
-    // not supporting tags, dates, etc right now
-}
-
-/* Fancy photo code */
-function j3FancyPhoto () {
-    $args = array(
-        'post_type' => 'post',
-        'tax_query' => array(
-            array(
-                'taxonomy' => 'post_format',
-                'field' => 'slug',
-                'terms' => array( 'post-format-image' )
-            )
-        ),
-        'orderby' => 'rand',
-        'posts_per_page' => 1
-    );
-    if (is_category() ) {
-        $args["cat"] = get_query_var('cat');
-
-        // See if this is house, and we should display a special heading
-        $fullCat = get_category ($args["cat"]);
-        if ($fullCat->slug == "house") {
-            j3HouseTempImg();
-            return;
-        }
-    }
-
-    $query = new WP_Query( $args );
-    if ($query->have_posts()) {
-        $query->the_post();
-        echo '<div class="rightContent">
-            <div class="displayPhoto dualShadow">';
-        j3PostThumbnail('large', true);
-        echo '</div> 
-            </div> <!-- rightContent -->';
-    }
-}
-
-function j3FancyHeader() {
-    if (is_single()) return;
-    echo '<div class="hgroup">';
-    j3FancyPhoto();
-    j3TopicTitle();
-    echo '</div> <!-- hgroup -->';
-    return;
-}
 
 function j3MenuFilter($items, $args=array())
 {
@@ -832,3 +765,52 @@ function add_size_to_images($content) {
 }
 // add at priority 10 before shortcodes have been expanded
 add_filter( 'the_content', 'add_size_to_images', 10);
+
+function j3_social_title($title)
+{
+    /* Remove all the extra bits */
+    $title_new = array(
+        'title' => $title['title'],
+    );
+    return $title_new;
+}
+
+function j3_add_fb_to_head() {
+?>
+        <meta property="og:site_name"
+            content="<?php bloginfo('name'); ?>" />
+        <meta property="og:title" content="<?php
+    add_filter('document_title_parts', 'j3_social_title');
+    echo wp_get_document_title();
+    remove_filter('document_title_parts', 'j3_social_title');
+    ?>" />
+<?php
+    if ( is_singular() ) {
+?>
+        <meta property="og:type" content="article" />
+        <meta property="og:url"
+            content="<? echo get_permalink(); ?>" />
+        <meta property="og:description"
+            content="<?php echo get_the_excerpt(); ?>" />
+<?php
+    } else {
+?>
+        <meta property="og:type" content="website" />
+        <meta property="og:url"
+            content="<? echo $current_uri = home_url( add_query_arg( NULL, NULL ) ); ?>" />
+        <meta property="og:description"
+            content="<?php echo get_the_excerpt(); ?>" />
+<?php
+}
+
+    if (has_post_thumbnail()) {
+        $post_thumbnail_id = get_post_thumbnail_id( );
+        $img_data = wp_get_attachment_image_src($post_thumbnail_id,
+            'post-thumbnail');
+        if ($img_data) {
+            list($src, $width, $height) = $img_data;
+            echo '<meta property="og:image" content="' . $src .  '" />';
+        }
+    }
+}
+add_action( 'wp_head', 'j3_add_fb_to_head');

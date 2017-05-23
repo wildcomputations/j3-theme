@@ -13,6 +13,8 @@ if (j3IsGalleryFormat()) {
     get_template_part('taxonomy-post_format', 'post-format-gallery');
 } else {
 
+require 'fancy-photo.php';
+
 get_header(); ?>
 
 <div class="main"><!-- safari appears to not support main-->
