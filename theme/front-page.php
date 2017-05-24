@@ -5,6 +5,8 @@
  * @package j3Custom
  */
 
+require 'fancy-photo.php';
+
 function j3FrontRecentPosts()
 {
     $displayNum = 3;

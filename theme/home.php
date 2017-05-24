@@ -7,6 +7,8 @@
  * @package j3Custom
  */
 
+require 'fancy-photo.php';
+
 get_header(); ?>
 
 <div class="main"><!-- safari appears to not support main-->
