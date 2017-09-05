@@ -536,6 +536,16 @@ function j3IsGalleryFormat($query = '')
     }
 }
 
+function j3StdPhotosQuery( ) {
+    $tag_not_special = array(
+        'taxonomy' => 'post_tag',
+        'field' => 'slug',
+        'terms' => array( 'isaac_album', 'GrandpasAlbums'),
+        'operator' => 'NOT IN',
+    );
+    return $tag_not_special;
+}
+
 /* special archives */
 /* http://www.billerickson.net/customize-the-wordpress-query/ */
 function j3Query( $query ) {
@@ -551,9 +561,13 @@ function j3Query( $query ) {
             'operator' => 'NOT IN',
         ) );
     if ( ! j3IsGalleryFormat($query) && ! is_search() ) {
-        $query->set( 'tax_query', $taxOnlyStd );
+        $query->set( 'tax_query', array($taxOnlyStd) );
     } else {
         $photoPostFormat = true;
+    }
+
+    if ( $photoPostFormat && ! is_tag() ) {
+        $query->set( 'tax_query', array(j3StdPhotosQuery()));
     }
 
     if ( is_date() || j3_date_is_archive( ) ) {

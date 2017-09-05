@@ -48,11 +48,13 @@ function j3RecentGalleries()
     $args = array(
         'post_type' => 'post',
         'tax_query' => array(
+            'relation' => 'AND',
             array(
                 'taxonomy' => 'post_format',
                 'field' => 'slug',
                 'terms' => array( 'post-format-gallery' )
-            )
+            ),
+            j3StdPhotosQuery(),
         ),
         'posts_per_page' => 5
     );
