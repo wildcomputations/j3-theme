@@ -66,7 +66,7 @@ function j3RecentGalleries()
                 set_query_var('display_post', 'summary');
                 get_template_part( 'card', get_post_format() ); 
         }
-        echo '<div class="albumSummary">
+        echo '<div class="albumText">
             <a href="' . get_post_format_link(get_post_format())
             . '">More Photos ...</a>
                 </div> 

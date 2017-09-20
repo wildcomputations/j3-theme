@@ -743,6 +743,13 @@ color: inherit;
     float: right;
     clear: right;
 }
+.rightColumn:after {
+    content: "."; 
+    visibility: hidden; 
+    display: block;
+    clear: both;
+}
+
 
 /* apply hasPage to hgroups with pages */
 .hasPage ~ .hasPage {
@@ -930,6 +937,13 @@ div[class*='stack'] img {
 .albumSummary {
 width: 170px;
 height: 260px; /* match stack paper */
+margin: 10px 10px 0px 25px;
+float: left;
+padding-top: 15px; /* line up with stack paper */
+}
+
+.albumText {
+width: 170px;
 margin: 10px 10px 0px 25px;
 float: left;
 padding-top: 15px; /* line up with stack paper */
@@ -1589,7 +1603,7 @@ line-height: 1.1em;
     .rightColumn,
     .leftColumn {
         float:none;
-        clear: none;
+        clear: both;
         padding: 0px;
         margin-left: auto;
         margin-right: auto;
