@@ -2,7 +2,6 @@ themeName = j3Custom
 
 jsFiles = baseScripts.js
 standardTemplates = index.php \
-		    home.php \
 		    front-page.php \
 		    category.php \
 		    taxonomy-post_format-post-format-gallery.php \
