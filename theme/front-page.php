@@ -9,7 +9,7 @@ require 'fancy-photo.php';
 
 function j3FrontRecentPosts()
 {
-    $displayNum = 3;
+    $displayNum = 4;
 
     $taxOnlyStd = array( array(
             'taxonomy' => 'post_format',
@@ -25,8 +25,7 @@ function j3FrontRecentPosts()
     $result = "";
     // The Loop
     if ( $query->have_posts() ) {
-        echo '<div class="hasPage leftColumn">
-            <h1 class="topicTitle">Recent Posts</h1>';
+        echo '<div class="hasPage leftColumn">';
         while ( $query->have_posts() ) {
                 $query->the_post();
                 get_template_part( 'excerpt', get_post_format() ); 
@@ -56,12 +55,12 @@ function j3RecentGalleries()
             ),
             j3StdPhotosQuery(),
         ),
-        'posts_per_page' => 5
+        'posts_per_page' => 7
     );
     $query = new WP_Query( $args );
     if ($query->have_posts()) {
         echo '<div class="rightColumn">
-            <h1 class="topicTitle">Recent Photo Albums</h1>';
+            <h1 class="topicTitle">Photo Albums</h1>';
         while ( $query->have_posts() ) {
                 $query->the_post();
                 set_query_var('display_post', 'summary');
@@ -80,6 +79,8 @@ function j3RecentGalleries()
 get_header(); ?>
 
 <div class="main twoColumn"><!-- safari appears to not support main-->
+    <?php j3FrontRecentPosts(); ?>
+    <?php j3RecentGalleries(); ?>
     <?php while ( have_posts() ) : the_post(); ?>
     <div class="rightColumn">
         <article class="visualPage">
@@ -87,11 +88,6 @@ get_header(); ?>
         </article>
     </div>
     <?php endwhile; ?>
-    <div class="leftColumn">
-        <?php j3FancyPhoto(); ?>
-    </div> 
-    <?php j3FrontRecentPosts(); ?>
-    <?php j3RecentGalleries(); ?>
 </div><!--main-->
 
 <?php get_footer(); ?>
