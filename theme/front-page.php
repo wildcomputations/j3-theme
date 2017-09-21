@@ -76,13 +76,64 @@ function j3RecentGalleries()
     }
 }
 
+function j3FrontRandomPhoto()
+{
+    $rand_post_args = array('post',
+        'orderby' => 'rand',
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'post_format',
+                'field' => 'slug',
+                'terms' => array( 'post-format-gallery' )
+            )
+        ),
+        'posts_per_page' => 1
+    );
+
+    $query_parent = new WP_Query( $rand_post_args );
+    $parent_id = False;
+    if ($query_parent->have_posts()) {
+        $query_parent->the_post();
+        $parent_id = get_post()->ID;
+        $parent_name = get_post()->post_name;
+        $parent_url = get_permalink($parent_id);
+    }
+    wp_reset_postdata(); 
+
+    if ($parent_id) {
+        $args = array(
+            'post_parent' => $parent_id,
+            'posts_per_page' => 1,
+            'post_status' => 'inherit',
+            'post_type' => 'attachment',
+            'post_mime_type' =>'image',
+        );
+
+        $query = new WP_Query( $args );
+        if ($query->have_posts()) {
+            $query->the_post();
+            echo '<div class="leftColumn">
+                <div class="displayPhoto dualShadow">';
+            echo '<a href="';
+            echo esc_url( $parent_url );
+            echo '" class="photoLink">';
+            echo wp_get_attachment_image(get_post()->ID, 'large');
+            echo '</a>';
+            echo '</div>
+                  </div>';
+        }
+        wp_reset_postdata(); 
+    }
+}
+
 get_header(); ?>
 
 <div class="main twoColumn"><!-- safari appears to not support main-->
+    <?php j3FrontRandomPhoto(); ?>
     <?php j3FrontRecentPosts(); ?>
     <?php j3RecentGalleries(); ?>
     <?php while ( have_posts() ) : the_post(); ?>
-    <div class="rightColumn">
+    <div class="rightColumn hasPage">
         <article class="visualPage">
             <?php the_content(); ?>
         </article>

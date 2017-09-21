@@ -51,7 +51,6 @@ function j3FancyPhoto () {
     }
 }
 
-
 function j3TopicTitle() {
     if (is_category() ) {
         echo '<h1 class="topicTitle">';
@@ -60,7 +59,6 @@ function j3TopicTitle() {
     }
     // not supporting tags, dates, etc right now
 }
-
 
 function j3FancyHeader() {
     if (is_single()) return;

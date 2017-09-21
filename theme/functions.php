@@ -70,7 +70,7 @@ function j3AddExternals() {
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
-        array(), "2.34" );
+        array(), "2.35" );
     wp_enqueue_style('j3BaseStyle');
 
     wp_register_style( 'fontAwesome',
@@ -149,7 +149,7 @@ function j3PostThumbnail( $size='large', $forceLink=false) {
             the_post_thumbnail( $size );
         } else {
             echo '<a href="';
-            esc_url( the_permalink() );
+            echo esc_url( get_permalink() );
             echo '" class="photoLink">';
             the_post_thumbnail( $size );
             echo '</a>';

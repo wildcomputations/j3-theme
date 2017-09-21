@@ -521,7 +521,7 @@ small .rssLink:before {
 .displayPhoto {
     margin: 10px auto 15px auto;
     text-align: center;
-    width: 80%;
+    width: 90%;
     display: block;
 }
 .displayPhoto img {
@@ -733,21 +733,13 @@ color: inherit;
     min-width: 350px;
     padding-right: 1em;
     float: left;
-    clear: left;
 }
 .rightColumn {
     width:40%;
     max-width: 650px;
     min-width: 300px;
     padding-left: 1em;
-    float: right;
-    clear: right;
-}
-.rightColumn:after {
-    content: "."; 
-    visibility: hidden; 
-    display: block;
-    clear: both;
+    float: left;
 }
 
 
@@ -1602,7 +1594,7 @@ line-height: 1.1em;
 @media all and (max-width:800px) {
     .rightColumn,
     .leftColumn {
-        float:none;
+        float: none;
         clear: both;
         padding: 0px;
         margin-left: auto;
