@@ -25,7 +25,6 @@ function j3FrontRecentPosts()
     $result = "";
     // The Loop
     if ( $query->have_posts() ) {
-        echo '<div class="hasPage leftColumn">';
         while ( $query->have_posts() ) {
                 $query->the_post();
                 get_template_part( 'excerpt', get_post_format() ); 
@@ -34,8 +33,6 @@ function j3FrontRecentPosts()
               <a href="' . get_permalink( get_option( 'page_for_posts' ) ) . 
              '">All Posts ... </a>
               </div>';
-
-        echo '</div>';
     } 
 
     /* Restore original Post Data */
@@ -59,8 +56,7 @@ function j3RecentGalleries()
     );
     $query = new WP_Query( $args );
     if ($query->have_posts()) {
-        echo '<div class="rightColumn">
-            <h1 class="topicTitle">Photo Albums</h1>';
+        echo '<h1 class="topicTitle">Photo Albums</h1>';
         while ( $query->have_posts() ) {
                 $query->the_post();
                 set_query_var('display_post', 'summary');
@@ -69,8 +65,7 @@ function j3RecentGalleries()
         echo '<div class="albumText">
             <a href="' . get_post_format_link(get_post_format())
             . '">More Photos ...</a>
-                </div> 
-            </div>';
+                </div>';
         /* Restore original Post Data */
         wp_reset_postdata();
     }
@@ -102,7 +97,8 @@ function j3FrontRandomPhoto()
 
     if ($parent_id) {
         $args = array(
-            'post_parent' => $parent_id,
+            'post_parent' => null,
+            /*'post_parent' => $parent_id,*/
             'posts_per_page' => 1,
             'post_status' => 'inherit',
             'post_type' => 'attachment',
@@ -112,15 +108,13 @@ function j3FrontRandomPhoto()
         $query = new WP_Query( $args );
         if ($query->have_posts()) {
             $query->the_post();
-            echo '<div class="leftColumn">
-                <div class="displayPhoto dualShadow">';
+            echo '<div class="displayPhoto dualShadow">';
             echo '<a href="';
             echo esc_url( $parent_url );
             echo '" class="photoLink">';
             echo wp_get_attachment_image(get_post()->ID, 'large');
             echo '</a>';
-            echo '</div>
-                  </div>';
+            echo '</div>';
         }
         wp_reset_postdata(); 
     }
@@ -129,16 +123,18 @@ function j3FrontRandomPhoto()
 get_header(); ?>
 
 <div class="main twoColumn"><!-- safari appears to not support main-->
+    <div class="leftColumn">
     <?php j3FrontRandomPhoto(); ?>
     <?php j3FrontRecentPosts(); ?>
+    </div>
+    <div class="rightColumn">
     <?php j3RecentGalleries(); ?>
     <?php while ( have_posts() ) : the_post(); ?>
-    <div class="rightColumn hasPage">
-        <article class="visualPage">
-            <?php the_content(); ?>
-        </article>
-    </div>
+    <article class="visualPage">
+        <?php the_content(); ?>
+    </article>
     <?php endwhile; ?>
+    </div>
 </div><!--main-->
 
 <?php get_footer(); ?>

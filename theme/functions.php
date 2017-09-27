@@ -158,23 +158,6 @@ function j3PostThumbnail( $size='large', $forceLink=false) {
 }
 
 
-function j3MenuFilter($items, $args=array())
-{
-    $counter = array();
-    foreach ($items as $menuItem) {
-        if (!isset($counter[$menuItem->menu_item_parent])){
-            $counter[$menuItem->menu_item_parent] = 0;
-        }
-        $counter[$menuItem->menu_item_parent] += 1;
-    }
-    foreach ($items as $menuItem) {
-        $menuItem->classes[] = 
-            'item-count-' . $counter[$menuItem->menu_item_parent];
-    }
-    return $items;
-}
-add_filter('wp_nav_menu_objects', 'j3MenuFilter');
-
 function j3PageNav($defaultPrev="", $defaultNext="", $standalone=false) {
     // Don't print empty markup if there's only one page.
     if ( $GLOBALS['wp_query']->max_num_pages < 2

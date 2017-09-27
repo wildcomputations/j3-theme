@@ -227,25 +227,6 @@ nav.minorMenu li {
     margin: 0px 1em;
 }
 
-#mainMenu .item-count-2{
-    width:20%;
-}
-#mainMenu .item-count-3{
-    width:33.3333%;
-}
-#mainMenu .item-count-4{
-    width:25%;
-}
-#mainMenu .item-count-5{
-    width: 20%;
-}
-#mainMenu .item-count-6{
-    width: 16.6666%;
-}
-#mainMenu .item-count-7{
-    width: 14.2857%
-}
-    
 #mainMenu .responsiveMenu {
     display:none;
 }
@@ -257,9 +238,9 @@ nav.minorMenu li {
     position:relative;
     box-shadow: 0px 4px 5px 4px rgba(0, 0, 0, 0.4);
     clear:both;
-    max-width: 80em;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 1em;
 }
 
 #mainMenu ul {
@@ -294,8 +275,6 @@ nav.minorMenu li {
                rgba(243, 235, 226, 0.7) 25%,
                rgba(243, 235, 226, 0.7) 80%,
                rgba(218, 207, 194, 0.7) );
-    border-left: 1px solid rgba(255, 255, 255, 0.3);
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
     display: table-cell;
     vertical-align: middle;
     text-align: center;
@@ -308,11 +287,7 @@ nav.minorMenu li {
     width:100%;
     display:block;
     padding: 3px 0.2em 0px;
-}
-
-#mainMenu a::first-letter{
-    font-size:1.5em;
-    line-height : 1.5;
+    line-height : 1.8;
 }
 
 #mainMenu .current-menu-item,
@@ -355,14 +330,6 @@ nav.minorMenu li {
         #FFF 0%, #FFF 80%, #BBB 100%);
     background: linear-gradient(
         #FFF 0%, #FFF 80%, #BBB 100%);
-    border-right: 1px solid rgba(243, 235, 226, 0.7);
-    border-left: none;
-}
-
-#mainMenu li li a {
-}
-#mainMenu li li a::first-letter{
-    font-size: 1.0em;
 }
 
 /* only show the active sub-menu*/
@@ -374,14 +341,6 @@ nav.minorMenu li {
 
 
 @media all and (max-width: 600px) {
-#mainMenu .item-count-2,
-#mainMenu .item-count-3,
-#mainMenu .item-count-4,
-#mainMenu .item-count-5,
-#mainMenu .item-count-6,
-#mainMenu .item-count-7 {
-    width: 100%;
-}
 
 /* menu hidden by default */
 #mainMenu ul{
@@ -390,7 +349,7 @@ nav.minorMenu li {
 #mainMenu .responsiveMenu {
     display:block;
     box-shadow: 0px -2px 5px 0px rgba(0, 0, 0, 0.2) inset;
-    background-color: #FFF;
+    background-color: rgba(243, 235, 226, 0.7);
     text-shadow: 1px 1px 0px #FFF, 3px 3px 3px rgba(0, 0, 0, 0.5);
     color: black;
     vertical-align: middle;
@@ -407,6 +366,8 @@ nav.minorMenu li {
     text-align: left;
     padding: 0px 0px 0px 1em;
     height:initial;
+    font-family: 'Raleway', 'Ariel', sans-serif;
+    background: rgba(243, 235, 226, 0.7);
 }
 
 #mainMenu ul ul {
@@ -464,10 +425,8 @@ a.noEmph { /* reset*/
 a:hover ,
 a:focus,
 .history a h1:hover, .history a h1:focus {
-    font-weight: bold;
-    border-bottom: 2px solid gray;
     color: gray;
-    letter-spacing: -0.02em;
+    text-decoration: underline;
 }
 
 p a {
@@ -478,18 +437,15 @@ p a:visited {
 }
 
 /* reset */
-.siteTitle a:hover, .siteTitle a:focus ,
 a.noEmph:hover, a.noEmph:focus {
-    font-weight: inherit;
-    border-bottom: inherit;
-    color: inherit;
-    letter-spacing: initial;
+    text-decoration: inherit;
 }
 
 .photoLink:hover, .wp-caption a:hover, 
 a[href^="http://picasaweb.google.com/lh/photo/"]:hover,
 .gallery-icon a {
-     border: none;
+    border: none;
+    text-decoration: inherit;
 }
 
 footer {
@@ -599,7 +555,7 @@ aside.mini {
     clear:none;
 }
 .twoColumn .topicTitle {
-    margin: 1em 0px 0.5em;
+    margin: 1em 0px 0.5em 0.5em;
 }
 
 article {
@@ -716,6 +672,7 @@ color: inherit;
 
 .visualPage {
     margin-bottom: 20px; /* large shadow*/
+    clear: both;
 }
 
 .history {
@@ -923,7 +880,7 @@ div[class*='stack'] img {
 }
 .stackBook a:hover {
     background-color: rgba(189, 165, 30, 0.5);
-    border:none;
+    text-decoration: inherit;
 }
 
 .albumSummary {
@@ -949,6 +906,8 @@ margin: 0 0 10px 0;
 display : block; 
 padding : 0; 
 margin : 0; 
+    font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
+    color: #888;
 }
 
 .albumSummary h1 {
@@ -1238,7 +1197,7 @@ article:after,
 .searchClose:hover,
 .searchClose:focus
 {
-    border-bottom:none;
+    text-decoration: none;
 }
 .searchBar fieldset {
     padding-left:5%;
@@ -1391,7 +1350,6 @@ article h1.articleTitle:first-child {
 article h1.articleTitle {
     text-align: center;
     font-size: 1.5rem;
-    font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
     text-transform: initial;
     margin-bottom: .25em;
 }
@@ -1401,6 +1359,7 @@ article .date, .wp-caption-text, .single-format-image .photoData {
     color: #888;
     font-size: .8em;
     line-height: 1.3em;
+    font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
 }
 
 article ul, article ol {
@@ -1534,12 +1493,14 @@ line-height: 1.1em;
     line-height : 1.0;
     padding : 1px; 
     margin-top: 0.2em; 
+    font-family: 'Raleway', 'Ariel', sans-serif;
  }
 .summary .topics {
     color: #888;
     text-align : center ;
     margin-bottom : 0.5em;
     font-size: 0.8em;
+    font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
 }
 .summary .date {
     text-align : center; 

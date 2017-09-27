@@ -25,11 +25,11 @@ function j3Header()
 {
 ?>
         <header>
+            <?php j3MainNav(); ?>
             <h1 class="siteTitle"><a href="<?php echo home_url(); ?>"><?php bloginfo( 'name' ); ?></a></h2>
             <h2><?php bloginfo( 'description' ); ?></h2>
+            <?php get_search_form(); ?>
 <?php if (!j3IsFancyPhoto() ) : ?>
-                <?php get_search_form(); ?>
-                <?php j3MainNav(); ?>
 <?php endif; ?>
         </header>
 <?php
