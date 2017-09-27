@@ -23,7 +23,9 @@ function j3ContentArticle() {
         echo '</div>';
     }
     the_content();
-    echo '<p class="date alignright">Posted ' . get_the_date('M j, Y') . '</p>';
+    if (get_post_type() == 'post' ) {
+        echo '<p class="date alignright">Posted ' . get_the_date('M j, Y') . '</p>';
+    }
     echo '</article>';
 }
 
