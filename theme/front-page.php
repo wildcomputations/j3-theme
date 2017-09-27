@@ -73,8 +73,12 @@ function j3RecentGalleries()
 
 function j3FrontRandomPhoto()
 {
+    $this_month = date('m');
     $rand_post_args = array('post',
         'orderby' => 'rand',
+        'meta_key' => "j3tripdate",
+        'meta_value' => '-'.$this_month.'-',
+        'meta_compare' => 'LIKE',
         'tax_query' => array(
             array(
                 'taxonomy' => 'post_format',
