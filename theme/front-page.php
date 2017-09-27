@@ -80,7 +80,8 @@ function j3FrontRandomPhoto()
                 'taxonomy' => 'post_format',
                 'field' => 'slug',
                 'terms' => array( 'post-format-gallery' )
-            )
+            ),
+            j3StdPhotosQuery()
         ),
         'posts_per_page' => 1
     );
@@ -97,8 +98,7 @@ function j3FrontRandomPhoto()
 
     if ($parent_id) {
         $args = array(
-            'post_parent' => null,
-            /*'post_parent' => $parent_id,*/
+            'post_parent' => $parent_id,
             'posts_per_page' => 1,
             'post_status' => 'inherit',
             'post_type' => 'attachment',
