@@ -6,8 +6,7 @@ standardTemplates = index.php \
 		    category.php \
 		    taxonomy-post_format-post-format-gallery.php \
 		    date.php \
-		    page.php \
-                    single.php
+                    singular.php
 pageTemplates = page-templates/archives.php \
 	   page-templates/random-template.php \
 	   page-templates/search.php \

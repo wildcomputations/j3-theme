@@ -76,4 +76,8 @@ if ( post_password_required() ) {
         <a href="<?php the_permalink(); ?>">More details ...</a>
     </aside>
 </div> <!-- hgroup -->
-<?php comments_template(); ?>
+<?php 
+if (get_post_type() == 'post' ) {
+    comments_template();
+}
+?>
