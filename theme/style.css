@@ -477,7 +477,7 @@ small .rssLink:before {
 .displayPhoto {
     margin: 10px auto 15px auto;
     text-align: center;
-    width: 90%;
+    width: 100%;
     display: block;
 }
 .displayPhoto img {
