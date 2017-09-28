@@ -103,6 +103,16 @@ function j3_date_get_archives($args = '')
     }
 }
 
+
+/* Return an array of query arguments for a meta query */
+function j3_date_month_query($month) {
+    return array(
+        'key' => "j3tripdate",
+        'value' => '-'.$month.'-',
+        'compare' => 'LIKE',
+    );
+}
+
 /*****************************************************************
  * Internal plugin implementations                               *
  *****************************************************************/

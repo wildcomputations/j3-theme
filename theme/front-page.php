@@ -73,12 +73,8 @@ function j3RecentGalleries()
 
 function j3FrontRandomPhoto()
 {
-    $this_month = date('m');
     $rand_post_args = array('post',
         'orderby' => 'rand',
-        'meta_key' => "j3tripdate",
-        'meta_value' => '-'.$this_month.'-',
-        'meta_compare' => 'LIKE',
         'tax_query' => array(
             array(
                 'taxonomy' => 'post_format',
@@ -89,6 +85,12 @@ function j3FrontRandomPhoto()
         ),
         'posts_per_page' => 1
     );
+    if (function_exists('j3_date_month_query')) {
+        $this_month = date('m');
+        $rand_post_args['meta_query'] = array(
+            j3_date_month_query($this_month),
+        );
+    }
 
     $query_parent = new WP_Query( $rand_post_args );
     $parent_id = False;
