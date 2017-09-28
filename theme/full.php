@@ -54,23 +54,19 @@ if ( post_password_required() ) {
     <div class="rightContent">
         <?php j3ContentArticle(); ?>
     </div> <!-- rightContent -->
+<?php
+    if (get_post_type() == 'post' ) {
+?>
     <aside>
         <div class="linkBlock">
-            <?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?>
+            <?php if(function_exists('echo_crp')) echo_crp(); ?>
         </div><!--linkBlock-->
         <?php 
             j3ArticleCategories();
         ?>
     </aside>
-<?php if (function_exists('synved_social_share_markup')) {
-    echo '<aside>
-        <div class="linkBlock">
-        <h1>Share</h1>';
-    echo synved_social_share_markup();
-    echo '
-        </div><!--linkBlock-->
-        </aside>';
-}
+<?php 
+    } 
 ?>
     <aside class="mini">
         <a href="<?php the_permalink(); ?>">More details ...</a>

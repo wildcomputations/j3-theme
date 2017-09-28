@@ -690,13 +690,15 @@ color: inherit;
     min-width: 350px;
     padding-right: 1em;
     float: left;
+    clear: left;
 }
 .rightColumn {
     width:40%;
     max-width: 650px;
     min-width: 300px;
     padding-left: 1em;
-    float: left;
+    float: right;
+    clear: right;
 }
 
 

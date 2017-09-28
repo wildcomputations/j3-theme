@@ -129,8 +129,10 @@ function j3FrontRandomPhoto()
 get_header(); ?>
 
 <div class="main twoColumn"><!-- safari appears to not support main-->
-    <div class="leftColumn">
+    <div class="rightColumn">
     <?php j3FrontRandomPhoto(); ?>
+    </div>
+    <div class="leftColumn">
     <?php j3FrontRecentPosts(); ?>
     </div>
     <div class="rightColumn">
