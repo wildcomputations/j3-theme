@@ -109,6 +109,7 @@ function j3FrontRandomPhoto()
             'post_status' => 'inherit',
             'post_type' => 'attachment',
             'post_mime_type' =>'image',
+            'orderby' => 'rand',
         );
 
         $query = new WP_Query( $args );
