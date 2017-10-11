@@ -258,6 +258,7 @@ add_action( 'save_post', 'j3DateMetaBoxSave');
 function j3_date_register_query_vars( $vars )
 {
     $vars[] = 'tripyear';
+    $vars[] = 'tripmonth';
     return $vars;
 }
 add_filter( 'query_vars', 'j3_date_register_query_vars');
@@ -270,17 +271,34 @@ function j3_date_pre_get_posts( $query )
     }
 
     $tripyear = get_query_var( 'tripyear' );
-    if ( !empty($tripyear) && is_numeric($tripyear))
+    if ( empty($tripyear) || !is_numeric($tripyear))
     {
-        $meta_query = array( 'key' => 'j3tripdate',
-            'value' => array($tripyear . '-01-01', $tripyear . '-12-31'),
-            'compare' => 'BETWEEN',
-            'type' => 'DATE');
-        $query->set('meta_query', $meta_query);
-        $query->set('meta_key', 'j3tripdate');
-        $query->set('orderby', 'meta_value');
-        $query->set('order', 'DESC');
+        return;
     }
+
+    $min_month = 1;
+    $max_month = 12;
+    $tripmonth = get_query_var( 'tripmonth' );
+    if ( !empty($tripmonth) && is_numeric($tripmonth)
+        && $tripmonth > 0 && $tripmonth <= 12)
+    {
+        $min_month = $tripmonth;
+        $max_month = $tripmonth;
+    }
+
+    $start_date = date('Y-m-01', strtotime($tripyear.'-'.$min_month.'-01'));
+    $end_date = date('Y-m-t', strtotime($tripyear.'-'.$max_month.'-15'));
+    error_log("Start date ".$start_date);
+    error_log("End date ".$end_date);
+
+    $meta_query = array( 'key' => 'j3tripdate',
+        'value' => array($start_date, $end_date),
+        'compare' => 'BETWEEN',
+        'type' => 'DATE');
+    $query->set('meta_query', $meta_query);
+    $query->set('meta_key', 'j3tripdate');
+    $query->set('orderby', 'meta_value');
+    $query->set('order', 'DESC');
 }
 add_action( 'pre_get_posts', 'j3_date_pre_get_posts');
 
@@ -306,6 +324,8 @@ add_action( 'manage_posts_custom_column', 'j3_date_populate_columns', 10, 2);
 function j3_date_add_rewrite_rules()
 {
     add_rewrite_rule('^trip-date/([0-9]+)/?$', 'index.php?tripyear=$matches[1]',
+        'top');
+    add_rewrite_rule('^trip-date/([0-9]+)/([0-9][0-9])/?$', 'index.php?tripyear=$matches[1]&tripmonth=$matches[2]',
     'top');
 }
 add_action('init', 'j3_date_add_rewrite_rules', 10, 0);
