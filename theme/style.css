@@ -1591,6 +1591,10 @@ line-height: 1.1em;
     .searchRight {
         float:none;
     }
+
+    .displayPhoto {
+         width: 80%; 
+    }
 }
 
 @media all and (max-width: 600px) {
