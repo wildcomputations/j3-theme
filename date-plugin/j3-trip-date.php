@@ -288,8 +288,8 @@ function j3_date_pre_get_posts( $query )
 
     $start_date = date('Y-m-01', strtotime($tripyear.'-'.$min_month.'-01'));
     $end_date = date('Y-m-t', strtotime($tripyear.'-'.$max_month.'-15'));
-    error_log("Start date ".$start_date);
-    error_log("End date ".$end_date);
+    /*error_log("Start date ".$start_date);
+    error_log("End date ".$end_date);*/
 
     $meta_query = array( 'key' => 'j3tripdate',
         'value' => array($start_date, $end_date),
@@ -323,6 +323,10 @@ add_action( 'manage_posts_custom_column', 'j3_date_populate_columns', 10, 2);
 /* Add a user friendly url to see ?tripyear archive pages*/
 function j3_date_add_rewrite_rules()
 {
+    add_rewrite_rule('^trip-date/?$',
+        'index.php?tripyear='
+        . date('Y') . '&tripmonth=' . date('m'),
+        'top');
     add_rewrite_rule('^trip-date/([0-9]+)/?$', 'index.php?tripyear=$matches[1]',
         'top');
     add_rewrite_rule('^trip-date/([0-9]+)/([0-9][0-9])/?$', 'index.php?tripyear=$matches[1]&tripmonth=$matches[2]',
