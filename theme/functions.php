@@ -543,7 +543,7 @@ function j3Query( $query ) {
             'terms' => array( 'post-format-gallery', 'post-format-image' ),
             'operator' => 'NOT IN',
         ) );
-    if ( ! j3IsGalleryFormat($query) && ! is_search() ) {
+    if ( ! j3IsGalleryFormat($query) && ! is_search() && ! j3_date_is_archive( )) {
         $query->set( 'tax_query', array($taxOnlyStd) );
     } else {
         $photoPostFormat = true;
@@ -554,14 +554,14 @@ function j3Query( $query ) {
     }
 
     if ( is_date() || j3_date_is_archive( ) ) {
-        // Display all posts on the same page, and do not display gallery or
-        // image posts
+        // Display all posts on the same page
         $query->set( 'posts_per_page', -1);
+        $query->set('order', 'ASC');
     } else if ( $photoPostFormat ) {
         $query->set( 'posts_per_page', 30);
     }
 }
-add_action( 'pre_get_posts', 'j3Query', 1 );
+add_action( 'pre_get_posts', 'j3Query');
 
 $j3InPostPreview = False;
 function j3SetShortExcerpt() {

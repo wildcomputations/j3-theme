@@ -27,6 +27,18 @@ function j3_date_is_archive( )
     return !empty($tripyear) && is_numeric($tripyear);
 }
 
+/* What year did the user query for */
+function j3_date_query_year()
+{
+    return get_query_var( 'tripyear' );
+}
+
+/* What Month did the user query for */
+function j3_date_query_month()
+{
+    return get_query_var('tripmonth');
+}
+
 /* Get the post date of the current post. Returns NULL if no trip date. Returns
  * the trip date in the requested format.
  */
@@ -300,7 +312,7 @@ function j3_date_pre_get_posts( $query )
     $query->set('orderby', 'meta_value');
     $query->set('order', 'DESC');
 }
-add_action( 'pre_get_posts', 'j3_date_pre_get_posts');
+add_action( 'pre_get_posts', 'j3_date_pre_get_posts', 1);
 
 // Display the trip date in the summary admin page
 function j3_date_add_admin_column($columns)
