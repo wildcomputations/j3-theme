@@ -933,6 +933,7 @@ padding-bottom : 40px;
     margin : 0px 0px .5em 0px;
 }
 
+.calendar .wp-post-image,
 .summary .wp-post-image {
     display: block;
     padding: 8px;
@@ -951,10 +952,12 @@ padding-bottom : 40px;
 .calendar {
     display: block;
     background: white;
-    width: 14%;
-    height: 200px;
+    width: 14.29%;
+    height: 240px;
     float: left;
     border: 1px solid #888;
+    padding: 1px;
+    margin: -1px 0px 0px -1px;
 }
 
 .calendar.Mon {
@@ -966,21 +969,30 @@ padding-bottom : 40px;
     background: none;
 }
 
-.calendar img {
-    border: none;
+.calendar .wp-post-image {
     width: 95%;
-    height: auto;
-    margin: 0 auto;
+    margin: -5px auto 1px auto;
     max-width: 100px;
 }
 
 .calendar .date {
      width: 2em;
+     text-align: center;
+     line-height: 0.8;
 }
 
 .calendar .photoLink {
     display: block;
     width: 100%;
+    text-align: center;
+}
+
+.calendarInsert {
+    padding: 1.5em 1em;
+}
+
+.calendarTitle {
+    margin: 0em auto 1em auto;
     text-align: center;
 }
 
@@ -1187,9 +1199,11 @@ body.single-format-image {
 /* Things with floats inside them */
 header:after,
 article:after,
+.visualPage:after,
 .hgroup:after,
 .trippleStack:after,
-.hasStack:after {
+.hasStack:after,
+.calendarInsert:after {
     content: "."; 
     visibility: hidden; 
     display: block; 
@@ -1299,14 +1313,14 @@ b {
 h1, h2, h3, h4, h5,
 .searchBar legend {
     font-size: 1.5rem;
-    font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
+    font-family: "Raleway","Ariel",sans-serif;
     font-weight: normal;
     clear: both;
     margin-top: 1em;
     margin-bottom: 0.1em;
 }
-h2, h4, h5 {
-    font-family: "Raleway","Ariel",sans-serif;
+h3, h4, h5 {
+    font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
 }
 
 h2, h3, h4, h5 {
@@ -1322,6 +1336,7 @@ h4:first-child, h5:first-child {
 
 header h1 {
     font-size:3rem;
+    font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
 }
 header h2 {
    font-family: 'Raleway', 'Ariel', sans-serif;
@@ -1352,7 +1367,6 @@ article p:first-child {
 }
 
 article > h1 {
-    font-family: "Raleway","Ariel",sans-serif;
     font-size: 1.7rem;
     text-transform: uppercase;
 }
@@ -1452,6 +1466,7 @@ article p {
     text-align: right;
 }
 
+.calendarTitle,
 .topicTitle {
    font-family: 'Raleway', 'Ariel', sans-serif;
     color: gray; 
@@ -1504,6 +1519,7 @@ line-height: 1.1em;
 .history > h1:first-of-type {
     padding-top: 0px;
 }
+.calendar h1,
 .albumSummary h1,
 .summary h1 {
     font-size:1.2rem;
@@ -1511,8 +1527,11 @@ line-height: 1.1em;
     line-height : 1.0;
     padding : 1px; 
     margin-top: 0.2em; 
-    font-family: 'Raleway', 'Ariel', sans-serif;
  }
+.calendar h1 {
+    font-size:1rem;
+    color:black;
+}
 .summary .topics {
     color: #888;
     text-align : center ;
@@ -1746,6 +1765,7 @@ line-height: 1.1em;
         font-size: 2rem;
     }
 
+    .calendarTitle,
     .topicTitle {
         font-size: 1.5rem;
     }

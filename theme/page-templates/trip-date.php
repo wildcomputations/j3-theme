@@ -19,6 +19,8 @@ function one_day($day, $month, $year)
     echo '<p class="date">' . $day . '</p>';
     $galleries = array();
     $regulars = array();
+    $first_gallery = NULL;
+    $first_post = NULL;
     if (have_posts()) {
         while (j3_date_post("Y-m-d") == $compr_date) {
             if (get_post_format() == "gallery" ) {
@@ -26,17 +28,32 @@ function one_day($day, $month, $year)
                 $display .= get_the_post_thumbnail(null, 'thumbnail' );
                 $display .= '  </a>';
                 $galleries[] = $display;
+                if (empty($first_gallery)) {
+                    $first_gallery = '<a href="' . get_permalink() . '">';
+                    $first_gallery .= get_the_title();
+                    $first_gallery .= '</a>';
+                }
             } else {
-                $display = '<a href="' . get_permalink() . '">';
+                $display = '<a href="' . get_permalink() . '"><h1>';
                 $display .= get_the_title();
-                $display .= '  </a><br>';
+                $display .= '</h1></a>';
                 $regulars[] = $display;
+                if (empty($first_post) &&
+                    has_post_thumbnail()) {
+                    $first_post = get_the_post_thumbnail(null, 'thumbnail' );
+                }
             }
             the_post();
         }
     }
+    if (empty($galleries)) {
+        echo $first_post;
+    }
     foreach ($galleries as $display) {
         echo $display;
+    }
+    if (empty($regulars)) {
+        echo $first_gallery;
     }
     foreach ($regulars as $display) {
         echo $display;
@@ -53,7 +70,8 @@ function spaces_needed($month, $year)
 
 function one_month($month, $year)
 {
-    echo "<h1>".date("F", mktime(0, 0, 0, $month, 1, $year))."</h1>";
+    echo '<div class="visualPage"><div class="calendarInsert">';
+    echo '<h1 class="calendarTitle">'.date("F Y", mktime(0, 0, 0, $month, 1, $year))."</h1>";
     $last_day = cal_days_in_month(CAL_GREGORIAN, $month, $year);
     $spaces = spaces_needed($month, $year);
     if ($spaces != 0) {
@@ -64,6 +82,7 @@ function one_month($month, $year)
     foreach (range(1, $last_day) as $day) {
         one_day($day, $month, $year);
     }
+    echo '</div></div>';
 }
 
 get_header(); ?>
