@@ -192,8 +192,29 @@ get_header();
 $year = j3_date_query_year();
 $month = j3_date_query_month();
 ?>
+<script>
+function show_expand(linkObj)
+{
+    var main = jQuery(".main");
+    main.removeClass("activateCompact");
+    main.addClass("activateExpand");
+}
 
-<div class="main"><!-- safari appears to not support main-->
+function show_compact(linkObj)
+{
+    var main = jQuery(".main");
+    main.removeClass("activateExpand");
+    main.addClass("activateCompact");
+}
+</script>
+
+<div class="main activateExpand">
+    <div class="calendarNav">
+        <div class="paramsToggle"></div>
+        <a class="paramsToggle" onclick='show_expand(this)'>Expanded View</a>
+        <a class="paramsToggle" onclick='show_compact(this)'>Compact View</a>
+        <div class="paramsToggle"></div>
+    </div>
     <div class="calendarNav">
         <?php prev_link($year, $month); ?>
             <form action="<?php echo site_url('/trip-date/'); ?>">
@@ -204,6 +225,7 @@ $month = j3_date_query_month();
         <?php next_link($year, $month); ?>
     </div>
 
+<div class="expanded">
 <?php
 if (have_posts() ) {
     the_post();
@@ -215,7 +237,22 @@ if (empty($month)) {
 } else {
     one_month($month, $year);
 }
-?>
+echo '</div>';
+
+rewind_posts();
+if ( have_posts() ) {
+    echo '<div class="hgroup hasPage compact">';
+    while ( have_posts() ) {
+        the_post(); 
+        j3ArchiveDoYear(j3_date_post('Y', $post));
+        j3ArchiveDoMonth(j3_date_post('Y-m', $post));
+        get_template_part( 'card', get_post_format() ); 
+    } ?>
+    </div> <!-- month -->
+</div> <!-- rightContent -->
+</div> <!-- hgroup -->
+<?php } ?>
+
 
 </div><!--main-->
 

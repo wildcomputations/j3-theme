@@ -548,7 +548,7 @@ aside.mini {
 }
 
 .hgroup .topicTitle {
-    padding: 100px 0px 20px 0px;
+    padding: 20px 0px 20px 0px;
     text-align: center;
     margin:0;
     float: left;
@@ -619,13 +619,13 @@ article .wp-post-image {
 .gallery .collapseLess {
     margin-top: 2em;
     margin-left: 1em;
-    font-style: italic;
     color: #4377D2;
-    font-weight: bold;
 }
-
-.gallery .collapseMore,
-.gallery .collapseLess {
+.gallery .collapseMore, 
+.gallery .collapseLess,
+.calendarNav .paramsToggle {
+    font-style: italic;
+    font-weight: bold;
     border-bottom: 1px solid #808080;
 }
 
@@ -1006,6 +1006,16 @@ padding-bottom : 40px;
 .calendarNav select {
     width: inherit;
 }
+.calendarNav .paramsToggle {
+    margin: 0px auto 1em auto;
+}
+
+/*calendar specific hidding*/
+.activateExpand .compact,
+.activateCompact .expanded {
+    display: none;
+}
+
 
 /* special types of articles */
 .albumExcerpt img {
@@ -1593,6 +1603,15 @@ line-height: 1.1em;
 
     .hasPage ~ .hasPage {
         margin-top: 0px;
+    }
+
+    .activateExpand .expanded,
+    .calendarNav .paramsToggle {
+        display: none;
+    }
+    .activateCompact .compact,
+    .activateExpand .compact {
+        display: inherit;
     }
     
 }
