@@ -70,6 +70,13 @@ function one_month($month, $year)
 {
     echo '<div class="visualPage"><div class="calendarInsert">';
     echo '<h1 class="calendarTitle">'.date("F Y", mktime(0, 0, 0, $month, 1, $year))."</h1>";
+    echo '<p class="calendarHeading">Monday</p>
+        <p class="calendarHeading">Tuesday</p>
+        <p class="calendarHeading">Wednesday</p>
+        <p class="calendarHeading">Thursday</p>
+        <p class="calendarHeading">Friday</p>
+        <p class="calendarHeading">Saturday</p>
+        <p class="calendarHeading">Sunday</p>';
     $last_day = cal_days_in_month(CAL_GREGORIAN, $month, $year);
     $spaces = spaces_needed($month, $year);
     if ($spaces != 0) {
