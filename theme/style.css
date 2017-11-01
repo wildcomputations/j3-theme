@@ -996,6 +996,17 @@ padding-bottom : 40px;
     text-align: center;
 }
 
+.calendarNav {
+    display: flex;
+}
+.calendarNav form {
+    /* match navPrevious and navNext */
+    padding-top: calc(1em + 6px);
+}
+.calendarNav select {
+    width: inherit;
+}
+
 /* special types of articles */
 .albumExcerpt img {
     margin-right: 30px; 
@@ -1031,18 +1042,22 @@ padding-bottom : 40px;
 .navPrevious a {
     padding-left : 30px; 
     background-position: left 8%;
+    display: block;
 }
 .navNext a {
     padding-right : 35px; 
     background-position: right 90%;
+    display: block;
 }
 
 .navPrevious {
     float: left;
+    margin-right: auto;
 }
 
 .navNext {
     float: right;
+    margin-left: auto;
 }
 
 .commentBlock {
@@ -1580,13 +1595,6 @@ line-height: 1.1em;
         margin-top: 0px;
     }
     
-    .navPrevious {
-    float: left;
-    }
-    .navNext {
-    float: right;
-    }
-
 }
 
 @media all and (max-width:800px) {
