@@ -70,7 +70,7 @@ function j3AddExternals() {
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
-        array(), "3.3" );
+        array(), "3.4" );
     wp_enqueue_style('j3BaseStyle');
 
     wp_register_style( 'fontAwesome',
@@ -536,29 +536,31 @@ function j3Query( $query ) {
         return;
     }
 
-    $photoPostFormat = false;
-    $taxOnlyStd = array( array(
-            'taxonomy' => 'post_format',
-            'field' => 'slug',
-            'terms' => array( 'post-format-gallery', 'post-format-image' ),
-            'operator' => 'NOT IN',
-        ) );
-    if ( ! j3IsGalleryFormat($query) && ! is_search() && ! j3_date_is_archive( )) {
-        $query->set( 'tax_query', array($taxOnlyStd) );
-    } else {
-        $photoPostFormat = true;
-    }
-
-    if ( $photoPostFormat && ! is_tag() ) {
-        $query->set( 'tax_query', array(j3StdPhotosQuery()));
-    }
-
-    if ( is_date() || j3_date_is_archive( ) ) {
+    if ( j3IsGalleryFormat($query) ) {
+        if (! is_tag() ) {
+            $query->set( 'tax_query', array(j3StdPhotosQuery()));
+        }
+        $query->set( 'posts_per_page', 30);
+    } elseif ( is_date() || j3_date_is_archive( ) ) {
         // Display all posts on the same page
         $query->set( 'posts_per_page', -1);
         $query->set('order', 'ASC');
-    } else if ( $photoPostFormat ) {
-        $query->set( 'posts_per_page', 30);
+        $tax_not_image = array( array(
+                'taxonomy' => 'post_format',
+                'field' => 'slug',
+                'terms' => array( 'post-format-image' ),
+                'operator' => 'NOT IN',
+            ) );
+        $query->set( 'tax_query', array($tax_not_image) );
+    } elseif ( is_home() || is_category() ) {
+        $taxOnlyStd = array( array(
+                'taxonomy' => 'post_format',
+                'field' => 'slug',
+                'terms' => array( 'post-format-gallery',
+                'post-format-image' ),
+                'operator' => 'NOT IN',
+            ) );
+        $query->set( 'tax_query', array($taxOnlyStd) );
     }
 }
 add_action( 'pre_get_posts', 'j3Query');

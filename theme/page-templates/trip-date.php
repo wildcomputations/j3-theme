@@ -19,41 +19,41 @@ function one_day($day, $month, $year)
     echo '<p class="date">' . $day . '</p>';
     $galleries = array();
     $regulars = array();
-    $first_gallery = NULL;
-    $first_post = NULL;
+    $image = NULL;
+    $first_gallery_image = NULL;
+    $first_post_image = NULL;
     while (have_posts() && j3_date_post("Y-m-d") == $compr_date) {
         if (get_post_format() == "gallery" ) {
-            $display = '<a href="' . get_permalink() . '" class="photoLink">';
-            $display .= get_the_post_thumbnail(null, 'thumbnail' );
-            $display .= '  </a>';
+            $display = 'Album: <a href="' . get_permalink() . '">';
+            $display .= get_the_title();
+            $display .= '</a>';
             $galleries[] = $display;
-            if (empty($first_gallery)) {
-                $first_gallery = '<a href="' . get_permalink() . '">';
-                $first_gallery .= get_the_title();
-                $first_gallery .= '</a>';
+            if (empty($first_gallery_image)) {
+                $first_gallery_image = get_the_post_thumbnail(
+                    null, 'thumbnail' );
             }
         } else {
-            $display = '<a href="' . get_permalink() . '"><h1>';
+            $display = '<h1><a href="' . get_permalink() . '">';
             $display .= get_the_title();
-            $display .= '</h1></a>';
+            $display .= '</a></h1>';
             $regulars[] = $display;
-            if (empty($first_post) &&
+            if (empty($first_post_image) &&
                 has_post_thumbnail()) {
                 $first_post = get_the_post_thumbnail(null, 'thumbnail' );
             }
         }
         the_post();
     }
-    if (empty($galleries)) {
-        echo $first_post;
+    if (!empty($first_gallery_image)) {
+        echo $first_gallery_image;
+    } elseif (!empty($first_post_image)) {
+        echo $first_post_image;
     }
-    foreach ($galleries as $display) {
+
+    foreach ($regulars as $display) {
         echo $display;
     }
-    if (empty($regulars)) {
-        echo $first_gallery;
-    }
-    foreach ($regulars as $display) {
+    foreach ($galleries as $display) {
         echo $display;
     }
     echo '</div>';
@@ -177,20 +177,28 @@ function next_link($year, $month)
 {
     echo '<div class="navNext">';
     if (empty($month)) {
-        echo '<a href="'.site_url('/trip-date/'.($year + 1).'/');
-        echo '">Next Year</a>';
-    } else {
-        $next_month = $month + 1;
-        if ($next_month == 13) {
-            $next_month = 1;
-            $next_year = $year + 1;
+        if ($year == date("Y")) {
+            echo '<div style="width:8em;"></div>';
         } else {
-            $next_year = $year;
+            echo '<a href="'.site_url('/trip-date/'.($year + 1).'/');
+            echo '">Next Year</a>';
         }
-        $next_month = sprintf("%02d", $next_month);
-        echo '<a href="'.site_url(
-            '/trip-date/'.$next_year.'/'.$next_month.'/');
-        echo '">Next Month</a>';
+    } else {
+        if ($month == date('m')) {
+            echo '<div style="width:9em;"></div>';
+        } else {
+            $next_month = $month + 1;
+            if ($next_month == 13) {
+                $next_month = 1;
+                $next_year = $year + 1;
+            } else {
+                $next_year = $year;
+            }
+            $next_month = sprintf("%02d", $next_month);
+            echo '<a href="'.site_url(
+                '/trip-date/'.$next_year.'/'.$next_month.'/');
+            echo '">Next Month</a>';
+        }
     }
     echo '</div><!--navNext-->';
 }
