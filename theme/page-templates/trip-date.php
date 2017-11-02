@@ -22,11 +22,11 @@ function one_day($day, $month, $year)
     $image = NULL;
     $first_gallery_image = NULL;
     $first_post_image = NULL;
-    while (have_posts() && j3_date_post("Y-m-d") == $compr_date) {
+    while (!empty(get_post()) && j3_date_post("Y-m-d") == $compr_date) {
         if (get_post_format() == "gallery" ) {
             $display = 'Album: <a href="' . get_permalink() . '">';
             $display .= get_the_title();
-            $display .= '</a>';
+            $display .= '</a><br>';
             $galleries[] = $display;
             if (empty($first_gallery_image)) {
                 $first_gallery_image = get_the_post_thumbnail(
@@ -39,10 +39,14 @@ function one_day($day, $month, $year)
             $regulars[] = $display;
             if (empty($first_post_image) &&
                 has_post_thumbnail()) {
-                $first_post = get_the_post_thumbnail(null, 'thumbnail' );
+                $first_post_image = get_the_post_thumbnail(null, 'thumbnail' );
             }
         }
-        the_post();
+        if (have_posts()) {
+            the_post();
+        } else {
+            break;
+        }
     }
     if (!empty($first_gallery_image)) {
         echo $first_gallery_image;
