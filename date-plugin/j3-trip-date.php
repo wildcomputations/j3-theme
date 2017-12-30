@@ -36,7 +36,12 @@ function j3_date_query_year()
 /* What Month did the user query for */
 function j3_date_query_month()
 {
-    return get_query_var('tripmonth');
+    $raw = get_query_var('tripmonth');
+    if ($raw == 'None') {
+        return date('m');
+    } else {
+        return $raw;
+    }
 }
 
 /* Get the post date of the current post. Returns NULL if no trip date. Returns
@@ -290,7 +295,7 @@ function j3_date_pre_get_posts( $query )
 
     $min_month = 1;
     $max_month = 12;
-    $tripmonth = get_query_var( 'tripmonth' );
+    $tripmonth = j3_date_query_month();
     if ( !empty($tripmonth) && is_numeric($tripmonth)
         && $tripmonth > 0 && $tripmonth <= 12)
     {
@@ -337,7 +342,7 @@ function j3_date_add_rewrite_rules()
 {
     add_rewrite_rule('^trip-date/?$',
         'index.php?tripyear='
-        . date('Y') . '&tripmonth=' . date('m'),
+        . date('Y') . '&tripmonth=None',
         'top');
     add_rewrite_rule('^trip-date/([0-9]+)/?$', 'index.php?tripyear=$matches[1]',
         'top');
