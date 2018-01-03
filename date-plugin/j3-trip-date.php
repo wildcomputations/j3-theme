@@ -20,17 +20,15 @@ SELECT ID, 'j3tripdate', DATE(post_date) FROM `wp_posts` WHERE post_type LIKE 'p
  * API Functions that themes can call                            *
  *****************************************************************/
 
-/* Is the current page an archive for a year of posts based on trip date. */
-function j3_date_is_archive( )
-{
-    $tripyear = get_query_var( 'tripyear' );
-    return !empty($tripyear) && is_numeric($tripyear);
-}
-
 /* What year did the user query for */
 function j3_date_query_year()
 {
-    return get_query_var( 'tripyear' );
+    $raw = get_query_var( 'tripyear' );
+    if ($raw == 'None') {
+        return date('Y');
+    } else {
+        return $raw;
+    }
 }
 
 /* What Month did the user query for */
@@ -42,6 +40,13 @@ function j3_date_query_month()
     } else {
         return $raw;
     }
+}
+
+/* Is the current page an archive for a year of posts based on trip date. */
+function j3_date_is_archive( )
+{
+    $tripyear = j3_date_query_year();
+    return !empty($tripyear) && is_numeric($tripyear);
 }
 
 /* Get the post date of the current post. Returns NULL if no trip date. Returns
@@ -287,7 +292,7 @@ function j3_date_pre_get_posts( $query )
         return;
     }
 
-    $tripyear = get_query_var( 'tripyear' );
+    $tripyear = j3_date_query_year();
     if ( empty($tripyear) || !is_numeric($tripyear))
     {
         return;
@@ -341,8 +346,7 @@ add_action( 'manage_posts_custom_column', 'j3_date_populate_columns', 10, 2);
 function j3_date_add_rewrite_rules()
 {
     add_rewrite_rule('^trip-date/?$',
-        'index.php?tripyear='
-        . date('Y') . '&tripmonth=None',
+        'index.php?tripyear=None&tripmonth=None',
         'top');
     add_rewrite_rule('^trip-date/([0-9]+)/?$', 'index.php?tripyear=$matches[1]',
         'top');
