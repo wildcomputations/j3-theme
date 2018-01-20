@@ -30,12 +30,13 @@ function j3ContentArticle() {
 }
 
 function j3ArticleCategories() {
-    $catHtml = get_the_category_list();
+    $catHtml = get_the_category_list(
+        ' trips.</li><li>Or the latest ');
     if ( $catHtml ) {
-        echo '<div class="linkBlock">
-                  <h1>Topic</h1>';
+        echo '<div class="linkBlock cta">
+                  <ul><li>Read the latest ';
         echo $catHtml;
-        echo '</div> <!--linkBlock-->';
+        echo ' trips.</li></ul></div> <!--linkBlock-->';
     }
 }
 
@@ -58,12 +59,12 @@ if ( post_password_required() ) {
     if (get_post_type() == 'post' ) {
 ?>
     <aside>
-        <div class="linkBlock">
-            <?php if(function_exists('echo_crp')) echo_crp(); ?>
-        </div><!--linkBlock-->
         <?php 
             j3ArticleCategories();
         ?>
+        <div class="linkBlock">
+            <?php if(function_exists('echo_crp')) echo_crp(); ?>
+        </div><!--linkBlock-->
     </aside>
 <?php 
     } 

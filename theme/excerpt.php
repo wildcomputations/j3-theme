@@ -41,16 +41,6 @@ function j3ContentExcerpt() {
     echo '</article>';
 }
 
-function j3ArticleCategories() {
-    $catHtml = get_the_category_list();
-    if ( $catHtml ) {
-        echo '<div class="linkBlock">
-                  <h1>Topic</h1>';
-        echo $catHtml;
-        echo '</div> <!--linkBlock-->';
-    }
-}
-
 endif; // function declarations
 
 if ( post_password_required() ) {
@@ -71,13 +61,7 @@ if (is_front_page()) {
     <div class="rightContent">
         <?php j3ContentExcerpt(); ?>
     </div> <!-- rightContent -->
-    <aside>
-        <?php 
-            j3ArticleCategories();
-        ?>
-    </aside>
 </div> <!-- hgroup -->
-
 
 <?php
 } ?>
