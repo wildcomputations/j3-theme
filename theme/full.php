@@ -32,11 +32,25 @@ function j3ContentArticle() {
 function j3ArticleCategories() {
     $catHtml = get_the_category_list(
         ' trips.</li><li>Or the latest ');
-    if ( $catHtml ) {
+    $trip_date = j3_date_post("F Y");
+    if ( $trip_date ) {
+        $year = j3_date_post("Y");
+        $month = j3_date_post("m");
+        $trip_date_html = '<li><a href="'.j3_date_get_year_link($year)
+            . '/' . $month . '"/>Trips in ' . $trip_date
+            . '</a></li>';
+    }
+    if ( $catHtml || $trip_date ) {
         echo '<div class="linkBlock cta">
-                  <ul><li>Read the latest ';
-        echo $catHtml;
-        echo ' trips.</li></ul></div> <!--linkBlock-->';
+                  <h1>Read More</h1>
+                  <ul>';
+        if ($trip_date) {
+            echo $trip_date_html;
+        }
+        if ($catHtml) {
+            echo '<li>Latest ' . $catHtml . ' trips.</li>';
+        }
+        echo '</ul></div> <!--linkBlock-->';
     }
 }
 
