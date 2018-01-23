@@ -44,6 +44,7 @@ function one_day($day, $month, $year)
         }
         if (have_posts()) {
             the_post();
+            error_log("A " . get_post_meta(get_post()->ID, "j3tripdate", true));
         } else {
             break;
         }
@@ -70,7 +71,7 @@ function spaces_needed($month, $year)
     return $sunday_norm;
 }
 
-function one_month($month, $year)
+function one_month_expanded($month, $year)
 {
     echo '<div class="visualPage"><div class="calendarInsert">';
     echo '<h1 class="calendarTitle">'.date("F Y", mktime(0, 0, 0, $month, 1, $year))."</h1>";
@@ -248,23 +249,40 @@ function show_compact(linkObj)
 <?php
 if (have_posts() ) {
     the_post();
+    error_log("B " . get_post_meta(get_post()->ID, "j3tripdate", true));
 }
 if (empty($month)) {
     foreach (range(1, 12) as $month) {
-        one_month($month, $year);
+        one_month_expanded($month, $year);
     }
 } else {
-    one_month($month, $year);
+    one_month_expanded($month, $year);
 }
 echo '</div>';
 
 rewind_posts();
 if ( have_posts() ) {
     echo '<div class="hgroup hasPage compact">';
+    $prev_year = Null;
+    $prev_month = Null;
     while ( have_posts() ) {
         the_post(); 
-        j3ArchiveDoYear(j3_date_post('Y', $post));
-        j3ArchiveDoMonth(j3_date_post('Y-m', $post));
+        error_log("C " . get_post_meta(get_post()->ID, "j3tripdate", true));
+        $new_year = j3_date_post('Y');
+        $new_month = j3_date_post('F');
+        if (empty($prev_year)) {
+            echo '<h1 class="topicTitle">' . $new_year . '</h1>';
+            echo '<div class="rightContent visualPage history hasStack">';
+        }
+        if ($new_month != $prev_month) {
+            if (!empty($prev_month)) {
+                echo '</div> <!-- month -->';
+            }
+            echo "<h1>" . $new_month . "</h1>";
+            echo '<div class="month">';
+        }
+        $prev_year = $new_year;
+        $prev_month = $new_month;
         get_template_part( 'card', get_post_format() ); 
     } ?>
     </div> <!-- month -->
