@@ -44,7 +44,6 @@ function one_day($day, $month, $year)
         }
         if (have_posts()) {
             the_post();
-            error_log("A " . get_post_meta(get_post()->ID, "j3tripdate", true));
         } else {
             break;
         }
@@ -249,7 +248,6 @@ function show_compact(linkObj)
 <?php
 if (have_posts() ) {
     the_post();
-    error_log("B " . get_post_meta(get_post()->ID, "j3tripdate", true));
 }
 if (empty($month)) {
     foreach (range(1, 12) as $month) {
@@ -267,7 +265,6 @@ if ( have_posts() ) {
     $prev_month = Null;
     while ( have_posts() ) {
         the_post(); 
-        error_log("C " . get_post_meta(get_post()->ID, "j3tripdate", true));
         $new_year = j3_date_post('Y');
         $new_month = j3_date_post('F');
         if (empty($prev_year)) {
