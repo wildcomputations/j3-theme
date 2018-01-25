@@ -30,15 +30,31 @@ function j3ContentArticle() {
 }
 
 function j3ArticleCategories() {
-    $catHtml = get_the_category_list(
-        ' trips.</li><li>Or the latest ');
+    $categories = get_the_category();
+    $result = "";
+    $intro = "Latest";
+    foreach ( $categories as $category ) {
+        if ($category->term_id == 1) {
+            continue;
+        }
+        $result .= '<a href="'
+            . esc_url( get_category_link( $category->term_id ) )
+            . '"><li>' . $intro . ' ' . $category->name
+            .' trips</li></a>';
+        $intro = "Or the latest";
+    }
+    return $result;
+}
+
+function j3ArticleLinks() {
+    $catHtml = j3ArticleCategories();
     $trip_date = j3_date_post("F Y");
     if ( $trip_date ) {
         $year = j3_date_post("Y");
         $month = j3_date_post("m");
-        $trip_date_html = '<li><a href="'.j3_date_get_year_link($year)
-            . '/' . $month . '"/>Trips in ' . $trip_date
-            . '</a></li>';
+        $trip_date_html = '<a href="'.j3_date_get_year_link($year)
+            . '/' . $month . '"/><li>Trips in ' . $trip_date
+            . '</li></a>';
     }
     if ( $catHtml || $trip_date ) {
         echo '<div class="linkBlock cta">
@@ -48,7 +64,7 @@ function j3ArticleCategories() {
             echo $trip_date_html;
         }
         if ($catHtml) {
-            echo '<li>Latest ' . $catHtml . ' trips.</li>';
+            echo $catHtml;
         }
         echo '</ul></div> <!--linkBlock-->';
     }
@@ -74,7 +90,7 @@ if ( post_password_required() ) {
 ?>
     <aside>
         <?php 
-            j3ArticleCategories();
+            j3ArticleLinks();
         ?>
         <div class="linkBlock">
             <?php if(function_exists('echo_crp')) echo_crp(); ?>
