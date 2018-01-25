@@ -22,6 +22,7 @@ phpFiles = $(standardTemplates) \
 	   full.php \
 	   full-gallery.php \
 	   full-image.php \
+	   full-functions.php \
 	   card.php \
 	   card-gallery.php \
 	   content-none.php \

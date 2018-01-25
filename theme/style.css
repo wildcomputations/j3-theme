@@ -533,18 +533,36 @@ small .rssLink:before {
 aside {
     padding: 80px 0px 0px 0px;
     text-align: center;
-    color: gray;
 }
 aside .linkBlock {
     margin: 20px 0px;
-    padding-right: 20px;
     vertical-align: top;
     display: inline-block;
     text-align: left;
+
+    border: 1px solid rgba(0,0,0,0.3);
+    padding: 1em;
+    background-color: rgba(255, 255, 255, 0.5);
+    -webkit-box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.3);
 }
 aside.mini {
     display: none;
     visibility: hidden; 
+}
+
+aside .cta li {
+    padding: 5% 30px 0 0;
+    background-image : url("images/arrows.png");
+    background-repeat: no-repeat;
+    background-size: 25px auto; /* display half width so when you zoom in it doesn't look pixelated */
+    background-position: right 90%;
+    line-height: 1.2;
+    min-height: 40px;
+}
+aside .cta li + li {
+    margin-top: 1em;
 }
 
 .hgroup .topicTitle {

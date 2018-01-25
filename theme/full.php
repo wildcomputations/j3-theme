@@ -2,6 +2,8 @@
 /**
  * @package j3Custom
  */
+require 'full-functions.php';
+
 if (!function_exists('j3ContentArticle') ) :
 
 
@@ -29,13 +31,20 @@ function j3ContentArticle() {
     echo '</article>';
 }
 
-function j3ArticleCategories() {
-    $catHtml = get_the_category_list();
-    if ( $catHtml ) {
-        echo '<div class="linkBlock">
-                  <h1>Topic</h1>';
-        echo $catHtml;
-        echo '</div> <!--linkBlock-->';
+function j3ArticleLinks() {
+    $catHtml = j3AsideCategories();
+    $trip_date_html = j3AsideCalendar();
+    if ( $catHtml || $trip_date ) {
+        echo '<div class="linkBlock cta">
+                  <h1>Read More</h1>
+                  <ul>';
+        if ($trip_date_html) {
+            echo $trip_date_html;
+        }
+        if ($catHtml) {
+            echo $catHtml;
+        }
+        echo '</ul></div> <!--linkBlock-->';
     }
 }
 
@@ -58,12 +67,12 @@ if ( post_password_required() ) {
     if (get_post_type() == 'post' ) {
 ?>
     <aside>
+        <?php 
+            j3ArticleLinks();
+        ?>
         <div class="linkBlock">
             <?php if(function_exists('echo_crp')) echo_crp(); ?>
         </div><!--linkBlock-->
-        <?php 
-            j3ArticleCategories();
-        ?>
     </aside>
 <?php 
     } 

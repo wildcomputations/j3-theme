@@ -34,11 +34,4 @@ endif;
             j3GalleryExcerpt();
         ?>
     </div> <!-- rightContent -->
-    <aside>
-        <div class="linkBlock">
-        <a href="<?php echo get_post_format_link( get_post_format() ) ?>">All Galleries </a>
-        </div><!-- linkBlock -->
-    </aside>
 </div> <!-- hgroup -->
-
-
