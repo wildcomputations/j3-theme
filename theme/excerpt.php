@@ -2,21 +2,7 @@
 /**
  * @package j3Custom
  */
-if (!function_exists('j3ContentMeta') ) :
-
-function j3ContentMeta() {
-    if ( !is_single() || current_user_can( 'edit_post', get_the_ID() ) ){
-        echo '<div class="linkBlock">
-            <ul>
-            <li>';
-        if ( comments_open() && !is_single() ) {
-            comments_popup_link( 'Leave a comment', '1 comment', '% comments');
-        }
-        edit_post_link('Edit', '<li>');
-        echo '</ul>
-            </div><!--linkBlock-->';
-    }
-}
+if (!function_exists('j3ContentExcerpt') ) :
 
 // Everything that goes in the article
 function j3ContentExcerpt() {

@@ -5,6 +5,8 @@
  * Full view for gallery posts
  */
 
+require 'full-functions.php';
+
 
 if (! function_exists('j3GalleryFull' ) ):
 function j3GalleryFull() 
@@ -19,6 +21,24 @@ function j3GalleryFull()
     echo '</article>';
 }
 
+function j3GalleryLinks() {
+    $catHtml = j3AsideCategories();
+    $trip_date_html = j3AsideCalendar();
+    echo '<div class="linkBlock cta">
+              <h1>Read More</h1>
+              <ul>';
+    if ($trip_date_html) {
+        echo $trip_date_html;
+    }
+    echo '<a href="';
+    echo get_post_format_link( get_post_format() );
+    echo '"><li>Explore all photo albums</li></a>';
+    if ($catHtml) {
+        echo $catHtml;
+    }
+    echo '</ul></div> <!--linkBlock-->';
+}
+
 endif;
 ?>
 
@@ -29,9 +49,7 @@ endif;
         ?>
     </div> <!-- rightContent -->
     <aside>
-        <div class="linkBlock">
-        <a href="<?php echo get_post_format_link( get_post_format() ) ?>">All Galleries </a>
-        </div><!-- linkBlock -->
+<?php j3GalleryLinks(); ?>
     </aside>
 </div> <!-- hgroup -->
 

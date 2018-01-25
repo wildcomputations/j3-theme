@@ -2,6 +2,8 @@
 /**
  * @package j3Custom
  */
+require 'full-functions.php';
+
 if (!function_exists('j3ContentArticle') ) :
 
 
@@ -29,38 +31,14 @@ function j3ContentArticle() {
     echo '</article>';
 }
 
-function j3ArticleCategories() {
-    $categories = get_the_category();
-    $result = "";
-    $intro = "Latest";
-    foreach ( $categories as $category ) {
-        if ($category->term_id == 1) {
-            continue;
-        }
-        $result .= '<a href="'
-            . esc_url( get_category_link( $category->term_id ) )
-            . '"><li>' . $intro . ' ' . $category->name
-            .' trips</li></a>';
-        $intro = "Or the latest";
-    }
-    return $result;
-}
-
 function j3ArticleLinks() {
-    $catHtml = j3ArticleCategories();
-    $trip_date = j3_date_post("F Y");
-    if ( $trip_date ) {
-        $year = j3_date_post("Y");
-        $month = j3_date_post("m");
-        $trip_date_html = '<a href="'.j3_date_get_year_link($year)
-            . '/' . $month . '"/><li>Trips in ' . $trip_date
-            . '</li></a>';
-    }
+    $catHtml = j3AsideCategories();
+    $trip_date_html = j3AsideCalendar();
     if ( $catHtml || $trip_date ) {
         echo '<div class="linkBlock cta">
                   <h1>Read More</h1>
                   <ul>';
-        if ($trip_date) {
+        if ($trip_date_html) {
             echo $trip_date_html;
         }
         if ($catHtml) {
