@@ -348,12 +348,12 @@ function j3RecentPosts($atts) {
         return "Bad tag specified";
     }
 
-    $displayNum = 3;
+    $displayNum = 6;
 
     $taxOnlyStd = array( array(
             'taxonomy' => 'post_format',
             'field' => 'slug',
-            'terms' => array( 'post-format-gallery', 'post-format-image' ),
+            'terms' => array('post-format-image' ),
             'operator' => 'NOT IN',
         ) );
 
