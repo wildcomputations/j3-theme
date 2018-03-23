@@ -34,7 +34,7 @@ function j3ContentArticle() {
 function j3ArticleLinks() {
     $catHtml = j3AsideCategories();
     $trip_date_html = j3AsideCalendar();
-    if ( $catHtml || $trip_date ) {
+    if ( $catHtml || $trip_date_html ) {
         echo '<div class="linkBlock cta">
                   <h1>Read More</h1>
                   <ul>';
@@ -45,6 +45,15 @@ function j3ArticleLinks() {
             echo $catHtml;
         }
         echo '</ul></div> <!--linkBlock-->';
+    }
+}
+
+function j3CtaWidgets()
+{
+    if ( is_active_sidebar('cta_box') ) {
+        echo '<div class="linkBlock">';
+        dynamic_sidebar( 'cta_box' );
+        echo '</div> <!-- linkBlock -->';
     }
 }
 
@@ -73,6 +82,9 @@ if ( post_password_required() ) {
         <div class="linkBlock">
             <?php if(function_exists('echo_crp')) echo_crp(); ?>
         </div><!--linkBlock-->
+<?php
+            j3CtaWidgets()
+?>
     </aside>
 <?php 
     } 

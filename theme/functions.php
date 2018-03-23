@@ -70,7 +70,7 @@ function j3AddExternals() {
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
-        array(), "3.5" );
+        array(), "3.6" );
     wp_enqueue_style('j3BaseStyle');
 
     wp_register_style( 'fontAwesome',
