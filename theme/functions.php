@@ -70,7 +70,7 @@ function j3AddExternals() {
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
-        array(), "3.5" );
+        array(), "3.7" );
     wp_enqueue_style('j3BaseStyle');
 
     wp_register_style( 'fontAwesome',
@@ -141,6 +141,18 @@ function j3SettingGalleryShow() {
     echo '" class="regular-text code" type="text">';
     echo '<p>Number of icons to show in the collapsed gallery view.</p>';
 }
+
+function j3RegisterWidgets() {
+    register_sidebar( array(
+        'name' => 'CTA Box',
+        'id'   => 'cta_box',
+        'before_widget' => '<div>',
+        'after_widget' => '</div>',
+        'before_title'  => '<h2>',
+        'after_title'   => '</h2>',
+    ) );
+}
+add_action( 'widgets_init', 'j3RegisterWidgets' );
 
 // large image size is 640x640 which is what the css limits the image to
 function j3PostThumbnail( $size='large', $forceLink=false) {
