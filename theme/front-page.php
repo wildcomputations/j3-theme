@@ -127,6 +127,15 @@ function j3FrontRandomPhoto()
     }
 }
 
+function j3CtaBox()
+{
+    if ( is_active_sidebar('cta_box') ) {
+        echo '<div class="visualPage widgetPage">';
+        dynamic_sidebar( 'cta_box' );
+        echo '</div>';
+    }
+}
+
 get_header(); ?>
 
 <div class="main twoColumn"><!-- safari appears to not support main-->
@@ -137,6 +146,7 @@ get_header(); ?>
     <?php j3FrontRecentPosts(); ?>
     </div>
     <div class="rightColumn">
+    <?php j3CtaBox(); ?>
     <?php j3RecentGalleries(); ?>
     <?php while ( have_posts() ) : the_post(); ?>
     <article class="visualPage">
