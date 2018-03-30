@@ -322,25 +322,6 @@ function j3ArchiveDoMonth($yearMonth=NULL)
     $j3ArchiveHasMonth = true;
 }
 
-function j3FeedTime($theTime, $format='U', $gmt=false)
-{
-    /* RSS feed reader expect posts to not be backdated. Given them the time 
-     * the post was written rather than it's official date. */
-    if ( is_feed() ) {
-        $post = get_post();
-        if ($gmt) {
-            $time = $post->post_modified_gmt;
-        } else {
-            $time = $post->post_modified;
-        }
-
-        return mysql2date($format, $time, false);
-    } else {
-        return $theTime;
-    }
-}
-add_filter('get_post_time', 'j3FeedTime', 10, 3);
-
 /* Arguments
  * tag - optional tag name 
  *
