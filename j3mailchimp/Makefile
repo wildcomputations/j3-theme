@@ -12,7 +12,7 @@ install: j3mailchimp.zip
 j3HomeDir = /home/jorg
 j3InstallDir = $(j3HomeDir)/public_html/wp-content/plugins/
 install-j3: j3mailchimp.zip
-	scp $< j3.org:$(j3InstallDir)
+	scp $< j3.org:
 	ssh j3.org \
 	    unzip -u -o -d $(j3InstallDir) $(j3HomeDir)/$<
 	ssh j3.org rm $(j3HomeDir)/$<
