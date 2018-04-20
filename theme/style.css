@@ -114,32 +114,28 @@ header h2 {
 }
 
 /********* style ***********/
-body {
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .8) inset,
-                0px 0px 0px 10px rgba(0, 0, 0, .5);
-    border-radius: 5px;
-}
-
 img {
     background-color: white;
 }
 
 header {
+    background-color: white;
     position: relative;
-    margin: 0 0 10px; 
+    margin: 0 0 1.5em; 
+    box-shadow: 0px 4px 5px 4px rgba(0, 0, 0, 0.4);
 }
 
 header h1 {
-    width: 100%;
     padding: .3em 30px 0px 10px;
     margin: 0;
     top: 20px; 
+    display: inline-block;
 }
 header h2 {
     margin: 5px 5px 0.75em 50px;
     padding: 0px;
     color: #777;
-    float: left;
+    display: inline-block;
 }
 
 /* re-enable in screen reader css */
@@ -147,11 +143,7 @@ header h2 {
     display: none;
 }
 .searchForm {
-    float: right;
-    position: relative; /*for input*/
-    padding-bottom: 5px;
-    max-width: 50%;
-    margin: 0px 5px;
+    margin: 0px .5em;
 }
 
 input[type="text"],
@@ -162,7 +154,6 @@ input[type="password"],
 input[type="search"],
 select,
 textarea {
-    color: #666;
     border: none;
     box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2) inset;
     margin-bottom: 2px;
@@ -232,15 +223,11 @@ nav.minorMenu li {
 }
 
 #mainMenu {
-    font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
     line-height: 1.4em;
     box-sizing: content-box;
     position:relative;
-    box-shadow: 0px 4px 5px 4px rgba(0, 0, 0, 0.4);
     clear:both;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 1em;
+    box-shadow: 0px -2px 8px -4px rgba(0, 0, 0, 0.4);
 }
 
 #mainMenu ul {
@@ -252,25 +239,21 @@ nav.minorMenu li {
     height:100%;
     background: rgba(243, 235, 226, 0.7);
     background: -webkit-linear-gradient(
-               rgba(243, 235, 226, 0.7),
                rgba(255, 255, 255, 0.9) 5%,
                rgba(243, 235, 226, 0.7) 25%,
                rgba(243, 235, 226, 0.7) 80%,
                rgba(218, 207, 194, 0.7) );
     background: -o-linear-gradient(
-               rgba(243, 235, 226, 0.7),
                rgba(255, 255, 255, 0.9) 5%,
                rgba(243, 235, 226, 0.7) 25%,
                rgba(243, 235, 226, 0.7) 80%,
                rgba(218, 207, 194, 0.7) );
     background: -moz-linear-gradient(
-               rgba(243, 235, 226, 0.7),
                rgba(255, 255, 255, 0.9) 5%,
                rgba(243, 235, 226, 0.7) 25%,
                rgba(243, 235, 226, 0.7) 80%,
                rgba(218, 207, 194, 0.7) );
     background:linear-gradient(
-               rgba(243, 235, 226, 0.7),
                rgba(255, 255, 255, 0.9) 5%,
                rgba(243, 235, 226, 0.7) 25%,
                rgba(243, 235, 226, 0.7) 80%,
@@ -357,14 +340,11 @@ nav.minorMenu li {
     padding: 0px 1em;
 }
 
-.responsiveMenu + ul {
-    margin-top:2px;
-}
-
 #mainMenu li {
     display: block;
     text-align: left;
-    padding: 0px 0px 0px 1em;
+    margin: 0px 5px;
+    padding: 0px 1em;
     height:initial;
     font-family: 'Raleway', 'Ariel', sans-serif;
     background: rgba(243, 235, 226, 0.7);
@@ -395,6 +375,20 @@ nav.minorMenu li {
     font-family: FontAwesome;
 }
 
+.custom-logo-link {
+    float: left;
+    max-width: 30%;
+    min-width: 200px;
+    margin-top: .5em;
+}
+
+.custom-logo {
+    max-height: 100px;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+}
+
 .main {
     clear: both;
     padding-top: 0px;
@@ -411,15 +405,18 @@ a {
     font-style: italic;
     text-decoration: none;
     border-bottom: 2px solid rgba(128, 128, 128, 0.24);
-    color: gray;
+    color: black;
+    font-weight: bold;
 }
 .photoLink, .wp-caption a, a[href^="http://picasaweb.google.com/lh/photo/"],
 h1 a, h2 a, h3 a, h4 a, h5 a, a h1, a h2, a h3, a h4, a h5,
 .gallery-icon a ,
+.custom-logo-link,
 a.noEmph { /* reset*/
     border-bottom: 1px solid rgba(0, 0, 0, 0);
     color: inherit;
     font-style: normal;
+    font-weight: normal;
 }
 
 a:hover ,
@@ -712,7 +709,6 @@ color: inherit;
 .leftColumn {
     width:60%;
     max-width: 650px;
-    min-width: 350px;
     padding-right: 1em;
     float: left;
     clear: left;
@@ -751,6 +747,7 @@ color: inherit;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+    display: block;
 }
 
 div[class*='stack'] {
@@ -1483,33 +1480,6 @@ article li {
     float: none;
 }
 
-article h1:first-child ~ p:first-of-type::first-letter {
-    float: left;
-    margin: 0 0.107em 0 0;
-    line-height: 1em;
-    font-size: 3rem;
-    /*font-weight: bold;*/
-    font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
-     vertical-align: sub;
-}
-article h1:first-child ~ p:first-of-type::first-line {
-    font-weight: bold;
-    line-height: 1.4;
-}
-
-body.page article h1:first-child ~ p:first-of-type::first-letter {
-    float: inherit;
-    margin: inherit;
-    line-height: inherit;
-    font-size: inherit;
-    font-family: inherit;
-    vertical-align: initial;
-}
-body.page article h1:first-child ~ p:first-of-type::first-line {
-    font-weight: inherit;
-    line-height: inherit
-}
-
 article > h1 ~ p:first-of-type  {
     margin-top : 2.5em;
 }
@@ -1687,6 +1657,13 @@ line-height: 1.1em;
     .displayPhoto {
          width: 80%; 
     }
+
+    header h1 {
+        font-size: 2.0rem;
+    }
+    header h2 {
+        font-size: 1.2rem;
+    }
 }
 
 @media all and (max-width: 600px) {
@@ -1700,7 +1677,7 @@ line-height: 1.1em;
 
 @media all and (max-width: 550px) {
     article {
-        padding: 20px 30px;
+        padding: 20px 15px;
     }
     .stackPhoto img, .stackPhoto:before, .stackPhoto:after {
         margin-top: 10px;

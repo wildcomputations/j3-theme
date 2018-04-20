@@ -32,6 +32,13 @@ function j3Setup() {
 	add_theme_support( 'post-thumbnails' );
         set_post_thumbnail_size(160, 160, true ); // 160x160 pixels, crop mode
 
+        // Enable site logo
+        add_theme_support( 'custom-logo',
+            array('height' => 200,
+                  'flex-width' => true,
+                  'header-text' => array( 'site-title', 'site-description' ))
+              );
+
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
 		'primary' => 'Primary Menu',
@@ -757,3 +764,12 @@ function add_size_to_images($content) {
 }
 // add at priority 10 before shortcodes have been expanded
 add_filter( 'the_content', 'add_size_to_images', 10);
+
+
+function search_in_menu($items, $args) {
+    if ($args->theme_location == 'primary') {
+        $items .= '<li class="menu-item">' . get_search_form( false ) . '</li>';
+    }
+    return $items;
+}
+add_filter( 'wp_nav_menu_items', 'search_in_menu', 10, 2 );
