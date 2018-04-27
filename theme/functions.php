@@ -77,7 +77,7 @@ function j3AddExternals() {
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
-        array(), "4.0" );
+        array(), "4.1" );
     wp_enqueue_style('j3BaseStyle');
 
     wp_register_style( 'fontAwesome',
@@ -122,11 +122,19 @@ function j3AdminSetup() {
         'general',
         'j3Settings'
     );
+    add_settings_field(
+        'j3SetCommentsPolicy',
+        'Comment Policy Page',
+        'j3SettingCommentsPolicy',
+        'general',
+        'j3Settings'
+    );
 
     // Register our setting so that $_POST handling is done for us and
     // our callback function just has to echo the <input>
     register_setting( 'general', 'j3SetPhotoPage' );
     register_setting( 'general', 'j3GalleryShowOnly' , "intval");
+    register_setting( 'general', 'j3SetCommentsPolicy');
 }
 add_action( 'admin_init', 'j3AdminSetup');
 
@@ -147,6 +155,13 @@ function j3SettingGalleryShow() {
     echo get_option( 'j3GalleryShowOnly', -1);
     echo '" class="regular-text code" type="text">';
     echo '<p>Number of icons to show in the collapsed gallery view.</p>';
+}
+
+function j3SettingCommentsPolicy() {
+    echo '<input name="j3SetCommentsPolicy" id="j3SetCommentsPolicy" value="';
+    echo get_option( 'j3SetCommentsPolicy', "");
+    echo '" class="regular-text code" type="text">';
+    echo '<p>The slug for the page with the commenting policy</p>';
 }
 
 function j3RegisterWidgets() {

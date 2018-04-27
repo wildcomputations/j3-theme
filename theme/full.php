@@ -28,6 +28,9 @@ function j3ContentArticle() {
     if (get_post_type() == 'post' ) {
         echo '<p class="date alignright">Posted ' . get_the_date('M j, Y') . '</p>';
     }
+    if (get_post_type() == 'post' ) {
+        comments_template();
+    }
     echo '</article>';
 }
 
@@ -94,7 +97,4 @@ if ( post_password_required() ) {
     </aside>
 </div> <!-- hgroup -->
 <?php 
-if (get_post_type() == 'post' ) {
-    comments_template();
-}
 ?>
