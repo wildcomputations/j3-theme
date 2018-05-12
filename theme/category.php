@@ -67,8 +67,15 @@ if ( have_posts() ) {
 } else { 
     get_template_part( 'content', 'none' ); 
 } 
-j3PageNav("", "", $standalone = true);
 ?>
+    </div> <!-- leftColumn -->
+    <div class="rightColumn">
+    <?php j3CtaBox(); ?>
+    <?php j3RecentGalleries($cat); ?>
+    </div>
+    <div class="leftColumn">
+<?php j3PageNav("", "", $standalone = true); ?>
+    </div>
 </div><!--main-->
 
 <?php get_footer();

@@ -71,7 +71,7 @@ function j3CtaBox()
     }
 }
 
-function j3RecentGalleries()
+function j3RecentGalleries( $category=NULL )
 {
     $args = array(
         'post_type' => 'post',
@@ -86,6 +86,9 @@ function j3RecentGalleries()
         ),
         'posts_per_page' => 7
     );
+    if (! is_null($category)) {
+        $args["cat"] = $category;
+    }
     $query = new WP_Query( $args );
     if ($query->have_posts()) {
         echo '<h1 class="topicTitle">Photo Albums</h1>';
