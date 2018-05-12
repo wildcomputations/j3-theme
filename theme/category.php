@@ -13,13 +13,52 @@ if (j3IsGalleryFormat()) {
     get_template_part('taxonomy-post_format', 'post-format-gallery');
 } else {
 
-require 'fancy-photo.php';
+function j3TopicTitle() {
+    echo '<h1 class="topicTitle">';
+    single_cat_title(); 
+    echo '</h1>';
+}
 
-get_header(); ?>
+function j3HouseTempImg () {
+    echo '
+            <div class="dualShadow displayPhoto">
+                <a href="/house/" class="photoLink">
+                    <img src="/house/oneWeekTemps-basic.png" alt="latest temperatures"/>
+                </a>
+                <p>
+                <a href="/house/">
+                    Live temperature plots
+                </a>
+                </p>
+            </div> ';
+}
 
-<div class="main"><!-- safari appears to not support main-->
+
+require 'side-bars.php';
+
+
+get_header();
+
+$cat = get_query_var('cat');
+$fullCat = get_category ($cat);
+$is_house = $fullCat->slug == "house";
+
+?>
+<div class="main twoColumn">
+    <div class="leftColumn">
+<?php j3TopicTitle(); ?>
+    </div>
+    <div class="rightColumn">
 <?php 
-j3FancyHeader(); 
+if ($is_house) {
+    j3HouseTempImg();
+} else {
+    j3RandomPhoto($cat); }
+?>
+    </div>
+    <div class="leftColumn">
+<?php if (is_paged()) j3PageNav("", "", $standalone = true); 
+
 if ( have_posts() ) { 
     while ( have_posts() ) { 
         the_post(); 
@@ -28,7 +67,8 @@ if ( have_posts() ) {
 } else { 
     get_template_part( 'content', 'none' ); 
 } 
-j3PageNav("", "", $standalone = true); ?>
+j3PageNav("", "", $standalone = true);
+?>
 </div><!--main-->
 
 <?php get_footer();

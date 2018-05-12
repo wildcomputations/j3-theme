@@ -25,13 +25,5 @@ function j3GalleryExcerpt()
 }
 
 endif;
-?>
 
-
-<div class="hgroup hasPage">
-    <div class="rightContent">
-        <?php
-            j3GalleryExcerpt();
-        ?>
-    </div> <!-- rightContent -->
-</div> <!-- hgroup -->
+j3GalleryExcerpt();

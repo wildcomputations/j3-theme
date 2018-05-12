@@ -73,7 +73,14 @@ get_header(); ?>
 if ( have_posts() ) { 
     while ( have_posts() ) { 
         the_post(); 
-        get_template_part( 'excerpt', get_post_format() ); 
+?>
+<div class="hgroup hasPage">
+    <div class="rightContent">
+<?php get_template_part( 'excerpt', get_post_format() ); ?>
+    </div> <!-- rightContent -->
+</div> <!-- hgroup -->
+
+<?php
     }
 } else { 
     get_template_part( 'content', 'none' ); 

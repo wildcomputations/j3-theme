@@ -30,24 +30,8 @@ function j3ContentExcerpt() {
 endif; // function declarations
 
 if ( post_password_required() ) {
-    echo '<div class="hgroup hasPage">
-            <div class="rightContent">
-                <p>This post requires authentication</p>
-            </div>
-        </div>';
-	return;
+    echo '<p>This post requires authentication</p>';
 }
 
-if (is_front_page()) {
-    j3ContentExcerpt();
-
-} else { ?>
-
-<div class="hgroup hasPage">
-    <div class="rightContent">
-        <?php j3ContentExcerpt(); ?>
-    </div> <!-- rightContent -->
-</div> <!-- hgroup -->
-
-<?php
-} ?>
+j3ContentExcerpt();
+?>

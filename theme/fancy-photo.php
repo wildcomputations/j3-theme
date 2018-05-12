@@ -1,20 +1,4 @@
 <?php
-function j3HouseTempImg () {
-    echo '
-                <div class="rightContent">
-                    <div class="visualPage displayPhoto">
-                        <a href="/house/" class="photoLink">
-                            <img src="/house/oneWeekTemps-basic.png" alt="latest temperatures"/>
-                        </a>
-                        <p>
-                        <a href="/house/">
-                            Live temperature plots
-                        </a>
-                        </p>
-                    </div> 
-                </div> <!-- rightContent -->';
-}
-
 /* Fancy photo code */
 function j3FancyPhoto () {
     $args = array(

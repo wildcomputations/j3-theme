@@ -103,7 +103,7 @@ table {
 }
 
 /* left column items. 200px seems to be off by a few. */
-aside .linkBlock, .hgroup .topicTitle {
+aside .linkBlock {
     width: 220px;
 }
 header h2 {
