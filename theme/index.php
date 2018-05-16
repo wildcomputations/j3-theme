@@ -18,6 +18,9 @@ get_header(); ?>
 
 <div class="main"><!-- safari appears to not support main-->
 <?php 
+if ( is_paged() ) {
+    j3PageNav("", "", $standalone = true);
+}
 if ( have_posts() ) { 
     while ( have_posts() ) { 
         the_post(); 

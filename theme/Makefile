@@ -27,7 +27,6 @@ phpFiles = $(standardTemplates) \
 	   card-gallery.php \
 	   content-none.php \
 	   comments.php \
-	   fancy-photo.php \
 	   side-bars.php
 styleSheets = style.css 
 files = $(jsFiles) $(phpFiles) $(styleSheets) screenshot.png

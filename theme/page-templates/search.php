@@ -70,6 +70,9 @@ get_header(); ?>
     </div>
     <div id="searchRight" class="searchRight">
 <?php 
+if ( is_paged() ) {
+    j3PageNav("", "", $standalone = true);
+}
 if ( have_posts() ) { 
     while ( have_posts() ) { 
         the_post(); 

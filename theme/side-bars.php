@@ -5,9 +5,11 @@
 
 function j3RandomPhoto( $category=NULL )
 {
-    $rand_post_args = array('post',
+    $rand_post_args = array(
+        'post_type' => 'post',
         'orderby' => 'rand',
         'tax_query' => array(
+            'relation' => 'AND',
             array(
                 'taxonomy' => 'post_format',
                 'field' => 'slug',
@@ -21,6 +23,7 @@ function j3RandomPhoto( $category=NULL )
         $rand_post_args["cat"] = $category;
     }
     if (function_exists('j3_date_month_query')) {
+        // Warning some categories may not have anything in summer months
         $this_month = date('m');
         $rand_post_args['meta_query'] = array(
             j3_date_month_query($this_month),
@@ -29,6 +32,13 @@ function j3RandomPhoto( $category=NULL )
 
     $query_parent = new WP_Query( $rand_post_args );
     $parent_id = False;
+    if (! $query_parent->have_posts()
+        && array_key_exists('meta_query', $rand_post_args)) {
+        // try again without month restriction
+        wp_reset_postdata();
+        unset($rand_post_args['meta_query']);
+        $query_parent = new WP_Query( $rand_post_args );
+    }
     if ($query_parent->have_posts()) {
         $query_parent->the_post();
         $parent_id = get_post()->ID;

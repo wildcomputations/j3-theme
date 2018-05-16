@@ -53,7 +53,7 @@ $is_house = $fullCat->slug == "house";
 if ($is_house) {
     j3HouseTempImg();
 } else {
-    j3RandomPhoto($cat); }
+    j3RandomPhoto($fullCat->term_id); }
 ?>
     </div>
     <div class="leftColumn">
@@ -71,7 +71,7 @@ if ( have_posts() ) {
     </div> <!-- leftColumn -->
     <div class="rightColumn">
     <?php j3CtaBox(); ?>
-    <?php j3RecentGalleries($cat); ?>
+    <?php j3RecentGalleries($fullCat->term_id); ?>
     </div>
     <div class="leftColumn">
 <?php j3PageNav("", "", $standalone = true); ?>

@@ -77,7 +77,7 @@ function j3AddExternals() {
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
-        array(), "4.1" );
+        array(), "4.2" );
     wp_enqueue_style('j3BaseStyle');
 
     wp_register_style( 'fontAwesome',
@@ -205,20 +205,20 @@ function j3PageNav($defaultPrev="", $defaultNext="", $standalone=false) {
 
     if ( get_next_posts_link() ) {
         echo '<div class="navPrevious">';
-        next_posts_link("Previous");
+        next_posts_link("Older");
         echo '</div>';
     } else if ($defaultPrev != "") { 
         echo '<div class="navPrevious"><a href="' . $defaultPrev 
-            .'">Previous</a></div>';
+            .'">Older</a></div>';
     }
 
     if ( get_previous_posts_link() ) {
         echo '<div class="navNext">';
-        previous_posts_link("Next" );
+        previous_posts_link("Newer" );
         echo '</div>';
     } else if ($defaultNext != "") { 
         echo '<div class="navNext"><a href="' . $defaultNext 
-            .'">Next</a></div>';
+            .'">Newer</a></div>';
     } 
 
     echo '</div>';

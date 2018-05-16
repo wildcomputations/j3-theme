@@ -5,7 +5,6 @@
  * @package j3Custom
  */
 
-require 'fancy-photo.php';
 require 'side-bars.php';
 
 function j3FrontRecentPosts()
