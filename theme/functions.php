@@ -788,3 +788,40 @@ function search_in_menu($items, $args) {
     return $items;
 }
 add_filter( 'wp_nav_menu_items', 'search_in_menu', 10, 2 );
+
+$show_cookie_bar = false;
+function j3_vimeo_shortcode( $atts, $content = NULL)
+{
+    if (empty($content) ) return "";
+
+    $num_matches = preg_match('/vimeo.com\/video\/([^\'"]*)/',
+        $content, $matches);
+    $alt_string = "";
+    if ($num_matches > 0) {
+        $url = 'https://vimeo.com/' . $matches[1];
+        $alt_string = 'Click for video <a href="' . $url . '">'
+            . $url . '</a>';
+    }
+    if (is_feed()) return $alt_string;
+
+    global $show_cookie_bar;
+    $show_cookie_bar = true;
+
+    $return = '<div class="ratio16_9">'
+        . do_shortcode('[cookie]' . $content . '[/cookie]')
+        . '</div><br>' . $alt_string;
+    return $return;
+}
+add_shortcode('vimeo', 'j3_vimeo_shortcode');
+
+function hide_cookies($content)
+{
+    global $show_cookie_bar;
+    if ($show_cookie_bar) return $content;
+    else return "";
+}
+add_filter('eu_cookie_law_frontend_banner', 'hide_cookies');
+add_filter('eu_cookie_law_frontend_popup', 'hide_cookies');
+
+# don't cache cookies for comments
+remove_action( 'set_comment_cookies', 'wp_set_comment_cookies' );
