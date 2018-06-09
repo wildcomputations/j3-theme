@@ -34,6 +34,7 @@ images = arrows.png feedicons-standard/feed-icon-14x14.png lightpaperfibers.png 
 fontAwesomeVersion = 4.6.3
 fontAwesome = $(themeName)/font-awesome-$(fontAwesomeVersion)/css/font-awesome.min.css
 photoSwipe = $(themeName)/photoswipe/photoswipe.css
+titleFont = $(themeName)/fonts/1432712
 
 installedFiles = $(patsubst %,$(themeName)/%,$(files)) 
 installedPageTemplates = $(patsubst page-templates/%,$(themeName)/%,$(pageTemplates))
@@ -60,6 +61,14 @@ $(fontAwesome): font-awesome-$(fontAwesomeVersion).zip
 	mkdir -p $(themeName)
 	unzip -u -o -d $(themeName) $< 
 
+$(titleFont): FS-WebFonts-1949548252.zip
+	mkdir -p $(themeName)
+	mkdir -p $(themeName)/tmp-title-font
+	unzip -u -o -d $(themeName)/tmp-title-font $< 
+	mkdir -p $(themeName)/fonts
+	cp -a $(themeName)/tmp-title-font/Fonts/1432712 $(themeName)/fonts/
+	rm -rf $(themeName)/tmp-title-font
+
 master.zip:
 	wget https://github.com/dimsemenov/PhotoSwipe/archive/master.zip
 
@@ -68,7 +77,7 @@ $(photoSwipe): master.zip
 	unzip -u -o -d /tmp/ $< PhotoSwipe-master/dist/*
 	cp -a /tmp/PhotoSwipe-master/dist $(themeName)/photoswipe/
 
-$(themeName).zip: $(installedFiles) $(installedPageTemplates) $(installedImages) $(fontAwesome) $(photoSwipe)
+$(themeName).zip: $(installedFiles) $(installedPageTemplates) $(installedImages) $(fontAwesome) $(photoSwipe) $(titleFont)
 	zip -r $@ $(themeName)
 
 .phony: clean install

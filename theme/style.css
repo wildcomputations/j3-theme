@@ -13,8 +13,6 @@ Text Domain: j3Custom
 Emilie and Tyson's custom theme.
 */
 
-/*@import url(https://fonts.googleapis.com/css?family=Raleway|Nothing+You+Could+Do);
-*/
 @-o-viewport {
     width: device-width;
 }
@@ -79,6 +77,13 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
         margin: 1em 0;
+}
+
+/********* Font definitions *******/
+@font-face{
+    font-family:"Pinselschrift";
+    src:url("fonts/1432712/559ebd36-311c-44fa-af23-ec9cb14cc4f6.eot?#iefix");
+    src:url("fonts/1432712/559ebd36-311c-44fa-af23-ec9cb14cc4f6.eot?#iefix") format("eot"),url("fonts/1432712/29c96c90-9f22-44bc-b53c-2a13038965a1.woff2") format("woff2"),url("fonts/1432712/6d280edc-dac0-4606-a59d-b374a66acd3c.woff") format("woff"),url("fonts/1432712/0cb4e920-6ed1-4cf3-82b2-eaed605699ab.ttf") format("truetype");
 }
 
 /********* widths *******/
@@ -956,7 +961,7 @@ margin: 0 0 10px 0;
 display : block; 
 padding : 0; 
 margin : 0; 
-    font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
+    font-family: 'Pinselschrift', 'Times', serif;
     color: #888;
 }
 
@@ -1166,7 +1171,6 @@ padding-bottom : 40px;
 }
 
 .comment-author {
-    font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
     float: left;
 }
 
@@ -1393,7 +1397,7 @@ small {
 }
 
 b {
-    font-weight: bold;
+    font-weight: normal;
 }
 
 h1, h2, h3, h4, h5,
@@ -1431,11 +1435,13 @@ h4:first-child, h5:first-child {
 
 header h1 {
     font-size:3rem;
-    font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
+    font-family: 'Pinselschrift', 'Times', serif;
+    font-weight: normal;
 }
 header h2 {
    font-family: 'Helvetica', sans-serif;
    font-size:1.4rem;
+   font-weight:100;
 }
 
 article > p {
@@ -1477,9 +1483,8 @@ article h1.articleTitle {
 article .date {
     text-align : center; 
     color: #888;
-    font-size: .8em;
     line-height: 1.3em;
-    font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
+    font-family: 'Pinselschrift', 'Times', serif;
 }
 article .wp-caption-text, .single-format-image .photoData {
     text-align : center; 
@@ -1535,9 +1540,9 @@ article p {
 
 .calendarTitle,
 .topicTitle {
-   font-family: 'Helvetica', sans-serif;
     color: gray; 
     font-size: 2rem;
+    font-weight: normal;
 }
 
 .linkBlock li {
@@ -1605,8 +1610,7 @@ line-height: 1.1em;
     color: #888;
     text-align : center ;
     margin-bottom : 0.5em;
-    font-size: 0.8em;
-    font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
+    font-family: 'Pinselschrift', 'Times', serif;
 }
 .summary .date {
     text-align : center; 
@@ -1696,8 +1700,11 @@ line-height: 1.1em;
          width: 80%; 
     }
 
+    header {
+        text-align: center;
+    }
     header h1 {
-        font-size: 2.0rem;
+        font-size: 2.5rem;
     }
     header h2 {
         font-size: 1.2rem;
