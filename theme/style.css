@@ -13,8 +13,8 @@ Text Domain: j3Custom
 Emilie and Tyson's custom theme.
 */
 
-@import url(https://fonts.googleapis.com/css?family=Raleway|Nothing+You+Could+Do);
-
+/*@import url(https://fonts.googleapis.com/css?family=Raleway|Nothing+You+Could+Do);
+*/
 @-o-viewport {
     width: device-width;
 }
@@ -294,6 +294,7 @@ nav.minorMenu li {
     display:block;
     padding: 3px 0.2em 0px;
     line-height : 1.8;
+    font-weight: normal;
 }
 
 #mainMenu .current-menu-item,
@@ -308,7 +309,7 @@ nav.minorMenu li {
     text-shadow: 1px 1px 0px #fff,
                  3px 3px 3px rgba(0, 0, 0, 0.5);
     color:black;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 /* sub menus for full screen */
@@ -316,7 +317,7 @@ nav.minorMenu li {
 #mainMenu ul ul {
     font-size: 0.95em;
     line-height: 2em;
-    font-family: 'Raleway', 'Ariel', sans-serif;
+    font-family: 'Helvetica', sans-serif;
     position:absolute;
     left:0px;
     bottom:0px;
@@ -369,7 +370,7 @@ nav.minorMenu li {
     margin: 0px 5px;
     padding: 0px 1em;
     height:initial;
-    font-family: 'Raleway', 'Ariel', sans-serif;
+    font-family: 'Helvetica', sans-serif;
     background: rgba(243, 235, 226, 0.7);
 }
 
@@ -429,7 +430,9 @@ a {
     text-decoration: none;
     border-bottom: 2px solid rgba(128, 128, 128, 0.24);
     color: black;
-    font-weight: bold;
+}
+p a {
+    font-weight: normal;
 }
 .photoLink, .wp-caption a, a[href^="http://picasaweb.google.com/lh/photo/"],
 h1 a, h2 a, h3 a, h4 a, h5 a, a h1, a h2, a h3, a h4, a h5,
@@ -439,7 +442,6 @@ a.noEmph { /* reset*/
     border-bottom: 1px solid rgba(0, 0, 0, 0);
     color: inherit;
     font-style: normal;
-    font-weight: normal;
 }
 
 a:hover ,
@@ -663,7 +665,7 @@ article .wp-post-image {
 .gallery .collapseLess,
 .calendarNav .paramsToggle {
     font-style: italic;
-    font-weight: bold;
+    font-weight: normal;
     border-bottom: 1px solid #808080;
 }
 
@@ -1010,7 +1012,7 @@ padding-bottom : 40px;
 }
 
 .calendarHeading {
-    font-weight: bold;
+    font-weight: normal;
     padding-bottom: 0.5em;
     text-align: center;
 }
@@ -1381,8 +1383,8 @@ article:after,
 
 /********** Typography ****************/
 body {
-    font-family: 'Raleway', 'Ariel', sans-serif;
-    font-weight: normal;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: 100;
     font-size: 11pt;
 }
 
@@ -1397,20 +1399,29 @@ b {
 h1, h2, h3, h4, h5,
 .searchBar legend {
     font-size: 1.5rem;
-    font-family: "Raleway","Ariel",sans-serif;
-    font-weight: normal;
+    font-family: 'Helvetica', sans-serif;
     clear: both;
     margin-top: 1em;
     margin-bottom: 0.1em;
 }
-h3, h4, h5 {
-    font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
-}
 
+h1, h2 {
+    font-weight: bold;
+}
 h2, h3, h4, h5 {
-    font-size: 1.3rem;
     margin-top: 1em;
     margin-bottom: 0.1em;
+}
+h2 {
+    font-size: 1.5rem;
+}
+h3 {
+    font-size: 1.3rem;
+    font-weight: normal;
+}
+h4 {
+   font-size: 1rem;
+   font-weight: bold;
 }
 
 h1:first-child, h2:first-child, h3:first-child,
@@ -1423,13 +1434,13 @@ header h1 {
     font-family: 'Nothing You Could Do', 'Comic Sans', cursive;
 }
 header h2 {
-   font-family: 'Raleway', 'Ariel', sans-serif;
+   font-family: 'Helvetica', sans-serif;
    font-size:1.4rem;
 }
 
 article > p {
-     margin-top: 1.5em;
-     line-height:1.4;
+    margin-top: 1rem;
+    line-height:1.4;
 }
 article > h1 + p,
 article > h2 + p,
@@ -1453,15 +1464,14 @@ article p:first-child {
 article > h1 {
     font-size: 1.7rem;
     text-transform: uppercase;
-}
-article h1.articleTitle:first-child {
-     font-size: 2rem;
+    font-weight: bold;
 }
 article h1.articleTitle {
     text-align: center;
     font-size: 1.5rem;
     text-transform: initial;
     margin-bottom: .25em;
+    font-weight: normal;
 }
 
 article .date {
@@ -1525,7 +1535,7 @@ article p {
 
 .calendarTitle,
 .topicTitle {
-   font-family: 'Raleway', 'Ariel', sans-serif;
+   font-family: 'Helvetica', sans-serif;
     color: gray; 
     font-size: 2rem;
 }
@@ -1545,7 +1555,7 @@ line-height: 1.1em;
 }
 
 .albumExcerpt h2 {
-    font-family: "Raleway", "Ariel", sans-serif;
+    font-family: 'Helvetica', sans-serif;
 }
 
 .albumExcerpt .date {
@@ -1584,6 +1594,7 @@ line-height: 1.1em;
     line-height : 1.0;
     padding : 1px; 
     margin-top: 0.2em; 
+    font-weight: 100;
  }
 .calendar h1 {
     font-size:1rem;
