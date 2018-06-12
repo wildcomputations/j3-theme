@@ -437,7 +437,7 @@ a {
     color: black;
 }
 p a {
-    font-weight: normal;
+    font-weight: bold;
 }
 .photoLink, .wp-caption a, a[href^="http://picasaweb.google.com/lh/photo/"],
 h1 a, h2 a, h3 a, h4 a, h5 a, a h1, a h2, a h3, a h4, a h5,
@@ -670,7 +670,7 @@ article .wp-post-image {
 .gallery .collapseLess,
 .calendarNav .paramsToggle {
     font-style: italic;
-    font-weight: normal;
+    font-weight: bold;
     border-bottom: 1px solid #808080;
 }
 
@@ -1017,7 +1017,7 @@ padding-bottom : 40px;
 }
 
 .calendarHeading {
-    font-weight: normal;
+    font-weight: bold;
     padding-bottom: 0.5em;
     text-align: center;
 }
@@ -1388,7 +1388,7 @@ article:after,
 /********** Typography ****************/
 body {
     font-family: 'Helvetica', sans-serif;
-    font-weight: 100;
+    font-weight: normal;
     font-size: 11pt;
 }
 
@@ -1397,7 +1397,7 @@ small {
 }
 
 b {
-    font-weight: normal;
+    font-weight: bold;
 }
 
 h1, h2, h3, h4, h5,
@@ -1477,7 +1477,7 @@ article h1.articleTitle {
     font-size: 1.5rem;
     text-transform: initial;
     margin-bottom: .25em;
-    font-weight: normal;
+    font-weight: bold;
 }
 
 article .date {
@@ -1565,20 +1565,6 @@ line-height: 1.1em;
 
 .albumExcerpt .date {
     text-align: left;
-}
-
-/* undo special formating from normal articles */
-.albumFull h1:first-child ~ p:first-of-type:first-letter {
-    float: none;
-    margin: inherit;
-    line-height: inherit;
-    font-size: inherit;
-    font-family: inherit;
-    vertical-align: inherit;
-}
-
-.albumFull h1:first-child ~ p:first-of-type:first-line {
-    font-weight: normal;
 }
 
 .history > h1 {
