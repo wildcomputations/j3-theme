@@ -789,18 +789,43 @@ function search_in_menu($items, $args) {
 }
 add_filter( 'wp_nav_menu_items', 'search_in_menu', 10, 2 );
 
+function vimeo_direct_link($content)
+{
+    $num_matches = preg_match('/vimeo.com\/video\/([^\'"]*)/',
+        $content, $matches);
+    if ($num_matches > 0) {
+        $url = 'https://vimeo.com/' . $matches[1];
+        return $url;
+    }
+    return NULL;
+}
+
+function youtube_direct_link($content)
+{
+    $num_matches = preg_match('/www.youtube.com\/embed\/([^\'"]*)/',
+        $content, $matches);
+    if ($num_matches > 0) {
+        return 'https://www.youtube.com/watch?v='.$matches[1];
+    }
+    return NULL;
+}
+
 $show_cookie_bar = false;
-function j3_vimeo_shortcode( $atts, $content = NULL)
+function j3_video_shortcode( $atts, $content = NULL)
 {
     if (empty($content) ) return "";
 
-    $num_matches = preg_match('/vimeo.com\/video\/([^\'"]*)/',
-        $content, $matches);
-    $alt_string = "";
-    if ($num_matches > 0) {
-        $url = 'https://vimeo.com/' . $matches[1];
-        $alt_string = 'Click for video <a href="' . $url . '">'
-            . $url . '</a>';
+    $direct_url = vimeo_direct_link($content);
+    if (empty($direct_url)) {
+        $direct_url = youtube_direct_link($content);
+    }
+    if (!empty($direct_url)) {
+        $alt_string = 'Click for video <a href="' . $direct_url . '">'
+            . $direct_url . '</a>';
+    } else if (is_feed()) {
+        $alt_string = 'Embedded video on website';
+    } else {
+        $alt_string = "";
     }
     if (is_feed()) return $alt_string;
 
@@ -812,7 +837,8 @@ function j3_vimeo_shortcode( $atts, $content = NULL)
         . '</div><br>' . $alt_string;
     return $return;
 }
-add_shortcode('vimeo', 'j3_vimeo_shortcode');
+add_shortcode('vimeo', 'j3_video_shortcode');
+add_shortcode('video', 'j3_video_shortcode');
 
 function hide_cookies($content)
 {
