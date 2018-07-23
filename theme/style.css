@@ -691,6 +691,9 @@ article .wp-post-image {
 }
 
 
+.pswp__caption {
+    background: none:
+}
 .pswp__bg.pswp__custom_bg {
     background-color: #f2dcc5;
     background: #f2dcc5 url("images/seamlesstexture15_500.jpg");
