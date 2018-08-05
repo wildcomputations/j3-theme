@@ -4,7 +4,7 @@
  *
  * @package j3Custom
  */
-if (!is_front_page()) {?>
+if (!is_front_page() and is_singular()) {?>
 
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -78,7 +78,8 @@ if (!is_front_page()) {?>
         <div id="pushFooter"></div>
         <footer>
             <p>
-            Copyright Tyson Sawyer and Emilie Phillips. 
+            © Tyson Sawyer and Emilie Phillips. 
+            <?php the_privacy_policy_link(); ?>
             <span class="alignright">
                 <!-- for main page, just "RSS feed" -->
                 <?php
