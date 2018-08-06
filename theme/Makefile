@@ -72,7 +72,8 @@ $(titleFont): FS-WebFonts-1949548252.zip
 master.zip:
 	wget https://github.com/dimsemenov/PhotoSwipe/archive/master.zip
 
-$(photoSwipe): master.zip
+# Get from https://github.com/dimsemenov/photoswipe
+$(photoSwipe): PhotoSwipe-master.zip
 	mkdir -p $(themeName)
 	unzip -u -o -d /tmp/ $< PhotoSwipe-master/dist/*
 	cp -a /tmp/PhotoSwipe-master/dist $(themeName)/photoswipe/

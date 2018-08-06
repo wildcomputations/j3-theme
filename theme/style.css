@@ -691,7 +691,8 @@ article .wp-post-image {
 }
 
 
-.pswp__caption {
+.pswp .pswp__ui--fit .pswp__top-bar,
+.pswp .pswp__ui--fit .pswp__caption {
     background: none:
 }
 .pswp__bg.pswp__custom_bg {
