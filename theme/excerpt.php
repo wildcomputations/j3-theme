@@ -14,16 +14,16 @@ function j3ContentExcerpt() {
     echo '</a></h1>';
     if (get_post_type() == 'post' ) {
         echo '<div class="date">';
-        $trip_date = j3_date_post('M j, Y');
+        $trip_date = j3_date_post('F j, Y');
         if (!empty($trip_date)) {
-            echo $trip_date . '<br>';
+            echo '<b>' . $trip_date . '</b><br>';
         }
-        echo 'Author ' . get_the_author();
+        echo '<b>' . get_the_author() . '</b><br>updated ';
+        the_modified_date();
         echo '</div>';
     }
     the_excerpt();
     echo '<p><a class="moretag" href="'. get_permalink() . '"> Read Full Post</a></p>';
-    echo '<p class="date alignright">Posted ' . get_the_date('M j, Y') . '</p>';
     echo '</article>';
 }
 

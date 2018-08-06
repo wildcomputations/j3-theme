@@ -17,17 +17,15 @@ function j3ContentArticle() {
     echo '</a></h1>';
     if (get_post_type() == 'post' ) {
         echo '<div class="date">';
-        $trip_date = j3_date_post('M j, Y');
+        $trip_date = j3_date_post('F j, Y');
         if (!empty($trip_date)) {
-            echo $trip_date . '<br>';
+            echo '<b>' . $trip_date . '</b><br>';
         }
-        echo 'Author ' . get_the_author();
+        echo '<b>' . get_the_author() . '</b> updated ';
+        the_modified_date();
         echo '</div>';
     }
     the_content();
-    if (get_post_type() == 'post' ) {
-        echo '<p class="date alignright">Posted ' . get_the_date('M j, Y') . '</p>';
-    }
     if (get_post_type() == 'post' ) {
         comments_template();
     }
