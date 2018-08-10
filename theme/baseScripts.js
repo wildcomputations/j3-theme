@@ -122,8 +122,16 @@ jQuery(function () {
 
     jQuery(document).ready(function(){
         mainMenuResize();
-        galleryInit();
+        var gallery_data = galleryInit();
         singlePhotosInit();
+        // Parse URL and open gallery if it contains #&pid=3&gid=1
+        var hashData = photoswipeParseHash();
+        if(hashData.pid && hashData.gid && hashData.gid in gallery_data) {
+            var selected_gallery = gallery_data[hashData.gid];
+            makeOpenLightbox(selected_gallery,
+                hashData.gid,
+                hashData.pid)();
+        }
     });
 
 
@@ -185,18 +193,20 @@ function toggleClassBySelector(selector, className) {
 /* Gallery interface to photoswipe */
 // items - list of image objects with src, w (width), h (height)
 // index - index of the photo to open first
-function makeOpenLightbox(items, index) {
+function makeOpenLightbox(items, gallery_id, index) {
     return function() {
         var pswpElement = document.querySelectorAll('.pswp')[0];
 
         // define options (if needed)
         var options = {
+            galleryUID: gallery_id,
             index: index,
             loop: false,
         };
 
         // Initializes and opens PhotoSwipe
-        var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+        var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default,
+            items, options);
         gallery.init();
 
         // Don't follow the href from the current event
@@ -248,6 +258,7 @@ function galleryItemInfo(galleryItem) {
  * thumbnail to load the photo swipe lightbox */
 function galleryInit() {
     var galleries = jQuery('.gallery');
+    var all_gallery_items = {};
     for (var i = 0; i < galleries.length; ++i) {
         var gallery = jQuery(galleries[i]);
 
@@ -259,17 +270,21 @@ function galleryInit() {
 
             items.push(galleryItemInfo(thumb));
         }
+        all_gallery_items[gallery.attr('id')] = items;
 
         /* modify all the links to open the gallery lightbox */
         var links = gallery.find('a');
         for (var j = 0; j < links.length; ++j) {
             jQuery(links[j]).click(
-                makeOpenLightbox(items, j)
+                makeOpenLightbox(items, gallery.attr('id'), j)
             );
         }
     }
+    return all_gallery_items;
 }
 
+/* Parse the page to find single image links and make them open a lightbox
+*/
 function singlePhotosInit() {
     var images = jQuery('[class*="wp-image-"]');
     for (var i = 0; i < images.length; ++i) {
@@ -284,7 +299,32 @@ function singlePhotosInit() {
         var items = [lightBoxInfo(image, links, captionContainers)];
 
         jQuery(links[0]).click(
-                makeOpenLightbox(items, 0)
+                makeOpenLightbox(items, "images", 0)
                 );
     }
 }
+
+// parse picture index and gallery index from URL (#&pid=1&gid=2)
+// returns the values. Does not open lightbox.
+var photoswipeParseHash = function() {
+    var hash = window.location.hash.substring(1),
+    params = {};
+
+    if(hash.length < 5) {
+	return params;
+    }
+
+    var vars = hash.split('&');
+    for (var i = 0; i < vars.length; i++) {
+	if(!vars[i]) {
+	    continue;
+	}
+	var pair = vars[i].split('=');  
+	if(pair.length < 2) {
+	    continue;
+	}           
+	params[pair[0]] = pair[1];
+    }
+
+    return params;
+};

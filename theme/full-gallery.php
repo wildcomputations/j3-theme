@@ -13,10 +13,12 @@ function j3GalleryFull()
 {
     echo '<article class="albumFull hasStack visualPage">
          <h1 class="articleTitle">'  . get_the_title() . '</h1>';
-    $trip_date = j3_date_post('M j, Y');
+    echo '<div class="date">';
+    $trip_date = j3_date_post('F j, Y');
     if (!empty($trip_date)) {
-         echo '<div class="date">' . $trip_date . '</div>';
+        echo '<b>' . $trip_date . '</b><br>';
     }
+    echo '</div>';
     the_content();
     echo '</article>';
 }

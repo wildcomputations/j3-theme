@@ -68,16 +68,16 @@ function j3AddExternals() {
 
         wp_enqueue_script('j3Scripts', 
             $templateDir."/baseScripts.js",
-            array('jquery', 'photoswipe'), "2.5", true);
+            array('jquery', 'photoswipe'), "2.6", true);
     } else {
         wp_enqueue_script('j3Scripts', 
             $templateDir."/baseScripts.js",
-            array('jquery'), "2.5", true);
+            array('jquery'), "2.6", true);
     }
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
-        array(), "4.2" );
+        array(), "4.3" );
     wp_enqueue_style('j3BaseStyle');
 
     wp_register_style( 'fontAwesome',

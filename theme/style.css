@@ -693,7 +693,7 @@ article .wp-post-image {
 
 .pswp .pswp__ui--fit .pswp__top-bar,
 .pswp .pswp__ui--fit .pswp__caption {
-    background: none:
+    background: transparent:
 }
 .pswp__bg.pswp__custom_bg {
     background-color: #f2dcc5;
