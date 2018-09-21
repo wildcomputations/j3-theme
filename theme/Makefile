@@ -28,9 +28,9 @@ phpFiles = $(standardTemplates) \
 	   content-none.php \
 	   comments.php \
 	   side-bars.php
-styleSheets = style.css 
+styleSheets = style.css lightbox-skin.css
 files = $(jsFiles) $(phpFiles) $(styleSheets) screenshot.png
-images = arrows.png feedicons-standard/feed-icon-14x14.png lightpaperfibers.png toolbar_find.png green_cup.png seamlesstexture15_500.jpg pageTurn.png bookBinding.png
+images = arrows.png feedicons-standard/feed-icon-14x14.png lightpaperfibers.png toolbar_find.png green_cup.png seamlesstexture15_500.jpg pageTurn.png bookBinding.png lightbox-icons.png lightbox-icons.svg
 fontAwesomeVersion = 4.6.3
 fontAwesome = $(themeName)/font-awesome-$(fontAwesomeVersion)/css/font-awesome.min.css
 photoSwipe = $(themeName)/photoswipe/photoswipe.css

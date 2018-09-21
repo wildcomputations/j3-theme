@@ -90,10 +90,10 @@ function j3AddExternals() {
             $styleDir . "/photoswipe/photoswipe.css",
             array(), "4.1");
         wp_enqueue_style('photoswipe');
-        wp_register_style('photoswipe-default',
-            $styleDir . "/photoswipe/default-skin/default-skin.css",
-            array('photoswipe'), "4.1");
-        wp_enqueue_style('photoswipe-default');
+        wp_register_style( 'lightbox-skin',
+            $styleDir . '/lightbox-skin.css',
+            array(), "0.1" );
+        wp_enqueue_style('lightbox-skin');
     }
 
 }

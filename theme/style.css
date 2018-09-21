@@ -691,34 +691,6 @@ article .wp-post-image {
 }
 
 
-.pswp .pswp__ui--fit .pswp__top-bar,
-.pswp .pswp__ui--fit .pswp__caption {
-    background: transparent:
-}
-.pswp__bg.pswp__custom_bg {
-    background-color: #f2dcc5;
-    background: #f2dcc5 url("images/seamlesstexture15_500.jpg");
-}
-.pswp__img {
-    padding: 10px;
-    border: 1px solid rgba(0,0,0,0.3);
-    -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-    -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-}
-
-.pswp__caption.pswp__customized small {
-font-size: 11px;
-color: #BBB; }
-
-.pswp__customized .pswp__caption__center{
-font-size: inherit;
-color: inherit;
-}
-.pswp__ui--fit .pswp__caption.pswp__customized {
-  background-color: transparent;
-}
-
 .visualPage {
     margin-bottom: 20px; /* large shadow*/
     clear: both;
