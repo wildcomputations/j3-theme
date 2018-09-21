@@ -105,7 +105,9 @@ function ax_first_post_date($format = "Y-m-d") {
     $ax_args = array(
         'numberposts' => 1,
         'post_status' => 'publish',
-        'order' => 'ASC'
+        'order' => 'ASC',
+        'meta_key' => 'j3tripdate',
+        'orderby' => 'meta_value',
     );
 
     // Get all posts in order of first to last
@@ -142,8 +144,8 @@ function month_selector($year, $month=NULL)
 
 function year_selector($year)
 {
-    echo '<select name="tripyear"';
     $now_year = date("Y");
+    echo '<select name="tripyear">';
     for ($yearnum = ax_first_post_date("Y");
         $yearnum <= $now_year; $yearnum++) {
         echo '<option value="'.$yearnum.'"';
@@ -188,7 +190,8 @@ function next_link($year, $month)
             echo '">Next Year</a>';
         }
     } else {
-        if ($month == date('m')) {
+        if ($month == date('m')
+            && $year == date('Y')) {
             echo '<div style="width:9em;"></div>';
         } else {
             $next_month = $month + 1;
