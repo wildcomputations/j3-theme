@@ -40,6 +40,7 @@ function j3_galref_install()
     $table_name = $wpdb->prefix . 'j3galref';
     $charset_collate = $wpdb->get_charset_collate();
 
+    # XXX need to insert gallery multiple times
     $sql = "CREATE TABLE $table_name (
       gallery bigint(20) UNSIGNED NOT NULL,
       referrer bigint(20) UNSIGNED NOT NULL,
@@ -65,3 +66,27 @@ function j3_galref_uninstall()
     delete_option("j3_galref_db_version");
 }
 register_uninstall_hook(__FILE__, 'j3_galref_uninstall');
+
+/** Update references when users save posts
+ */
+function j3_galref_incr_update($post_id)
+{
+    $post = get_post($post_id);
+    $pattern = get_shortcode_regex(['gallery']);
+    if (preg_match_all( '/'. $pattern .'/s', $post->post_content, $matches )) {
+        error_log("$post_id gallery " . gettype($matches[3]));
+        if (empty($matches[3])) {
+            return;
+        }
+        $all_attrs = join(' ', $matches[3]);
+        error_log("attributes " . $all_attrs);
+        if (empty($all_attrs)) {
+            return;
+        }
+        $parsed_attrs = shortcode_parse_atts($all_attrs);
+        if (array_key_exists('id', $parsed_attrs)) {
+            error_log("should insert " . $parsed_attrs['id']);
+        }
+    }
+}
+add_action( 'save_post', 'j3_galref_incr_update');
