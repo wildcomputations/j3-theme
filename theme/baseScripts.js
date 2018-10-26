@@ -62,6 +62,7 @@ function populateMenuClicks()
                 ++itemIndex) {
             var item = menu.children[itemIndex];
             var link = item.querySelector("a");
+            if (link == null) continue;
             function createClickFunc(id, retVal) {
                 return function() {
                     menuClick(id);

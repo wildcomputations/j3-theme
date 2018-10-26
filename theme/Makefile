@@ -69,8 +69,8 @@ $(titleFont): FS-WebFonts-1949548252.zip
 	cp -a $(themeName)/tmp-title-font/Fonts/1432712 $(themeName)/fonts/
 	rm -rf $(themeName)/tmp-title-font
 
-master.zip:
-	wget https://github.com/dimsemenov/PhotoSwipe/archive/master.zip
+PhotoSwipe-master.zip:
+	wget https://github.com/dimsemenov/PhotoSwipe/archive/master.zip -O $@
 
 # Get from https://github.com/dimsemenov/photoswipe
 $(photoSwipe): PhotoSwipe-master.zip
