@@ -1,3 +1,6 @@
+.PHONY: all
+all: j3mailchimp.zip
+
 j3mailchimp.zip: j3mailchimp.php style.css
 	rm -rf j3mailchimp/
 	mkdir j3mailchimp/

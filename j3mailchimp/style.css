@@ -1,2 +1,5 @@
-#mc_embed_signup {
+.main #mc_embed_signup .button {
+    background-color: #aa7339;
+    box-shadow: 2px 2px 3px #297c46;
+    margin: 5px;
 }
