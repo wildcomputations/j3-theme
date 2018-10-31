@@ -44,7 +44,7 @@ function j3_galref_install()
     $sql = "CREATE TABLE $table_name (
       gallery bigint(20) UNSIGNED NOT NULL,
       referrer bigint(20) UNSIGNED NOT NULL,
-      PRIMARY KEY  (gallery)
+      PRIMARY KEY  (gallery, referrer)
     ) $charset_collate;";
 
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
