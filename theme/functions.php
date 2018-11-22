@@ -66,14 +66,10 @@ function j3AddExternals() {
             $templateDir."/photoswipe/photoswipe-ui-default.min.js",
             array('jquery', 'photoswipe'), "4.1", true);
 
-        wp_enqueue_script('j3Scripts', 
-            $templateDir."/baseScripts.js",
-            array('jquery', 'photoswipe'), "2.6", true);
-    } else {
-        wp_enqueue_script('j3Scripts', 
-            $templateDir."/baseScripts.js",
-            array('jquery'), "2.6", true);
     }
+    wp_enqueue_script('j3Scripts', 
+        $templateDir."/baseScripts.js",
+        array('jquery', 'photoswipe'), "2.6", true);
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
@@ -509,6 +505,55 @@ function j3AddMetaBoxes ()
     }
 }
 add_action( 'add_meta_boxes', 'j3AddMetaBoxes');
+
+/*function j3_block_scripts() {
+    wp_enqueue_script('j3-gutenberg',
+        get_template_directory_uri() . '/j3-gutenberg.js',
+        array('wp-blocks'), '0.1', true);
+}
+add_action( 'enqueue_block_editor_assets', 'j3_block_scripts' );*/
+
+function j3_allowed_block_types( $allowed_blocks ) {
+    /* I'd rather disallow specific blocks rather than only allow some. Can't
+     * figure out how to do that yet. This list is from
+     * https://rudrastyh.com/gutenberg/remove-default-blocks.html*/
+
+    return array(
+        'core/image',
+        'core/paragraph',
+        'core/heading',
+        'core/subhead',
+        'core/list',
+        'core/quote',
+        'core/file',
+        'core/table',
+        'core/verse',
+        'core/code',
+        'core/freeform',
+        'core/html',
+        'core/preformatted',
+        'core/pullquote',
+        'core/button',
+        'core/text-columns',
+        'core/more',
+        'core/separator',
+        'core/spacer',
+        'core/shortcode',
+        'core/archives',
+        'core/categories',
+        'core/latest-comments',
+        'core/latest-posts',
+        // Not supported
+        // 'core/cover-image',  // conflicts with featured image
+        // 'core/gallery',  // doesn't have links to images, and styling wrong
+        // 'core/video', // need to protect cookies
+        // 'core/nextpage', // I don't support pagination
+        // all the embeds
+        'j3/video',
+    );
+
+}
+add_filter( 'allowed_block_types', 'j3_allowed_block_types' );
 
 /* Determine if the current page is an archive page for photo galleries
  */

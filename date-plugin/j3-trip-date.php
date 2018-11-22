@@ -207,7 +207,11 @@ Set trip date<br>
 function j3DateMetaBoxes ()
 {
     add_meta_box("j3tripdatediv", "Trip Date", 'j3PostDateHtml',
-        'post', 'side');
+        'post', 'side', 'high',
+        array(
+            '__block_editor_compatible_meta_box' => true,
+        )
+    );
 }
 add_action( 'add_meta_boxes', 'j3DateMetaBoxes');
 
