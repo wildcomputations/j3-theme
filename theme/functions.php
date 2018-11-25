@@ -65,11 +65,10 @@ function j3AddExternals() {
         wp_enqueue_script('photoswipe-ui',
             $templateDir."/photoswipe/photoswipe-ui-default.min.js",
             array('jquery', 'photoswipe'), "4.1", true);
-
     }
     wp_enqueue_script('j3Scripts', 
         $templateDir."/baseScripts.js",
-        array('jquery', 'photoswipe'), "2.6", true);
+        array('jquery'), "2.6", true);
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
