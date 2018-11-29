@@ -164,10 +164,12 @@ th {
     background-color: #777;
     color: white;
     padding: .5em 1em .3em .5em;
+    text-align: left;
 }
 
 td {
     padding: .3em 1em .3em .5em;
+    text-align: left;
 }
 
 /* re-enable in screen reader css */
