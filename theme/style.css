@@ -144,6 +144,32 @@ header h2 {
     display: inline-block;
 }
 
+strong {
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #CCC;
+}
+
+th {
+    background-color: #777;
+    color: white;
+    padding: .5em 1em .3em .5em;
+}
+
+td {
+    padding: .3em 1em .3em .5em;
+}
+
 /* re-enable in screen reader css */
 .screen-reader-text{
     display: none;
