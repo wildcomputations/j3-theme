@@ -13,6 +13,7 @@ if ( post_password_required() ) {
 }
 
 if (comments_open()) {
+    // Configure comments to only require name and email
     $commenter = wp_get_current_commenter();
     $req = get_option( 'require_name_email' );
     $aria_req = ( $req ? " aria-required='true'" : '' );
@@ -31,19 +32,23 @@ if (comments_open()) {
         '<input id="email" name="email" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) .
         '" size="30"' . $aria_req . ' /> <span class="comment-notes">for notification of replies.</span></p>',
     );
+
+    $comment_label = '<p class="comment-notes">'
+        . "Your email address will not be published.";
     $policy_slug = get_option('j3SetCommentsPolicy');
     if ($policy_slug) {
         $policy_text = '<a href="'
             . get_permalink( get_page_by_path( $policy_slug ) )
-            . '" class="comment-notes">Comment Policy</a>';
-    } else {
-        $policy_text = '';
+            . '" class="comment-notes">See the Comment Policy for appropriate content.</a>';
+        $comment_label .= " " . $policy_text;
     }
+    $comment_label .= '</p>';
+
     $args =  array(
         'title_reply' => 'What do you think?',
         'title_reply_before' => '<h1 id="reply-title" class="comment-reply-title">',
         'title_reply_after' => '</h1>',
-        'comment_notes_before' => $policy_text,
+        'comment_notes_before' => $comment_label,
         'fields' => $fields,
     );
     comment_form($args);
@@ -51,7 +56,7 @@ if (comments_open()) {
 
 if (have_comments()) {
     echo '<div class="commentBlock">';
-    echo '    <h1>Comments</h1>';
+    echo '    <h1>Comments</h1><ul>';
     wp_list_comments(); 
-    echo '</div> <!-- commentBlock -->';
+    echo '</ul></div> <!-- commentBlock -->';
 }
