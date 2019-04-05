@@ -13,6 +13,7 @@ function j3MainNav()
         <?php 
         wp_nav_menu( array(
                 'container' => 'false',
+                'menu_class' => 'primaryMenu',
                 'depth' => 2,
                 'theme_location' => 'primary',
         ) );

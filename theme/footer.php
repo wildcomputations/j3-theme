@@ -76,6 +76,16 @@ if (!is_front_page() and is_singular()) {?>
 <?php } ?>
 
         <div id="pushFooter"></div>
+<? if (has_nav_menu( 'footer')) {
+    echo '<footer>';
+    wp_nav_menu( array(
+        'menu_class' => 'footerMenuEntry',
+        'container_class' => 'footerMenu',
+        'depth' => 2,
+        'theme_location' => 'footer'
+    ) );
+    echo '</footer>';
+} ?>
         <footer>
             <p>
             © Tyson Sawyer and Emilie Phillips. 

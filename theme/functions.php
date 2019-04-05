@@ -39,9 +39,10 @@ function j3Setup() {
                   'header-text' => array( 'site-title', 'site-description' ))
               );
 
-	// This theme uses wp_nav_menu() in one location.
+	// This theme uses wp_nav_menu() for the top menu and bottom menu
 	register_nav_menus( array(
 		'primary' => 'Primary Menu',
+                'footer' => 'Footer Menu',
 	) );
 
 	/*

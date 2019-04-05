@@ -91,7 +91,7 @@ table {
 .hgroup { 
     max-width: 960px;
 }
-.main, footer > p { 
+.main { 
     padding: 0.2em 1em;
 }
 
@@ -142,6 +142,14 @@ header h2 {
     padding: 0px;
     color: #777;
     display: inline-block;
+}
+
+footer {
+    background: rgba(243, 235, 226, 0.7);
+}
+
+footer:first-of-type {
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 strong {
@@ -256,6 +264,7 @@ button img {
 
 nav ul {
     list-style-type:none;
+    line-height: 1.0;
     margin:0;
     padding:0;
 }
@@ -287,6 +296,7 @@ nav.minorMenu li {
 }
 
 #mainMenu ul {
+    list-style-type: none;
     width: 100%;
     display: table;
 }
@@ -427,9 +437,29 @@ nav.minorMenu li {
 }
 
 /* we artificially cut off the menus at depth 2 */
-.menu > .menu-item-has-children > a::after {
+#mainMenu .menu > .menu-item-has-children > a::after {
     content: " \f0d7";
     font-family: FontAwesome;
+}
+
+.footerMenu a:not([href]) {
+    border-bottom: none;
+    color: #000;
+}
+
+.footerMenu > ul > li {
+    display: inline-block;
+    float: left;
+    width: 15em;
+}
+.footerMenu > ul > li > a {
+    font-weight: bold;
+}
+footer:after {
+    clear: both;
+    content:"";
+    clear:both;
+    display:block;
 }
 
 .custom-logo-link {
@@ -485,10 +515,10 @@ a:focus,
     text-decoration: underline;
 }
 
-p a {
+p a, footer a {
     color: #4377D2;
 }
-p a:visited {
+p a:visited, footer a:visited {
     color: #587198;
 }
 
@@ -507,8 +537,7 @@ a[href^="http://picasaweb.google.com/lh/photo/"]:hover,
 footer {
     clear:both;
     width:100%;
-    padding-bottom : 0.5em; 
-    padding-top : 0.0em; 
+    padding: 0.7em 1em;
 }
 
 .rssLink:before {
@@ -1566,7 +1595,7 @@ article .wp-caption-text, .single-format-image .photoData {
     line-height: 1.3em;
 }
 
-article ul, article ol {
+ul, ol {
     list-style-type: initial;
     line-height:1.4;
     padding: 0 0 0 2em;
@@ -1806,7 +1835,7 @@ line-height: 1.1em;
         margin-top: 10px;
     }
 
-    #menu {
+    #primaryMenu {
         display:none;
     }
 
