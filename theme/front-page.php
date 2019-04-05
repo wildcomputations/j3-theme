@@ -49,13 +49,13 @@ get_header(); ?>
     <?php j3FrontRecentPosts(); ?>
     </div>
     <div class="rightColumn">
-    <?php j3CtaBox(); ?>
-    <?php j3RecentGalleries(); ?>
     <?php while ( have_posts() ) : the_post(); ?>
     <article class="visualPage">
         <?php the_content(); ?>
     </article>
     <?php endwhile; ?>
+    <?php j3CtaBox(); ?>
+    <?php j3RecentGalleries(); ?>
     </div>
 </div><!--main-->
 
