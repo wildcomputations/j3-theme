@@ -21,9 +21,6 @@ function j3mc_enqueue_scripts()
 {
     $plugin_url = plugin_dir_url( __FILE__ );
     wp_enqueue_style( 'j3mc', $plugin_url . 'style.css', '0.1' );
-    wp_enqueue_style( 'mailchimp',
-        '//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css',
-        '10.7');
 }
 add_action( 'wp_enqueue_scripts', 'j3mc_enqueue_scripts' );
 
