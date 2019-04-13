@@ -442,18 +442,35 @@ nav.minorMenu li {
     font-family: FontAwesome;
 }
 
+.footerMenu {
+    margin: .5em 1em 0em 1em;
+}
 .footerMenu a:not([href]) {
     border-bottom: none;
+    font-style: normal;
     color: #000;
 }
 
 .footerMenu > ul > li {
     display: inline-block;
-    float: left;
+    vertical-align: top;
     width: 15em;
 }
 .footerMenu > ul > li > a {
     font-weight: bold;
+    line-height: 2;
+}
+.footerMenu ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+.footerMenu .sub-menu {
+    margin-bottom: .5em;
+    font-size: 90%;
+}
+.footerMenu li {
+    line-height: 1.6;
 }
 footer:after {
     clear: both;
@@ -489,17 +506,26 @@ footer:after {
 }
 
 a {
-    font-style: italic;
     text-decoration: none;
     border-bottom: 2px solid rgba(128, 128, 128, 0.24);
     color: black;
 }
-p a {
+article a {
     font-weight: bold;
+    font-style: italic;
 }
+article a, footer a {
+    color: #4377D2;
+}
+article a:visited, footer a:visited {
+    color: #587198;
+}
+
 .photoLink, .wp-caption a, a[href^="http://picasaweb.google.com/lh/photo/"],
 .wp-block-image a,
 h1 a, h2 a, h3 a, h4 a, h5 a, a h1, a h2, a h3, a h4, a h5,
+h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited,
+a:visited h1, a:visited h2, a:visited h3, a:visited h4, a:visited h5,
 .gallery-icon a ,
 .custom-logo-link,
 a.noEmph { /* reset*/
@@ -513,13 +539,6 @@ a:focus,
 .history a h1:hover, .history a h1:focus {
     color: gray;
     text-decoration: underline;
-}
-
-p a, footer a {
-    color: #4377D2;
-}
-p a:visited, footer a:visited {
-    color: #587198;
 }
 
 /* reset */
@@ -632,22 +651,21 @@ aside .linkBlock {
     -moz-box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.3);
     box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.3);
 }
+.linkBlock h1 {
+    margin-bottom: .5em;
+}
+.linkBlock li {
+    margin-top: 1.3em;
+    margin-bottom : 0.8em;
+    line-height: 1.4;
+}
+.linkBlock ul {
+    list-style: inside square;
+}
+
 aside.mini {
     display: none;
     visibility: hidden; 
-}
-
-aside .cta li {
-    padding: 5% 30px 0 0;
-    background-image : url("images/arrows.png");
-    background-repeat: no-repeat;
-    background-size: 25px auto; /* display half width so when you zoom in it doesn't look pixelated */
-    background-position: right 90%;
-    line-height: 1.2;
-    min-height: 40px;
-}
-aside .cta li + li {
-    margin-top: 1em;
 }
 
 .hgroup .topicTitle {
@@ -1581,6 +1599,7 @@ article .date {
     color: #888;
     line-height: 1.3em;
     font-family: 'Pinselschrift', 'Times', serif;
+    margin-bottom : 2.5em;
 }
 article .date b {
     color: black;
@@ -1595,11 +1614,16 @@ article .wp-caption-text, .single-format-image .photoData {
     line-height: 1.3em;
 }
 
-ul, ol {
+article ul, article ol {
     list-style-type: initial;
     line-height:1.4;
     padding: 0 0 0 2em;
     margin-bottom: 1.5em;
+}
+
+article li > ul,
+article li > ol {
+    margin-bottom: 0px;
 }
 
 article ol {
@@ -1627,10 +1651,6 @@ article > p {
 .photoData .date, .photoData .author{
     text-align: right;
     float: none;
-}
-
-article > h1 ~ p:first-of-type  {
-    margin-top : 2.5em;
 }
 
 article p {
@@ -1664,10 +1684,6 @@ article p {
     color: gray; 
     font-size: 2rem;
     font-weight: normal;
-}
-
-.linkBlock li {
-margin-bottom : 0.5em;
 }
 
 .albumExcerpt h1.articleTitle {

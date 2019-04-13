@@ -26,15 +26,15 @@ function j3GalleryFull()
 function j3GalleryLinks() {
     $catHtml = j3AsideCategories();
     $trip_date_html = j3AsideCalendar();
-    echo '<div class="linkBlock cta">
+    echo '<div class="linkBlock">
               <h1>Read More</h1>
               <ul>';
     if ($trip_date_html) {
         echo $trip_date_html;
     }
-    echo '<a href="';
+    echo '<li><a href="';
     echo get_post_format_link( get_post_format() );
-    echo '"><li>Explore all photo albums</li></a>';
+    echo '">Explore all photo albums</a></li>';
     if ($catHtml) {
         echo $catHtml;
     }

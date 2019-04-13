@@ -36,7 +36,7 @@ function j3ArticleLinks() {
     $catHtml = j3AsideCategories();
     $trip_date_html = j3AsideCalendar();
     if ( $catHtml || $trip_date_html ) {
-        echo '<div class="linkBlock cta">
+        echo '<div class="linkBlock">
                   <h1>Read More</h1>
                   <ul>';
         if ($trip_date_html) {
