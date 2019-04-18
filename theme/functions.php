@@ -69,7 +69,7 @@ function j3AddExternals() {
     }
     wp_enqueue_script('j3Scripts', 
         $templateDir."/baseScripts.js",
-        array('jquery'), "2.6", true);
+        array('jquery'), "2.7", true);
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
