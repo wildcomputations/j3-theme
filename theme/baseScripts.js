@@ -250,26 +250,35 @@ function galleryItemInfo(galleryItem) {
     var link = galleryItem.find('a');
 
     /* Get the caption */
-    var captionElements = galleryItem.find('dd.wp-caption-text');
+    var captionElements = galleryItem.find('dd.wp-caption-text,figcaption');
 
-    return lightBoxInfo(galleryItem, link, captionElements);
+    if (galleryItem.hasClass('blocks-gallery-item')) {
+        var sizeinfo = galleryItem.find('img');
+    } else {
+        var sizeinfo = galleryItem;
+    }
+    return lightBoxInfo(sizeinfo, link, captionElements);
 }
 
 /* Parse the whole page to find galleries and set the onClick action for each
  * thumbnail to load the photo swipe lightbox */
 function galleryInit() {
-    var galleries = jQuery('.gallery');
+    var galleries = jQuery('.gallery,.wp-block-gallery');
     var all_gallery_items = {};
     for (var i = 0; i < galleries.length; ++i) {
         var gallery = jQuery(galleries[i]);
 
         /* Create the list of items for this photo swipe gallery */
         var items = [];
-        var pictures = gallery.children('dl.gallery-item');
+        var pictures = gallery.children('dl.gallery-item,.blocks-gallery-item');
         for (var j = 0; j < pictures.length; ++j) {
             var thumb = jQuery(pictures[j]);
 
             items.push(galleryItemInfo(thumb));
+        }
+        if (gallery.attr('id') === undefined) {
+            gallery.attr('id',
+                `box-gallery-${galleries.length + i}`);
         }
         all_gallery_items[gallery.attr('id')] = items;
 
@@ -290,6 +299,9 @@ function singlePhotosInit() {
     var images = jQuery('[class*="wp-image-"]');
     for (var i = 0; i < images.length; ++i) {
         var image = jQuery(images[i]);
+        if (image.parents('.blocks-gallery-item').length) {
+            continue;
+        }
 
         /* get the parent link. If there is no parent, we can't open the image anyway */
         var links = image.parent('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"]');

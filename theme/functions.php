@@ -553,7 +553,7 @@ function j3_allowed_block_types( $allowed_blocks ) {
     );
 
 }
-add_filter( 'allowed_block_types', 'j3_allowed_block_types' );
+//add_filter( 'allowed_block_types', 'j3_allowed_block_types' );
 
 /* Determine if the current page is an archive page for photo galleries
  */
