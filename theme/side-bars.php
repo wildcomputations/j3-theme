@@ -3,12 +3,9 @@
  *
  */
 
-function j3RandomPhoto( $category=NULL )
+function j3GallerySearch( $term_id=NULL, $taxonomy='category')
 {
-    $rand_post_args = array(
-        'post_type' => 'post',
-        'orderby' => 'rand',
-        'tax_query' => array(
+    $tax_query = array(
             'relation' => 'AND',
             array(
                 'taxonomy' => 'post_format',
@@ -16,12 +13,28 @@ function j3RandomPhoto( $category=NULL )
                 'terms' => array( 'post-format-gallery' )
             ),
             j3StdPhotosQuery()
-        ),
+        );
+    if (! is_null($term_id)) {
+        $tax_query[] = array(
+            'taxonomy' => $taxonomy,
+            'field' => 'term_id',
+            'terms' => array( $term_id )
+        );
+    }
+
+    $post_args = array(
+        'post_type' => 'post',
+        'tax_query' => $tax_query,
         'posts_per_page' => 1
     );
-    if (! is_null($category)) {
-        $rand_post_args["cat"] = $category;
-    }
+
+    return $post_args;
+}
+
+function j3RandomPhotoSearch( $term_id=NULL, $taxonomy='category' )
+{
+    $rand_post_args = j3GallerySearch($term_id, $taxonomy);
+    $rand_post_args['orderby'] = 'rand';
     if (function_exists('j3_date_month_query')) {
         // Warning some categories may not have anything in summer months
         $this_month = date('m');
@@ -47,6 +60,7 @@ function j3RandomPhoto( $category=NULL )
     }
     wp_reset_postdata(); 
 
+    $result = NULL;
     if ($parent_id) {
         $args = array(
             'post_parent' => $parent_id,
@@ -60,15 +74,27 @@ function j3RandomPhoto( $category=NULL )
         $query = new WP_Query( $args );
         if ($query->have_posts()) {
             $query->the_post();
-            echo '<div class="displayPhoto dualShadow">';
-            echo '<a href="';
-            echo esc_url( $parent_url );
-            echo '" class="photoLink">';
-            echo wp_get_attachment_image(get_post()->ID, 'large');
-            echo '</a>';
-            echo '</div>';
+            $result = array('parent_url' => $parent_url,
+                'id' => get_post()->ID);
         }
         wp_reset_postdata(); 
+    }
+    return $result;
+}
+
+function j3RandomPhoto( $term_id=NULL, $taxonomy='category' )
+{
+    $photo_meta = j3RandomPhotoSearch($term_id, $taxonomy);
+    if (!is_null($photo_meta)) {
+        echo '<div class="displayPhoto dualShadow">';
+        echo '<a href="';
+        echo esc_url( $photo_meta['parent_url'] );
+        echo '" class="photoLink">';
+        echo wp_get_attachment_image(
+            $photo_meta['id'],
+            get_post()->ID, 'large');
+        echo '</a>';
+        echo '</div>';
     }
 }
 
@@ -81,24 +107,10 @@ function j3CtaBox()
     }
 }
 
-function j3RecentGalleries( $category=NULL )
+function j3RecentGalleries( $term_id=NULL, $taxonomy='category' )
 {
-    $args = array(
-        'post_type' => 'post',
-        'tax_query' => array(
-            'relation' => 'AND',
-            array(
-                'taxonomy' => 'post_format',
-                'field' => 'slug',
-                'terms' => array( 'post-format-gallery' )
-            ),
-            j3StdPhotosQuery(),
-        ),
-        'posts_per_page' => 7
-    );
-    if (! is_null($category)) {
-        $args["cat"] = $category;
-    }
+    $args = j3GallerySearch($term_id, $taxonomy);
+    $args['posts_per_page'] = 7;
     $query = new WP_Query( $args );
     if ($query->have_posts()) {
         echo '<h1 class="topicTitle">Photo Albums</h1>';

@@ -172,6 +172,19 @@ function j3RegisterWidgets() {
 }
 add_action( 'widgets_init', 'j3RegisterWidgets' );
 
+function j3TaxonomyInit() {
+    register_taxonomy(
+        'destination',
+        array('post'),
+        array(
+            'label' => 'destinations',
+            'description' => "Where a trip went",
+            'hierarchical' => true,
+            'show_admin_column' => true,
+    ));
+}
+add_action( 'init', 'j3TaxonomyInit');
+
 // large image size is 640x640 which is what the css limits the image to
 function j3PostThumbnail( $size='large', $forceLink=false) {
     if ( has_post_thumbnail()) {

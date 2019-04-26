@@ -5,6 +5,7 @@ standardTemplates = index.php \
 		    front-page.php \
 		    category.php \
 		    taxonomy-post_format-post-format-gallery.php \
+		    taxonomy-destination.php \
 		    date.php \
                     singular.php
 pageTemplates = page-templates/archives.php \
