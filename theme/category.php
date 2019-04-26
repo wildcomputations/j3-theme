@@ -13,6 +13,8 @@ if (j3IsGalleryFormat()) {
     get_template_part('taxonomy-post_format', 'post-format-gallery');
 } else {
 
+require 'side-bars.php';
+
 function j3TopicTitle() {
     echo '<h1 class="topicTitle">';
     single_cat_title(); 
@@ -20,6 +22,7 @@ function j3TopicTitle() {
 }
 
 function j3HouseTempImg () {
+    return;
     echo '
             <div class="dualShadow displayPhoto">
                 <a href="/house/" class="photoLink">
@@ -33,9 +36,28 @@ function j3HouseTempImg () {
             </div> ';
 }
 
+function recentPosts()
+{
+    if (is_paged()) {
+        j3PageNav("", "", $standalone = true); 
+    }
 
-require 'side-bars.php';
+    if ( have_posts() ) { 
+        while ( have_posts() ) { 
+            the_post(); 
+            get_template_part( 'excerpt', get_post_format() ); 
+        }
+    } else { 
+        get_template_part( 'content', 'none' ); 
+    } 
+}
 
+function description()
+{
+    echo '<article class="visualPage">';
+    echo category_description();
+    echo '</article>';
+}
 
 get_header();
 
@@ -57,19 +79,10 @@ if ($is_house) {
 ?>
     </div>
     <div class="leftColumn">
-<?php if (is_paged()) j3PageNav("", "", $standalone = true); 
-
-if ( have_posts() ) { 
-    while ( have_posts() ) { 
-        the_post(); 
-        get_template_part( 'excerpt', get_post_format() ); 
-    }
-} else { 
-    get_template_part( 'content', 'none' ); 
-} 
-?>
+    <?php recentPosts(); ?>
     </div> <!-- leftColumn -->
     <div class="rightColumn">
+    <?php description(); ?>
     <?php j3CtaBox(); ?>
     <?php j3RecentGalleries($fullCat->term_id); ?>
     </div>

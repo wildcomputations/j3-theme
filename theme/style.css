@@ -389,6 +389,13 @@ nav.minorMenu li {
     display: table;
 }
 
+#mainMenu .sub-menu .menu-item {
+    border-right: 1px solid rgba(72, 70, 67, 0.3);
+}
+#mainMenu .sub-menu .menu-item:last-of-type {
+    border-right: none;
+}
+
 
 @media all and (max-width: 600px) {
 

@@ -9,7 +9,7 @@ get_header(); ?>
 <div class="main"><!-- safari appears to not support main-->
 <?php 
 if ( have_posts() ) { 
-    j3PageNav();
+    j3PageNav("", "", $standalone = true);
     echo '<div class="hgroup hasPage">';
     echo '<div class="rightContent visualPage history hasStack">';
     while ( have_posts() ) { 

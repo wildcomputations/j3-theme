@@ -39,6 +39,16 @@ function j3FrontRecentPosts()
     wp_reset_postdata(); 
 }
 
+function description()
+{
+    while (have_posts()) {
+        the_post();
+        echo '<article class="visualPage">';
+        the_content();
+        echo '</article>';
+    }
+}
+
 get_header(); ?>
 
 <div class="main twoColumn"><!-- safari appears to not support main-->
@@ -49,11 +59,7 @@ get_header(); ?>
     <?php j3FrontRecentPosts(); ?>
     </div>
     <div class="rightColumn">
-    <?php while ( have_posts() ) : the_post(); ?>
-    <article class="visualPage">
-        <?php the_content(); ?>
-    </article>
-    <?php endwhile; ?>
+    <?php description(); ?>
     <?php j3CtaBox(); ?>
     <?php j3RecentGalleries(); ?>
     </div>
