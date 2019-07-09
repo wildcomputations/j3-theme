@@ -26,10 +26,13 @@ function j3ContentArticle() {
         echo '</div>';
     }
     the_content();
-    if (get_post_type() == 'post' ) {
-        comments_template();
-    }
     echo '</article>';
+
+    if (get_post_type() == 'post' ) {
+        echo '<article class="subPage">';
+        comments_template();
+        echo '</article>';
+    }
 }
 
 function j3ArticleLinks() {

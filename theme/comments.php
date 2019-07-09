@@ -21,33 +21,34 @@ if (comments_open()) {
     $email = __( 'Email', 'domainreference' );
     $fields = array(
         'author' =>
-        '<p class="comment-form-author"><label class="aligned" for="author">' . $name .
+        '<p class="comment-form-author"><label for="author">' . $name .
         ( $req ? '<span class="required">*</span>' : '' ) . '</label>' .
         '<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) .
         '" size="30"' . $aria_req . ' /></p>',
 
         'email' =>
-        '<p class="comment-form-email"><label class="aligned" for="email">' . $email .
-        ( $req ? '<span class="required">*</span>' : '' ) . '</label>' .
+        '<p class="comment-form-email"><label for="email">' . $email .
+        ( $req ? '<span class="required">*</span>' : '' ) . 
+        ' <span class="comment-notes"> Your address will not be published</span>' .
+        '</label>' .
         '<input id="email" name="email" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) .
-        '" size="30"' . $aria_req . ' /> <span class="comment-notes">for notification of replies.</span></p>',
+        '" size="30"' . $aria_req . ' /> </p>',
     );
 
-    $comment_label = '<p class="comment-notes">'
-        . "Your email address will not be published.";
+    $comment_label = '';
     $policy_slug = get_option('j3SetCommentsPolicy');
     if ($policy_slug) {
         $policy_text = '<a href="'
             . get_permalink( get_page_by_path( $policy_slug ) )
             . '" class="comment-notes">See the Comment Policy for appropriate content.</a>';
-        $comment_label .= " " . $policy_text;
+        $comment_label .= '<p class="comment-notes">' . $policy_text
+. '</p>';
     }
-    $comment_label .= '</p>';
 
     $args =  array(
         'title_reply' => 'What do you think?',
-        'title_reply_before' => '<h1 id="reply-title" class="comment-reply-title">',
-        'title_reply_after' => '</h1>',
+        'title_reply_before' => '<h2 id="reply-title" class="comment-reply-title">',
+        'title_reply_after' => '</h2>',
         'comment_notes_before' => $comment_label,
         'fields' => $fields,
     );
