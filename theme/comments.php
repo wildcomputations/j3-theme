@@ -12,6 +12,14 @@ if ( post_password_required() ) {
 	return;
 }
 
+echo '<h2>Discussion</h2>';
+
+if (have_comments()) {
+    echo '<p><a href="' . get_comments_link() .
+        '">' . get_comments_number() . ' comments already.' .
+        '</a></p>';
+}
+
 if (comments_open()) {
     // Configure comments to only require name and email
     $commenter = wp_get_current_commenter();
@@ -46,18 +54,20 @@ if (comments_open()) {
     }
 
     $args =  array(
-        'title_reply' => 'What do you think?',
-        'title_reply_before' => '<h2 id="reply-title" class="comment-reply-title">',
-        'title_reply_after' => '</h2>',
+        'title_reply' => 'Let us know what you think',
+        'title_reply_before' => '<h3 id="reply-title" class="comment-reply-title">',
+        'title_reply_after' => '</h3>',
         'comment_notes_before' => $comment_label,
         'fields' => $fields,
     );
     comment_form($args);
 }
 
+echo '    <h3 id="comments">Comments (' . get_comments_number() . ')</h3>';
 if (have_comments()) {
-    echo '<div class="commentBlock">';
-    echo '    <h1>Comments</h1><ul>';
+    echo '<div class="commentBlock"><ul>';
     wp_list_comments(); 
     echo '</ul></div> <!-- commentBlock -->';
+} else {
+    echo '<p>No comments yet. Leave one for us.</p>';
 }
