@@ -22,6 +22,8 @@ Author URI: http://j3.org/
  * Internal plugin implementations                               *
  *****************************************************************/
 
+/* This plugin makes a table to keep track of the categories available for each
+* destination. */
 $j3_dest_taxonomy = 'destination';
 
 function j3_dest_activate()
@@ -43,22 +45,55 @@ function j3_dest_activate()
     dbDelta( $sql );
 
     // TODO populate the database table. Something isn't working here
-    $terms = get_terms( array('taxonomy' => 'category') );
-    error_log("categories");
-    error_log(print_r($terms, true));
 
-    $term_query = new WP_Term_Query( array ('taxonomy' => 'destination') );
-    error_log("destinations");
-    error_log(print_r($term_query, true));
+    $tax_table = $wpdb->prefix . 'term_taxonomy';
+    $relation_table = $wpdb->prefix . 'term_relationships';
+    $terms_table = $wpdb->prefix . 'terms';
+    $sql = "SELECT cat_tax.term_id as cat_id, dest_tax.term_id as dest_id, dest_tax.parent from $relation_table
+JOIN $tax_table as dest_tax USING (term_taxonomy_id)
+JOIN (SELECT * from $tax_table
+      JOIN $relation_table USING (term_taxonomy_id)
+      JOIN $terms_table using (term_id)
+      WHERE taxonomy = 'category' and term_id != 1) as cat_tax USING (object_id)
+WHERE dest_tax.taxonomy = 'destination'
+GROUP BY cat_tax.term_id, dest_tax.term_id
+";
+    error_log($sql);
+    $dest_cats = $wpdb->get_results( $sql);
+    error_log(print_r($dest_cats, true));
 
-    $sql = "SELECT COUNT(object_id) as num_posts, cat_tax.term_id as cat_id, cat_tax.slug from m11_term_relationships
-JOIN m11_term_taxonomy as dest_tax USING (term_taxonomy_id)
-JOIN (SELECT * from m11_term_taxonomy 
-      JOIN m11_term_relationships USING (term_taxonomy_id)
-      JOIN m11_terms using (term_id)
-      WHERE taxonomy = 'category') as cat_tax USING (object_id)
-WHERE dest_tax.taxonomy = 'destination' and dest_tax.term_id = 27
-GROUP BY cat_tax.term_id";
+    // $dest_cats has the categories for posts with that specific destination.
+    // Now I need to propagate back up to the parent.
+    $parent_by_child = array();
+    foreach ( $dest_cats as $row) {
+        $parent_by_child[$row->dest_id] = $row->parent;
+    }
+    error_log("Parent mapping"); // ok, I could have gotten this directly from the db
+    error_log(print_r($parent_by_child, true));
+
+    // now trickle up the categories
+    $cats_by_dest = array();
+    foreach ( $dest_cats as $row) {
+        error_log("    new row");
+        $dest_id = $row->dest_id;
+        while ($dest_id != 0) {
+            error_log("        dest " . $dest_id); 
+            if (!array_key_exists($dest_id, $cats_by_dest)) {
+                error_log(" not in array");
+                $cats_by_dest[$dest_id] = array($row->cat_id);
+            } else {
+                error_log(" yes in array");
+                $cats_by_dest[$dest_id][] = $row->cat_id;
+            }
+            $dest_id = $parent_by_child[$dest_id];
+        }
+    }
+    error_log("complete cat list");
+    error_log(print_r($cats_by_dest, true));
+    // TODO: restart here
+    // - get unique set of categories for each dest
+    // - insert into table.
+    // Make this a function which can also get called whenever a post is updated.
 
     add_option( "j3_destination_db_version", "1.0" );
 }
