@@ -21,6 +21,12 @@ function j3GalleryFull()
     echo '</div>';
     the_content();
     echo '</article>';
+
+    if (comments_open()) {
+        echo '<article class="subPage">';
+        comments_template();
+        echo '</article>';
+    }
 }
 
 function j3GalleryLinks() {

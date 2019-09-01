@@ -28,7 +28,7 @@ function j3ContentArticle() {
     the_content();
     echo '</article>';
 
-    if (get_post_type() == 'post' ) {
+    if (comments_open()) {
         echo '<article class="subPage">';
         comments_template();
         echo '</article>';
