@@ -518,42 +518,10 @@ function j3_allowed_block_types( $allowed_blocks ) {
      * figure out how to do that yet. This list is from
      * https://rudrastyh.com/gutenberg/remove-default-blocks.html*/
 
-    return array(
-        'core/image',
-        'core/paragraph',
-        'core/heading',
-        'core/subhead',
-        'core/list',
-        'core/quote',
-        'core/file',
-        'core/table',
-        'core/verse',
-        'core/code',
-        'core/freeform',
-        'core/html',
-        'core/preformatted',
-        'core/pullquote',
-        'core/button',
-        'core/text-columns',
-        'core/more',
-        'core/separator',
-        'core/spacer',
-        'core/shortcode',
-        'core/archives',
-        'core/categories',
-        'core/latest-comments',
-        'core/latest-posts',
-        // Not supported
-        // 'core/cover-image',  // conflicts with featured image
-        // 'core/gallery',  // doesn't have links to images, and styling wrong
-        // 'core/video', // need to protect cookies
-        // 'core/nextpage', // I don't support pagination
-        // all the embeds
-        'j3/video',
-    );
+    return array_merge($allowed_blocks, array('j3/video'));
 
 }
-//add_filter( 'allowed_block_types', 'j3_allowed_block_types' );
+add_filter( 'allowed_block_types', 'j3_allowed_block_types' );
 
 /* Determine if the current page is an archive page for photo galleries
  */
