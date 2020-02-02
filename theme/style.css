@@ -528,7 +528,7 @@ article a:visited, footer a:visited {
     color: #587198;
 }
 
-.photoLink, .wp-caption a, a[href^="http://picasaweb.google.com/lh/photo/"],
+.photoLink, figcaption a, .wp-caption a, a[href^="http://picasaweb.google.com/lh/photo/"],
 .wp-block-image a,
 h1 a, h2 a, h3 a, h4 a, h5 a, a h1, a h2, a h3, a h4, a h5,
 h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited,
@@ -553,7 +553,7 @@ a.noEmph:hover, a.noEmph:focus {
     text-decoration: inherit;
 }
 
-.photoLink:hover, .wp-caption a:hover, 
+.photoLink:hover, figcaption a:hover, .wp-caption a:hover, 
 a[href^="http://picasaweb.google.com/lh/photo/"]:hover,
 .gallery-icon a {
     border: none;
@@ -713,12 +713,22 @@ article .wp-post-image {
     box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
 }
 
-.wp-caption {
+figcaption, .wp-caption {
     max-width: 100%;
     margin-top: 1.5em;
 }
-.wp-caption-text {
+figcaption .wp-caption-text {
     width: 100%;
+}
+.wp-block-image figcaption {
+    text-align : center; 
+    color: #888;
+    font-size: .8em;
+    line-height: 1.3em;
+    margin-top:.5em;
+    margin-bottom:1em;
+    font-size:13px;
+    display: table-caption;
 }
 
 .alignleft {
@@ -1363,51 +1373,6 @@ margin: 0 5%;
     #mc_embed_signup .button {width: 100%; margin:0; }
 }
 
-/* fancy photo */
-body.single-format-image {
-    box-shadow: none;
-    border: none;
-    border-radius: inherit;
-    background: black;
-    color: #777;
-
-    /* fixed to viewport and sized to fit */
-    position:absolute;
-    height:100%;
-    width:100%;
-}
-
-.single-format-image header {
-    background: inherit;
-}
-
-.single-format-image h1 {
-    color: #F2DCC5;
-}
-
-.single-format-image .main {
-    /* note: fudge factor in max-height so it doesn't push footer off the
-     * bottom of the page */
-    max-width: 90%;
-    height: 75%;
-    margin: auto;
-}
-
-.single-format-image .displayPhoto {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    box-shadow: none;
-    padding: 0px;
-}
-
-.single-format-image .displayPhoto img {
-    padding: inherit;
-    border:inherit;
-}
-
-
 /* Things with floats inside them */
 header:after,
 article:after,
@@ -1607,12 +1572,6 @@ article .date b {
     font-family: 'Helvetica', sans-serif;
     margin: 0 0.5em;
     font-weight: normal;
-}
-article .wp-caption-text, .single-format-image .photoData {
-    text-align : center; 
-    color: #888;
-    font-size: .8em;
-    line-height: 1.3em;
 }
 
 article ul, article ol {
