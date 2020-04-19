@@ -506,23 +506,6 @@ function j3AddMetaBoxes ()
 }
 add_action( 'add_meta_boxes', 'j3AddMetaBoxes');
 
-/*function j3_block_scripts() {
-    wp_enqueue_script('j3-gutenberg',
-        get_template_directory_uri() . '/j3-gutenberg.js',
-        array('wp-blocks'), '0.1', true);
-}
-add_action( 'enqueue_block_editor_assets', 'j3_block_scripts' );*/
-
-function j3_allowed_block_types( $allowed_blocks ) {
-    /* I'd rather disallow specific blocks rather than only allow some. Can't
-     * figure out how to do that yet. This list is from
-     * https://rudrastyh.com/gutenberg/remove-default-blocks.html*/
-
-    return array_merge($allowed_blocks, array('j3/video'));
-
-}
-add_filter( 'allowed_block_types', 'j3_allowed_block_types' );
-
 /* Determine if the current page is an archive page for photo galleries
  */
 function j3IsGalleryFormat($query = '')

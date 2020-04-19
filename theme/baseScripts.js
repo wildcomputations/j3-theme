@@ -270,7 +270,7 @@ function galleryInit() {
 
         /* Create the list of items for this photo swipe gallery */
         var items = [];
-        var pictures = gallery.children('dl.gallery-item,.blocks-gallery-item');
+        var pictures = gallery.find('dl.gallery-item,.blocks-gallery-item');
         for (var j = 0; j < pictures.length; ++j) {
             var thumb = jQuery(pictures[j]);
 

@@ -1,6 +1,6 @@
 themeName = j3Custom
 
-jsFiles = baseScripts.js j3-gutenberg.js
+jsFiles = baseScripts.js
 standardTemplates = index.php \
 		    front-page.php \
 		    category.php \
