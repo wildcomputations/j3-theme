@@ -85,7 +85,7 @@ function j3_date_get_month_link( $year, $month)
     {
         $month = gmdate('m', current_time('timestamp'));
     }
-    return j3_date_get_year_link($year) . '/' . $month;
+    return j3_date_get_year_link($year) . '/' . sprintf("%02d", $month);
 }
 
 /* Generate links to archives per trip date year. This is similar to
@@ -404,6 +404,7 @@ add_action( 'pre_get_document_title', 'j3_date_archive_title');
 // TODO move this function to be it's own php file. The file path can be used
 // in place of a function name
 // Future:
+// * include months with zero posts
 // * switch to a table
 // * way to indicate that the month is complete and should be removed from the list
 // * remove galleries from the count of posts
@@ -426,7 +427,7 @@ function j3_date_month_help()
         foreach ( (array) $results as $result )
         {
             $url = j3_date_get_month_link( $result->year, $result->month );
-            $date_str = date('F Y', mktime(0, 0, 0, $result->month, 0, $result->year));
+            $date_str = date('F Y', mktime(0, 0, 0, $result->month + 1, 0, $result->year));
             $plural = '';
             if ( $result->num_posts > 1 ) $plural = 's';
             $output .= '<li><a href="' . $url . '">'
