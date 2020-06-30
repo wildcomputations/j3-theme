@@ -386,3 +386,25 @@ function j3_date_archive_title( $title )
     return $title;
 }
 add_action( 'pre_get_document_title', 'j3_date_archive_title');
+
+/**** admin page for finding months with low number of entries ***/
+// Query
+// SELECT Year(meta_value) as year, Month(meta_value) as month, COUNT(*) as num_posts FROM `m11_postmeta` where meta_key = "j3tripdate" group by Year(meta_value), Month(meta_value) order by num_posts
+
+// TODO move this function to be it's own php file. The file path can be used
+// in place of a function name
+// Future:
+// * way to indicate that the month is complete and should be removed from the list
+// * remove galleries from the count of posts
+function j3_date_month_help()
+{
+    ?>
+	<div class="wrap">
+		<h2>Welcome To My Plugin</h2>
+	</div>
+	<?php
+}
+add_action ('admin_menu', function () {
+    add_management_page('Months with few posts', 'Needs help: months', 'publish_posts',
+        'j3_month_needs_help', 'j3_date_month_help');
+});
