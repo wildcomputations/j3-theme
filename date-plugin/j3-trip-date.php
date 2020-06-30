@@ -78,6 +78,16 @@ function j3_date_get_year_link( $year )
     return home_url( '/trip-date/' . $year );
 }
 
+/* same as j3_date_get_year_link but specific to one month */
+function j3_date_get_month_link( $year, $month)
+{
+    if ( !$month )
+    {
+        $month = gmdate('m', current_time('timestamp'));
+    }
+    return j3_date_get_year_link($year) . '/' . $month;
+}
+
 /* Generate links to archives per trip date year. This is similar to
  * wp_get_archives(type=>'yearly') but for trip date.
  */
@@ -394,13 +404,42 @@ add_action( 'pre_get_document_title', 'j3_date_archive_title');
 // TODO move this function to be it's own php file. The file path can be used
 // in place of a function name
 // Future:
+// * switch to a table
 // * way to indicate that the month is complete and should be removed from the list
 // * remove galleries from the count of posts
 function j3_date_month_help()
 {
+    global $wpdb;
+    $query = "SELECT Year(meta_value) as year, Month(meta_value) as month, "
+        . "COUNT(*) as num_posts "
+        . "FROM m11_postmeta "
+        . "WHERE meta_key = 'j3tripdate' "
+        . "GROUP BY Year(meta_value), Month(meta_value) "
+        . "ORDER BY num_posts "
+        . "LIMIT 15";
+    $results = $wpdb->get_results($query);
+
+    $output = "";
+    if ( $results )
+    {
+        $output .= "<ul>";
+        foreach ( (array) $results as $result )
+        {
+            $url = j3_date_get_month_link( $result->year, $result->month );
+            $date_str = date('F Y', mktime(0, 0, 0, $result->month, 0, $result->year));
+            $plural = '';
+            if ( $result->num_posts > 1 ) $plural = 's';
+            $output .= '<li><a href="' . $url . '">'
+                . $date_str . ':</a> ' . $result->num_posts
+                . ' post' . $plural . ' </li>';
+        }
+        $output .= "</ul>";
+    }
     ?>
 	<div class="wrap">
-		<h2>Welcome To My Plugin</h2>
+                <h2>Months with least posts</h2>
+                <p>It looks like we went on very few trips these months. Please fix.</p>
+<?php echo $output; ?>
 	</div>
 	<?php
 }

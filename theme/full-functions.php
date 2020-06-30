@@ -24,8 +24,8 @@ function j3AsideCalendar() {
     if ( $trip_date ) {
         $year = j3_date_post("Y");
         $month = j3_date_post("m");
-        $trip_date_html = '<li><a href="'.j3_date_get_year_link($year)
-            . '/' . $month . '"/>Trips in ' . $trip_date
+        $trip_date_html = '<li><a href="'.j3_date_get_month_link($year, $month)
+            . '"/>Trips in ' . $trip_date
             . '</a></li>';
     } else {
         $trip_date_html = "";
