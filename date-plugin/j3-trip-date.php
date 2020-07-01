@@ -427,7 +427,7 @@ function j3_date_month_help()
         foreach ( (array) $results as $result )
         {
             $url = j3_date_get_month_link( $result->year, $result->month );
-            $date_str = date('F Y', mktime(0, 0, 0, $result->month + 1, 0, $result->year));
+            $date_str = date('F Y', mktime(0, 0, 0, $result->month, 1, $result->year));
             $plural = '';
             if ( $result->num_posts > 1 ) $plural = 's';
             $output .= '<li><a href="' . $url . '">'
