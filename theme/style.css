@@ -693,7 +693,7 @@ article {
     padding: 30px 50px;
 }
 
-article img {
+img[class*=wp-image] {
     padding: 5px;
     margin: 0 auto;
     border: 1px solid rgba(0,0,0,0.3);
@@ -703,11 +703,12 @@ article img {
 article .wp-post-image {
     display: block;
     padding: 10px;
-    margin-bottom: 1.0em; 
+    margin: 0 auto 1.0em auto;
     max-width: 80%;
     max-height: 500px;
     width: auto;
     height: auto;
+    border: 1px solid rgba(0,0,0,0.3);
     -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     box-shadow: 2px 2px 5px rgba(0,0,0,0.3);

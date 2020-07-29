@@ -73,7 +73,7 @@ function j3AddExternals() {
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
-        array(), "4.7" );
+        array(), "4.8" );
     wp_enqueue_style('j3BaseStyle');
 
     wp_register_style( 'fontAwesome',
@@ -720,7 +720,12 @@ function j3GalleryFilter($content, $attr)
                 More ...
                 </p>";
         }
-        $link = wp_get_attachment_link($id, $size, false, false);
+        $link = wp_get_attachment_link($id, $size, false, false,
+            false,
+            // Add wp-image-$id to the defaults in
+            // wp_get_attachment_image
+            array("class" => "wp-image-$id attachment-$size size-$size")
+        );
 
         $itemClass = 'gallery-item';
         if ($showOnly > 0 && $i >= $showOnly) {
