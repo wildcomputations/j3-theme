@@ -552,7 +552,9 @@ function j3Query( $query ) {
             $query->set( 'tax_query', array(j3StdPhotosQuery()));
         }
         $query->set( 'posts_per_page', 30);
-    } elseif ( is_date() || j3_date_is_archive( ) ) {
+    } elseif ( is_date()
+        || (function_exists("j3_date_is_archive")
+        && j3_date_is_archive( )) ) {
         // Display all posts on the same page
         $query->set( 'posts_per_page', -1);
         $query->set('order', 'ASC');

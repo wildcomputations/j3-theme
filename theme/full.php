@@ -17,7 +17,11 @@ function j3ContentArticle() {
     echo '</a></h1>';
     if (get_post_type() == 'post' ) {
         echo '<div class="date">';
-        $trip_date = j3_date_post('F j, Y');
+        if ( function_exists("j3_date_post") ) {
+            $trip_date = j3_date_post('F j, Y');
+        } else {
+            $trip_date = NULL;
+        }
         if (!empty($trip_date)) {
             echo '<b>' . $trip_date . '</b><br>';
         }
@@ -83,10 +87,11 @@ if ( post_password_required() ) {
         <?php 
             j3ArticleLinks();
         ?>
-        <div class="linkBlock">
-            <?php if(function_exists('echo_crp')) echo_crp(); ?>
-        </div><!--linkBlock-->
-<?php
+<?php if(function_exists('echo_crp')) {
+echo '<div class="linkBlock">';
+echo_crp();
+echo '</div><!--linkBlock-->';
+            }
             j3CtaWidgets()
 ?>
     </aside>

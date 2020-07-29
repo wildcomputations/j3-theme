@@ -20,7 +20,11 @@ function j3AsideCategories() {
 }
 
 function j3AsideCalendar() {
-    $trip_date = j3_date_post("F Y");
+    if ( function_exists("j3_date_post") ) {
+        $trip_date = j3_date_post("F Y");
+    } else {
+        $trip_date = NULL;
+    }
     if ( $trip_date ) {
         $year = j3_date_post("Y");
         $month = j3_date_post("m");
