@@ -76,7 +76,7 @@ if (!is_front_page() and is_singular()) {?>
 <?php } ?>
 
         <div id="pushFooter"></div>
-<? if (has_nav_menu( 'footer')) {
+<?php if (has_nav_menu( 'footer')) {
     echo '<footer>';
     wp_nav_menu( array(
         'menu_class' => 'footerMenuEntry',
