@@ -120,10 +120,6 @@ header h2 {
 }
 
 /********* style ***********/
-img {
-    background-color: white;
-}
-
 header {
     background-color: white;
     position: relative;
@@ -597,6 +593,7 @@ small .rssLink:before {
     width: 100%;
     max-width: inherit;
     height: auto;
+    background-color: white;
 }
 
 /* special case when displayPhoto is used with visual page */
@@ -699,6 +696,7 @@ img[class*=wp-image] {
     border: 1px solid rgba(0,0,0,0.3);
     max-width:100%;
     height: auto;
+    background-color: white;
 }
 article .wp-post-image {
     display: block;
@@ -708,6 +706,7 @@ article .wp-post-image {
     max-height: 500px;
     width: auto;
     height: auto;
+    background-color: white;
     border: 1px solid rgba(0,0,0,0.3);
     -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
