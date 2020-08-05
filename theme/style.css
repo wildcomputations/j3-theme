@@ -638,6 +638,10 @@ small .rssLink:before {
     left: auto;
 }
 
+.pswp img {
+    background-color: white;
+}
+
 aside {
     padding: 80px 0px 0px 0px;
     text-align: center;
@@ -717,10 +721,10 @@ figcaption, .wp-caption {
     max-width: 100%;
     margin-top: 1.5em;
 }
-figcaption .wp-caption-text {
+figcaption, .wp-caption-text {
     width: 100%;
 }
-.wp-block-image figcaption {
+.wp-block-image figcaption, .wp-caption-text {
     text-align : center; 
     color: #888;
     font-size: .8em;
