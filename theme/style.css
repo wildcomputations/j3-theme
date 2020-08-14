@@ -726,7 +726,7 @@ figcaption, .wp-caption {
     margin-top: 1.5em;
 }
 .blocks-gallery-item__caption,
-figcaption .wp-caption-text {
+figcaption, .wp-caption-text {
     width: 100%;
 }
 .wp-block-image figcaption,
