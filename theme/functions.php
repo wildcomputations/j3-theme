@@ -720,12 +720,7 @@ function j3GalleryFilter($content, $attr)
                 More ...
                 </p>";
         }
-        $link = wp_get_attachment_link($id, $size, false, false,
-            false,
-            // Add wp-image-$id to the defaults in
-            // wp_get_attachment_image
-            array("class" => "wp-image-$id attachment-$size size-$size")
-        );
+        $link = wp_get_attachment_link($id, $size, false, false);
 
         $itemClass = 'gallery-item';
         if ($showOnly > 0 && $i >= $showOnly) {
