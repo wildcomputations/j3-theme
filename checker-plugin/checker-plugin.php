@@ -63,6 +63,16 @@ function j3_check_dates_page()
 	<?php
 }
 
+function j3_check_print_ignore_location($post)
+{
+    // We'll use this nonce field later on when saving.
+    $is_ignored = get_post_meta($post->ID, "j3check_ignoreloc", true);
+?>
+<input type="checkbox" name="j3_ignoreloc"
+<?php checked( ! empty($is_ignored) );  ?> />
+<?php
+}
+
 function j3checker_needs_position()
 {
     global $wpdb;
@@ -77,11 +87,14 @@ function j3checker_needs_position()
         LEFT JOIN (SELECT post_id, meta_key, meta_value FROM $wpdb->postmeta
                    where meta_key = '_latlngmarker'
                    ) as position on (position.post_id = posts.ID)
+        LEFT JOIN (SELECT post_id, meta_key, meta_value FROM $wpdb->postmeta
+                   WHERE meta_key = 'j3check_ignoreloc'
+                  ) AS ignore_tbl ON (ignore_tbl.post_id = posts.ID)
         WHERE post_type = 'post'
         AND post_status = 'publish'
         AND post_format.object_id is NULL
         AND position.post_id is NULL
-        ORDER BY posts.post_date DESC 
+        ORDER BY ignore_tbl.meta_value, posts.post_date DESC
         ";
 
     $pageposts = $wpdb->get_results($querystr, OBJECT);
@@ -92,6 +105,7 @@ function j3checker_needs_position()
 <table class="widefat striped posts">
   <thead>
     <tr>
+      <th>Ignore</th>
       <th>Title</th>
       <th>Categories</th>
       <th>Date</th>
@@ -107,6 +121,7 @@ function j3checker_needs_position()
             setup_postdata($post);
 ?>
     <tr>
+      <td><?php j3_check_print_ignore_location($post); ?></td>
       <td><?php edit_post_link(the_title('', '', False)); ?></td>
       <td><?php echo get_the_category_list(", "); ?></td>
       <td><?php the_date(); ?></td>
