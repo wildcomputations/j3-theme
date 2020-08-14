@@ -694,7 +694,11 @@ article {
     padding: 30px 50px;
 }
 
-img[class*=wp-image] {
+img[class*=wp-image],
+.wp-caption img,
+.gallery-icon img,
+.blocks-gallery-item img,
+.wp-block-image img {
     padding: 5px;
     margin: 0 auto;
     border: 1px solid rgba(0,0,0,0.3);
@@ -721,10 +725,13 @@ figcaption, .wp-caption {
     max-width: 100%;
     margin-top: 1.5em;
 }
+.blocks-gallery-item__caption,
 figcaption .wp-caption-text {
     width: 100%;
 }
-.wp-block-image figcaption, .wp-caption-text {
+.wp-block-image figcaption,
+.blocks-gallery-grid .blocks-gallery-item figcaption,
+.wp-caption-text {
     text-align : center; 
     color: #888;
     font-size: .8em;
@@ -733,6 +740,8 @@ figcaption .wp-caption-text {
     margin-bottom:1em;
     font-size:13px;
     display: table-caption;
+    background: none;
+    padding: 0px;
 }
 
 .alignleft {
@@ -752,7 +761,8 @@ figcaption .wp-caption-text {
     margin: 1.0em -5px 0 -5px;
     clear: both;
 }
-.gallery-item {
+.gallery-item,
+.blocks-gallery-grid .blocks-gallery-item figure {
     display: inline-block;
     margin: 5px;
     vertical-align: top;
@@ -775,7 +785,9 @@ figcaption .wp-caption-text {
     vertical-align: middle;
 }
 
-.gallery {
+.gallery,
+.blocks-gallery-grid
+{
     caption-side: bottom;
 }
 
@@ -783,8 +795,11 @@ figcaption .wp-caption-text {
     display: table-cell;
 }
 
-.gallery-caption {
+.gallery-caption,
+.blocks-gallery-grid .blocks-gallery-item figcaption
+{
     display: table-caption;
+    position: static;
 }
 
 
