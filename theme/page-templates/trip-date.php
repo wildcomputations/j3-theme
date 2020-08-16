@@ -119,11 +119,13 @@ function ax_first_post_date($format = "Y-m-d") {
         return date($format);
     }
 
-    // Assign first post date to var
-    $ax_first_post_date = $ax_first_post->post_date;
-
     // return date in required format
-    return date($format, strtotime($ax_first_post_date));
+    $trip_date = j3_date_post($format, $ax_first_post);
+
+    if (empty($trip_date)) {
+        return date($format);
+    }
+    return $trip_date;
 }
 
 function month_selector($year, $month=NULL)
