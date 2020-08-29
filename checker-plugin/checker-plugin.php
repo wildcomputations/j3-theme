@@ -65,12 +65,14 @@ function j3_check_dates_page()
 
 function j3_check_print_ignore_location($post)
 {
-    // We'll use this nonce field later on when saving.
     $is_ignored = get_post_meta($post->ID, "j3check_ignoreloc", true);
-?>
-<input type="checkbox" name="j3_ignoreloc"
-<?php checked( ! empty($is_ignored) );  ?> />
-<?php
+    $name = 'j3_ignoreloc_' . $post->ID;
+    if ( ! empty($is_ignored)) {
+        echo '<input type="hidden" name="' . $name . '" value=off>';
+    }
+    echo '<input type="checkbox" name="' . $name . '" ';
+    checked( ! empty($is_ignored) ); 
+    echo "/>";
 }
 
 function j3checker_needs_position()
@@ -102,17 +104,21 @@ function j3checker_needs_position()
 ?>
 <h2>Posts that need a location</h2>
 <p>Please add a traveler's map location to these posts</p>
-<table class="widefat striped posts">
-  <thead>
-    <tr>
-      <th>Ignore</th>
-      <th>Title</th>
-      <th>Categories</th>
-      <th>Date</th>
-      <?php if ($add_date){ echo "<th>Trip Date</th>";} ?>
-    </tr>
-  </thead>
-  <tbody>
+<form action="admin-post.php" method=post>
+<?php
+    // We'll use this nonce field later on when saving.
+ wp_nonce_field( 'save_location_ignore', 'j3-checker' ); ?>
+  <table class="widefat striped posts">
+    <thead>
+      <tr>
+        <th>Ignore</th>
+        <th>Title</th>
+        <th>Categories</th>
+        <th>Date</th>
+        <?php if ($add_date){ echo "<th>Trip Date</th>";} ?>
+      </tr>
+    </thead>
+    <tbody>
 <?php
 /* TODO: learn to use WP_List_Table */
     if ($pageposts) {
@@ -120,21 +126,53 @@ function j3checker_needs_position()
         foreach ($pageposts as $post) {
             setup_postdata($post);
 ?>
-    <tr>
-      <td><?php j3_check_print_ignore_location($post); ?></td>
-      <td><?php edit_post_link(the_title('', '', False)); ?></td>
-      <td><?php echo get_the_category_list(", "); ?></td>
-      <td><?php the_date(); ?></td>
+      <tr>
+        <td><?php j3_check_print_ignore_location($post); ?></td>
+        <td><?php edit_post_link(the_title('', '', False)); ?></td>
+        <td><?php echo get_the_category_list(", "); ?></td>
+        <td><?php the_date(); ?></td>
 <?php if ($add_date) { echo "<td>" . j3_date_post('Y-m-d') . "</td>";} ?>
-    </tr>
+      </tr>
 <?php
         }
     }
 ?>
-</tbody>
-</table>
+   </tbody>
+  </table>
+  <input type="hidden" name="action" value="j3checklocation" />
+  <input type="submit" value="Update Ignore Flags"/>
+</form>
 <?php
 }
+
+function j3checker_do_location()
+{
+    // if our nonce is there, we trust the hidden request
+    if ( ! check_admin_referer( 'save_location_ignore', 'j3-checker' ) ) {
+        status_header(500);
+        die("Server received '{$_REQUEST['data']}' from your browser.");
+    }
+    $status_str = "";
+    foreach ($_POST as $key => $value ) {
+        if (substr($key, 0, 12) == "j3_ignoreloc") {
+            $key_parts = explode("_", $key);
+            $post_id = $key_parts[2];
+            $status_str .= "Setting " . $post_id .
+                " to " . $value . ". ";
+            if ($value == "on") {
+                update_post_meta($post_id, "j3check_ignoreloc", True);
+            } else {
+                delete_post_meta( $post_id, 'j3check_ignoreloc');
+            }
+
+        }
+    }
+    status_header(200);
+    wp_redirect( $_SERVER['HTTP_REFERER'] );
+    exit(0);
+    //die("Success, POST " .print_r($_POST, True) . "parsed: " . $status_str);
+}
+add_action('admin_post_j3checklocation', 'j3checker_do_location');
 
 
 add_action ('admin_menu', function () {
