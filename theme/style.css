@@ -646,6 +646,12 @@ aside {
     padding: 80px 0px 0px 0px;
     text-align: center;
 }
+/* XXX This only works if there is only one leftBar */
+.leftBar {
+    width: 240px;
+    overflow: visible;
+    height: 20px;
+}
 .linkBlock {
     vertical-align: top;
     display: inline-block;
@@ -1741,8 +1747,12 @@ line-height: 1.1em;
     aside {
         padding: 0;
     }
+    .leftBar {
+        width: auto;
+        height: auto;
+    }
     aside .linkBlock, aside.mini {
-        margin: .25em 0px 1em;
+        margin: .25em .25em 1em;
     }
 
     .hgroup .topicTitle, .hgroup .topicTitle:first-child {
