@@ -31,13 +31,17 @@ function j3ContentArticle() {
     }
     the_content();
     echo '</article>';
+}
 
+function j3ContentComments()
+{
     if (comments_open()) {
         echo '<article class="subPage">';
         comments_template();
         echo '</article>';
     }
 }
+
 
 function j3ArticleLinks() {
     $catHtml = j3AsideCategories();
@@ -54,6 +58,15 @@ function j3ArticleLinks() {
         }
         echo '</ul></div> <!--linkBlock-->';
     }
+}
+
+function j3MapLinks() {
+    if (! is_plugin_active("travelers-map/travelers-map.php") ) return;
+    if (! metadata_exists(get_post_type(), get_the_ID(), '_latlngmarker') ) return;
+    echo '<div class="linkBlock">';
+    echo do_shortcode(
+        '[travelers-map height=220px init_maxzoom=14 centered_on_this=true disable_clustering=true]');
+    echo '</div>';
 }
 
 function j3CtaWidgets()
@@ -86,8 +99,8 @@ if ( post_password_required() ) {
     <aside>
         <?php 
             j3ArticleLinks();
-        ?>
-<?php if(function_exists('echo_crp')) {
+            j3MapLinks();
+            if(function_exists('echo_crp')) {
 echo '<div class="linkBlock">';
 echo_crp();
 echo '</div><!--linkBlock-->';
@@ -102,5 +115,8 @@ echo '</div><!--linkBlock-->';
         <a href="<?php the_permalink(); ?>">More details ...</a>
     </aside>
 </div> <!-- hgroup -->
-<?php 
-?>
+<div class="hgroup hasPage">
+    <div class="rightContent">
+<?php j3ContentComments(); ?>
+    </div> <!-- rightContent -->
+</div> <!-- hgroup -->
