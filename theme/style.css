@@ -706,7 +706,6 @@ img[class*=wp-image],
 .blocks-gallery-item img,
 .wp-block-image img {
     padding: 5px;
-    margin: 0 auto;
     border: 1px solid rgba(0,0,0,0.3);
     max-width:100%;
     height: auto;
@@ -746,7 +745,6 @@ figcaption .wp-caption-text,
     margin-top:.5em;
     margin-bottom:1em;
     font-size:13px;
-    display: table-caption;
     background: none;
     padding: 0px;
 }

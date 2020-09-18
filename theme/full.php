@@ -81,7 +81,7 @@ function j3MapLinks() {
     echo '<div class="linkBlock">';
     echo '<h1>Nearby Trips</h1>';
     echo do_shortcode(
-        '[travelers-map height=220px init_maxzoom=14 centered_on_this=true disable_clustering=true]');
+        '[travelers-map height=220px init_maxzoom=13 centered_on_this=true disable_clustering=true]');
     echo '</div>';
 }
 
