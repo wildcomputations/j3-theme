@@ -52,7 +52,7 @@ function searchmap()
 <div class="hgroup hasPage">
     <div class="rightContent">
         <div class="visualPage">
-<?php echo do_shortcode('[travelers-map current_query_markers=true height=50vh]'); ?>
+<?php echo do_shortcode('[travelers-map current_query_markers=true height=50vh max_cluster_radius=12]'); ?>
         </div> <!-- visualPage -->
     </div> <!-- rightContent -->
 </div> <!-- hgroup -->
