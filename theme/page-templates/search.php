@@ -45,6 +45,20 @@ function generatePostTypes()
             "Pages");
 }
 
+function searchmap()
+{
+    if (! function_exists('cttm_scripts_frontend') ) return;
+?>
+<div class="hgroup hasPage">
+    <div class="rightContent">
+        <div class="visualPage">
+<?php echo do_shortcode('[travelers-map current_query_markers=true height=50vh]'); ?>
+        </div> <!-- visualPage -->
+    </div> <!-- rightContent -->
+</div> <!-- hgroup -->
+<?php
+}
+
 /*print_r($wp_query->query_vars);*/
 get_header(); ?>
 
@@ -74,6 +88,7 @@ if ( is_paged() ) {
     j3PageNav("", "", $standalone = true);
 }
 if ( have_posts() ) { 
+    searchmap();
     while ( have_posts() ) { 
         the_post(); 
 ?>
