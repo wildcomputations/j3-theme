@@ -80,8 +80,10 @@ function j3MapLinks() {
     if (! metadata_exists(get_post_type(), get_the_ID(), '_latlngmarker') ) return;
     echo '<div class="linkBlock">';
     echo '<h1>Nearby Trips</h1>';
+    /*echo do_shortcode(
+        '[travelers-map height=220px init_maxzoom=13 centered_on_this=true disable_clustering=true]');*/
     echo do_shortcode(
-        '[travelers-map height=220px init_maxzoom=13 centered_on_this=true disable_clustering=true]');
+        '[travelers-map height=220px init_maxzoom=13 centered_on_this=true max_cluster_radius=1]');
     echo '</div>';
 }
 
