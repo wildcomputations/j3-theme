@@ -1058,13 +1058,6 @@ margin : 0;
     color: #888;
 }
 
-.albumSummary h1 {
-    height: 2.1em; 
-    overflow: hidden;
-    margin-left: -10px;
-    margin-right: -5px;
-}
-
 .history  {
 padding-bottom : 40px;
 }
@@ -1520,23 +1513,25 @@ h1, h2, h3, h4, h5,
     margin-bottom: 0.1em;
 }
 
-h1, h2 {
-    font-weight: bold;
-}
-h2, h3, h4, h5 {
+h1, h2, h3, h4, h5 {
     margin-top: 1em;
     margin-bottom: 0.1em;
+    font-weight: bold;
+}
+h1 {
+    font-size: 1.7rem;
 }
 h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 h3 {
-    font-size: 1.3rem;
-    font-weight: normal;
+    margin-top: 0.8em;
+    font-size: 1.1rem;
 }
 h4 {
-   font-size: 1rem;
-   font-weight: bold;
+    margin-top: 0.5em;
+    font-size: 1.1rem;
+    font-family: 'Pinselschrift', 'Times', serif;
 }
 
 h1:first-child, h2:first-child, h3:first-child,
@@ -1571,25 +1566,15 @@ article p:last-child {
     margin-bottom: 0em;
 }
 
-article > h1 {
-    font-size: 1.7rem;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-article h1.articleTitle {
+.articleHead {
     text-align: center;
-    font-size: 1.5rem;
-    text-transform: initial;
-    margin-bottom: .25em;
-    font-weight: bold;
+    margin-bottom : 2.5em;
 }
 
 article .date {
-    text-align : center; 
     color: #888;
     line-height: 1.3em;
     font-family: 'Pinselschrift', 'Times', serif;
-    margin-bottom : 2.5em;
 }
 article .date b {
     color: black;
@@ -1621,6 +1606,11 @@ article > p {
     margin-top: 1rem;
     margin-bottom: 1rem;
     line-height:1.4;
+}
+.articleFooter {
+    clear: both;
+    margin-top:1em;
+    text-align: right;
 }
 
 .displayPhoto.visualPage p {
@@ -1668,20 +1658,6 @@ article p {
     color: gray; 
     font-size: 2rem;
     font-weight: normal;
-}
-
-.albumExcerpt h1.articleTitle {
-font-size : 2rem; 
-}
-
-.albumExcerpt h1, .albumExcerpt h2 {
-margin-top: 0.1em;
-margin-bottom: 0.0em;
-line-height: 1.1em;
-}
-
-.albumExcerpt h2 {
-    font-family: 'Helvetica', sans-serif;
 }
 
 .albumExcerpt .date {
@@ -1938,9 +1914,14 @@ line-height: 1.1em;
     }
 
 
-    article h1 {
+    h1 {
+        font-size:1.4rem;
+    }
+    h2 {
         font-size:1.2rem;
-         
+    }
+    h3 {
+        font-size:1.1rem;
     }
 
     article h1.articleTitle:first-child,

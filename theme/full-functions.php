@@ -37,4 +37,40 @@ function j3AsideCalendar() {
     return $trip_date_html;
 }
 
+function j3ArticleHead($include_author, $subhead='') {
+    echo '<div class="articleHead"><h1><a href="' . get_permalink() . '">';
+    the_title();
+    echo '</a></h1>';
+    if (!empty($subhead)) {
+        echo "<h2>" . $subhead . "</h2>";
+    }
+    if (function_exists("j3_date_post") ) {
+        $trip_date = j3_date_post('F j, Y');
+    } else {
+        $trip_date = NULL;
+    }
+    if (!empty($trip_date) || $include_author) {
+        echo '<div class="date">';
+        if (!empty($trip_date)) {
+            echo '<b>' . $trip_date . '</b><br>';
+        }
+        if ($include_author) {
+            echo get_the_author();
+        }
+        echo '</div>';
+    }
+    echo "</div>";
+}
+
+function j3ArticleFooter() {
+    echo '<div class="articleFooter"><div class="date">Written ' . get_the_date();
+    $u_time = get_the_time('U');
+    $u_modified_time = get_the_modified_time('U');
+    if ($u_modified_time >= $u_time + 86400) {
+        echo ", updated ";
+        the_modified_date();
+    }
+    echo '</div></div>';
+}
+
 endif; // function declarations

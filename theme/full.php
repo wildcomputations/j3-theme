@@ -12,24 +12,12 @@ function j3ContentArticle() {
     echo '<article class="visualPage">';
 
     j3PostThumbnail();
-    echo '<h1 class="articleTitle"><a href="' . get_permalink() . '">';
-    the_title();
-    echo '</a></h1>';
-    if (get_post_type() == 'post' ) {
-        echo '<div class="date">';
-        if ( function_exists("j3_date_post") ) {
-            $trip_date = j3_date_post('F j, Y');
-        } else {
-            $trip_date = NULL;
-        }
-        if (!empty($trip_date)) {
-            echo '<b>' . $trip_date . '</b><br>';
-        }
-        echo '<b>' . get_the_author() . '</b> updated ';
-        the_modified_date();
-        echo '</div>';
-    }
+    $is_post = get_post_type() == 'post';
+    j3ArticleHead($is_post);
     the_content();
+    if (get_post_type() == 'post' ) {
+        j3ArticleFooter();
+    }
     echo '</article>';
 }
 

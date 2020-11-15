@@ -2,6 +2,7 @@
 /**
  * @package j3Custom
  */
+require 'full-functions.php';
 
 if (! function_exists('j3GalleryExcerpt' ) ):
 function j3GalleryExcerpt() 
@@ -15,12 +16,10 @@ function j3GalleryExcerpt()
         echo "Album needs summary photo";
     }
     echo '  </a>
-            </div> <!-- stacks-->
-            <h1 class="articleTitle"><a href="' . get_permalink() . '">' 
-                . get_the_title() . '</a></h1>
-                <h2>Photo Album</h2>
-                <div class="date">' . j3_date_post('M j, Y') . '</div>';
+            </div> <!-- stacks-->';
+    j3ArticleHead(False, "Photo Album");
     the_excerpt();
+    j3ArticleFooter();
     echo ' </article>';
 }
 

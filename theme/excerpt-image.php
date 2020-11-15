@@ -13,7 +13,7 @@ if (has_post_thumbnail()) {
     echo "Image needs photo";
 }
 echo '  </a>
-    <h1 class="articleTitle"><a href="' . get_permalink() . '">' 
-    . get_the_title() . '</a></h1>';
+    <div class="articleHead"><h1><a href="' . get_permalink() . '">' 
+    . get_the_title() . '</a></h1></div>';
 ?>
 </article>

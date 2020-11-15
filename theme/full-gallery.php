@@ -11,15 +11,10 @@ require 'full-functions.php';
 if (! function_exists('j3GalleryFull' ) ):
 function j3GalleryFull() 
 {
-    echo '<article class="albumFull hasStack visualPage">
-         <h1 class="articleTitle">'  . get_the_title() . '</h1>';
-    echo '<div class="date">';
-    $trip_date = j3_date_post('F j, Y');
-    if (!empty($trip_date)) {
-        echo '<b>' . $trip_date . '</b><br>';
-    }
-    echo '</div>';
+    echo '<article class="albumFull hasStack visualPage">';
+    j3ArticleHead(True);
     the_content();
+    j3ArticleFooter();
     echo '</article>';
 
     if (comments_open()) {
