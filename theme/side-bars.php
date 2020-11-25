@@ -6,16 +6,10 @@
 function j3RandomPhoto( $category=NULL )
 {
     $rand_post_args = array(
-        'post_type' => 'post',
+        'post_type' => 'photo_album',
         'orderby' => 'rand',
         'tax_query' => array(
-            'relation' => 'AND',
-            array(
-                'taxonomy' => 'post_format',
-                'field' => 'slug',
-                'terms' => array( 'post-format-gallery' )
-            ),
-            j3StdPhotosQuery()
+            j3StdPhotosQuery(),
         ),
         'posts_per_page' => 1
     );
@@ -84,14 +78,8 @@ function j3CtaBox()
 function j3RecentGalleries( $category=NULL )
 {
     $args = array(
-        'post_type' => 'post',
+        'post_type' => 'photo_album',
         'tax_query' => array(
-            'relation' => 'AND',
-            array(
-                'taxonomy' => 'post_format',
-                'field' => 'slug',
-                'terms' => array( 'post-format-gallery' )
-            ),
             j3StdPhotosQuery(),
         ),
         'posts_per_page' => 7
@@ -112,8 +100,14 @@ function j3RecentGalleries( $category=NULL )
                 }
                 get_template_part( 'card', $format ); 
         }
+        $photos_url = get_post_type_archive_link('photo_album');
+        if (is_category()) {
+            $photos_url = add_query_arg('cat', 
+                get_query_var('cat'),
+                $photos_url);
+        }
         echo '<div class="albumText">
-            <a href="' . get_post_format_link(get_post_format())
+            <a href="' . $photos_url
             . '">More Photos ...</a>
                 </div>';
         /* Restore original Post Data */

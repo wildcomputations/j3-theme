@@ -40,6 +40,9 @@ function generatePostTypes()
     autoCheck('name="post_format" value="gallery" '
         . checked("post-format-gallery", get_query_var("post_format"), false),
         "Photo Albums");
+    autoCheck('name="post_type" value="photo_album" '
+        . checked("post_album", get_query_var("post_type"), false),
+            "Photo Albums (new)");
     autoCheck('name="post_type" value="page" '
         . checked("page", get_query_var("post_type"), false),
             "Pages");
