@@ -16,7 +16,12 @@ get_header(); ?>
                 the_post(); 
                 j3ArchiveDoYear();
                 j3ArchiveDoMonth();
-                get_template_part( 'card', get_post_format() ); 
+                if (get_post_type() == 'photo_album') {
+                    $format = 'gallery';
+                } else {
+                    $format = get_post_format();
+                }
+                get_template_part( 'card', $format ); 
             } ?>
         </div> <!-- month -->
     </div> <!-- rightContent -->

@@ -45,7 +45,12 @@ function recentPosts()
     if ( have_posts() ) { 
         while ( have_posts() ) { 
             the_post(); 
-            get_template_part( 'excerpt', get_post_format() ); 
+            if (get_post_type() == 'photo_album') {
+                $format = 'gallery';
+            } else {
+                $format = get_post_format();
+            }
+            get_template_part( 'excerpt', $format ); 
         }
     } else { 
         get_template_part( 'content', 'none' ); 

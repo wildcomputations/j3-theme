@@ -380,7 +380,12 @@ function j3RecentPosts($atts) {
         while ( $query->have_posts() ) {
                 $query->the_post();
                 ob_start();
-                get_template_part( 'card', get_post_format() ); 
+                if (get_post_type() == 'photo_album') {
+                    $format = 'gallery';
+                } else {
+                    $format = get_post_format();
+                }
+                get_template_part( 'card', $format ); 
                 $result .= ob_get_clean();
         }
 
@@ -457,7 +462,12 @@ function j3PostPreviewShortCode($atts) {
         if ( $query->have_posts() ) {
             $query->the_post();
             ob_start();
-            get_template_part( 'card', get_post_format() ); 
+            if (get_post_type() == 'photo_album') {
+                $format = 'gallery';
+            } else {
+                $format = get_post_format();
+            }
+            get_template_part( 'card', $format ); 
             $result .= ob_get_clean();
         } else {
             $result .= "Unrecognized post " . $postSlug;

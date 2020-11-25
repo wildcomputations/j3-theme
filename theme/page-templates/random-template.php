@@ -27,7 +27,12 @@ get_header(); ?>
 if ( $query->have_posts() ) { 
     while ( $query->have_posts() ) { 
         $query->the_post(); 
-        get_template_part( 'full', get_post_format() ); 
+        if (get_post_type() == 'photo_album') {
+            $format = 'gallery';
+        } else {
+            $format = get_post_format();
+        }
+        get_template_part( 'full', $format ); 
     }
 } else { 
     get_template_part( 'content', 'none' ); 

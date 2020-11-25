@@ -285,7 +285,12 @@ if ( have_posts() ) {
         }
         $prev_year = $new_year;
         $prev_month = $new_month;
-        get_template_part( 'card', get_post_format() ); 
+        if (get_post_type() == 'photo_album') {
+            $format = 'gallery';
+        } else {
+            $format = get_post_format();
+        }
+        get_template_part( 'card', $format ); 
     } ?>
     </div> <!-- month -->
 </div> <!-- rightContent -->

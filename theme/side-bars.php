@@ -105,7 +105,12 @@ function j3RecentGalleries( $category=NULL )
         while ( $query->have_posts() ) {
                 $query->the_post();
                 set_query_var('display_post', 'summary');
-                get_template_part( 'card', get_post_format() ); 
+                if (get_post_type() == 'photo_album') {
+                    $format = 'gallery';
+                } else {
+                    $format = get_post_format();
+                }
+                get_template_part( 'card', $format ); 
         }
         echo '<div class="albumText">
             <a href="' . get_post_format_link(get_post_format())

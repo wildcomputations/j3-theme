@@ -14,6 +14,9 @@ Author URI: http://j3.org/
 To mass add trip dates to existing posts:
 INSERT INTO wp_postmeta (post_id, meta_key, meta_value)
 SELECT ID, 'j3tripdate', DATE(post_date) FROM `wp_posts` WHERE post_type LIKE 'post'
+
+If you want a new post-type to get dates, add support for 'j3date'
+    add_post_type_support( 'post', 'j3date');
 */
 
 /*****************************************************************
@@ -216,8 +219,9 @@ Set trip date<br>
 /* Register our meta box so it gets displayed */
 function j3DateMetaBoxes ()
 {
+    $post_types = get_post_types_by_support('j3date');
     add_meta_box("j3tripdatediv", "Trip Date", 'j3PostDateHtml',
-        'post', 'side', 'high',
+        $post_types, 'side', 'high',
         array(
             '__block_editor_compatible_meta_box' => true,
         )
@@ -265,7 +269,9 @@ function j3DateMetaBoxSave($post_id)
     if( !current_user_can( 'edit_post', $post_id ) ) return;
 
     // make sure we're on a post not a page
-    if (get_post_type($post_id) != "post") return;
+    if (!in_array(get_post_type($post_id), get_post_types_by_support('j3date'))) {
+        return;
+    }
 
     // if our nonce is there, we trust the hidden request
     if( ! empty( $_POST )
@@ -368,6 +374,12 @@ function j3_date_add_rewrite_rules()
     'top');
 }
 add_action('init', 'j3_date_add_rewrite_rules', 10, 0);
+
+function j3_date_add_feature_support()
+{
+    add_post_type_support( 'post', 'j3date');
+}
+add_action('init', 'j3_date_add_feature_support');
 
 function j3_date_archive_template( $template )
 {
