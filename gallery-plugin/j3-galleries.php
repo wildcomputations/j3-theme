@@ -35,6 +35,7 @@ function j3gallery_add_post_type()
             'supports'    => array(
                 'title', 'editor', 'comments', 'author', 'excerpt',
                 'thumbnail', 'custom-fields', 'j3date'),
+            'taxonomies'   => array( 'category', 'post_tag' )
         )
     );
 }
