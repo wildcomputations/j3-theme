@@ -405,6 +405,7 @@ function j3RecentPosts($atts) {
 }
 add_shortcode('j3recent', 'j3RecentPosts');
 
+// XXX This is broken for new photo_album post type
 /* TODO : css formatting not quite right after removing date. Also check 
  * excerpt length. 
  * Also, document arguments */
@@ -578,6 +579,7 @@ function j3Query( $query ) {
         || (function_exists("j3_date_is_archive")
         && j3_date_is_archive( )) ) {
         // Display all posts on the same page
+        $query->set( 'post_type', array( 'post', 'photo_album' ) );
         $query->set( 'posts_per_page', -1);
         $query->set('order', 'ASC');
         $tax_not_image = array( array(
@@ -597,7 +599,6 @@ function j3Query( $query ) {
             ) );
         $query->set( 'tax_query', array($taxOnlyStd) );
     } elseif ( $query->is_search ) {
-        //$query->set( 'post_type', array( 'post', 'attachment' ) );
         if (get_query_var('post_type', 'attachment') == 'attachment') {
             $query->set( 'post_status', array( 'publish', 'inherit' ) );
         }

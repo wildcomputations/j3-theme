@@ -23,7 +23,7 @@ function one_day($day, $month, $year)
     $first_gallery_image = NULL;
     $first_post_image = NULL;
     while (!empty(get_post()) && j3_date_post("Y-m-d") == $compr_date) {
-        if (get_post_format() == "gallery" ) {
+        if (get_post_format() == "gallery" || get_post_type() == "photo_album") {
             $display = 'Album: <a href="' . get_permalink() . '">';
             $display .= get_the_title();
             $display .= '</a><br>';
