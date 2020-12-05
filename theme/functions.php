@@ -550,6 +550,18 @@ function j3StdPhotosQuery( ) {
     return $tag_not_special;
 }
 
+
+/* From
+ * https://wordpress.stackexchange.com/questions/67003/is-there-a-reason-why-pages-are-not-publicly-queryable
+ */
+function fix_page_query() {
+    if ( post_type_exists( 'page' ) ) {
+        global $wp_post_types;
+        $wp_post_types['page']->publicly_queryable = true;
+    }
+}
+add_action( 'init', 'fix_page_query', 1 );
+
 /* special archives */
 /* http://www.billerickson.net/customize-the-wordpress-query/ */
 function j3Query( $query ) {
@@ -584,6 +596,11 @@ function j3Query( $query ) {
                 'operator' => 'NOT IN',
             ) );
         $query->set( 'tax_query', array($taxOnlyStd) );
+    } elseif ( $query->is_search ) {
+        //$query->set( 'post_type', array( 'post', 'attachment' ) );
+        if (get_query_var('post_type', 'attachment') == 'attachment') {
+            $query->set( 'post_status', array( 'publish', 'inherit' ) );
+        }
     }
 }
 add_action( 'pre_get_posts', 'j3Query');
@@ -765,12 +782,6 @@ function j3GalleryFilter($content, $attr)
     return $output;
 }
 add_filter('post_gallery', 'j3GalleryFilter', 10, 2);
-
-function add_query_vars_filter( $vars ){
-    $vars[] = "display_post";
-    return $vars;
-}
-add_filter( 'query_vars', 'add_query_vars_filter' );
 
 
 function add_size_to_images($content) {
