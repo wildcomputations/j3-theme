@@ -533,7 +533,10 @@ function j3IsGalleryFormat($query = '')
         $query = $wp_query;
     }
 
-    if ( $query->get("post_format") 
+    if ( $query->get("post_type")
+        && $query->get("post_type") == 'photo_album') {
+        return true;
+    } elseif ( $query->get("post_format")
         && $query->get("post_format") == 'post-format-gallery') {
         return true;
     } else {
