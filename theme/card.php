@@ -9,8 +9,6 @@
  */
 ?>
 
-// XXX This is broken for attachments as seen in search
-
 <div class="stackPaper">
     <a href="<?php echo esc_url( get_the_permalink() ); ?>" class="noEmph">
         <div class="summary"><?php

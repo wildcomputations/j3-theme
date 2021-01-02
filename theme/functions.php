@@ -405,7 +405,7 @@ function j3RecentPosts($atts) {
 }
 add_shortcode('j3recent', 'j3RecentPosts');
 
-// XXX This is broken for new photo_album post type
+// XXX This is broken for new photo_album post type. unexplained bold
 /* TODO : css formatting not quite right after removing date. Also check 
  * excerpt length. 
  * Also, document arguments */

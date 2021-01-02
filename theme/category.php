@@ -47,6 +47,8 @@ function recentPosts()
             the_post(); 
             if (get_post_type() == 'photo_album') {
                 $format = 'gallery';
+            } elseif (get_post_type() == 'attachment') {
+                $format = 'image';
             } else {
                 $format = get_post_format();
             }
