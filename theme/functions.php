@@ -592,7 +592,7 @@ function j3Query( $query ) {
                 'operator' => 'NOT IN',
             ) );
         $query->set( 'tax_query', array($tax_not_image) );
-    } elseif ( is_home() || is_category() || is_feed() ) {
+    } elseif ( is_home() || is_category() || is_feed() || is_tag() ) {
         $taxOnlyStd = array( array(
                 'taxonomy' => 'post_format',
                 'field' => 'slug',
