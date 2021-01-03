@@ -81,7 +81,7 @@ function j3CtaBox()
     }
 }
 
-function j3RecentGalleries( $category=NULL )
+function j3RecentGalleries( $category=NULL, $tag=NULL )
 {
     $args = array(
         'post_type' => 'post',
@@ -98,6 +98,9 @@ function j3RecentGalleries( $category=NULL )
     );
     if (! is_null($category)) {
         $args["cat"] = $category;
+    }
+    if (! is_null($tag)) {
+        $args["tag"] = $tag;
     }
     $query = new WP_Query( $args );
     if ($query->have_posts()) {

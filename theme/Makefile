@@ -4,6 +4,7 @@ jsFiles = baseScripts.js
 standardTemplates = index.php \
 		    front-page.php \
 		    category.php \
+		    tag.php \
 		    taxonomy-post_format-post-format-gallery.php \
 		    date.php \
                     singular.php
