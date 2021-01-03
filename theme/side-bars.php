@@ -104,9 +104,14 @@ function j3RecentGalleries( $category=NULL, $tag=NULL )
                 get_template_part( 'card', $format ); 
         }
         $photos_url = get_post_type_archive_link('photo_album');
-        if (is_category()) {
+        if (! is_null($category)) {
             $photos_url = add_query_arg('cat', 
-                get_query_var('cat'),
+                $category,
+                $photos_url);
+        }
+        if (! is_null($tag)) {
+            $photos_url = add_query_arg('tag',
+                $tag,
                 $photos_url);
         }
         echo '<div class="albumText">
