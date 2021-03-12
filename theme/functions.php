@@ -354,7 +354,7 @@ function j3RecentPosts($atts) {
         return "No tag specified";
     }
     
-    $tagTerm = get_term_by('name', $args['tag'], 'post_tag');
+    $tagTerm = get_term_by('slug', $args['tag'], 'post_tag');
     if (! $tagTerm ) {
         return "Bad tag specified";
     }
@@ -370,6 +370,7 @@ function j3RecentPosts($atts) {
 
     $query = new WP_Query(array(
         'tag' => $args['tag'],
+        'post_type' => array('post', 'photo_album'),
         'posts_per_page' => $displayNum ,
         'tax_query' => $taxOnlyStd ));
 
@@ -405,103 +406,16 @@ function j3RecentPosts($atts) {
 }
 add_shortcode('j3recent', 'j3RecentPosts');
 
-// XXX This is broken for new photo_album post type. unexplained bold
-/* TODO : css formatting not quite right after removing date. Also check 
- * excerpt length. 
- * Also, document arguments */
-function j3PostPreviewShortCode($atts) {
-    $args = shortcode_atts( array(
-        'post' => "",
-        'page' => "",
-        'posts' => "",
-        'pages' => "",
-        'start' => 1,
-        'end' => 1,
-    ), $atts );
-
-    if ($args['post'] == "" and $args['page'] == ""
-        and $args['posts'] == "" and $args['pages'] == "") {
-        return "j3preview: must specify either 'post' or 'page' slug";
-    }
-
-    if ( $args['pages'] != "" ) {
-        $pageNames = explode(",", $args['pages']);
-    } else {
-        $pageNames = array();
-    }
-    if ( $args['page'] != "" ) {
-        array_push($pageNames, $args['page']);
-    }
-    if ( $args['posts'] != "" ) {
-        $postNames = explode(",", $args['posts']);
-    } else {
-        $postNames = array();
-    }
-    if ( $args['post'] != "" ) {
-        array_push($postNames, $args['post']);
-    }
-
-    $result = "";
-    if ($args['start'] == 1) {
-        $result .= '<div class="hasStack trippleStack">';
-    }
-    /* WP_Query accepts a list of post ids post__in, but it doesn't accept a 
-     * list of post slugs. Since slugs are more user friendly, manually 
-     * iterating over individual slugs. */
-    foreach ($pageNames as $pageSlug) {
-        $query = new WP_Query('pagename='.$pageSlug);
-        if ( $query->have_posts() ) {
-            $query->the_post();
-            $result .= j3PagePreview($echo=False);
-        } else {
-            $result .= "Unrecognized page " . $pageSlug;
-        }
-    }
-
-    foreach ($postNames as $postSlug) {
-        $query = new WP_Query('name='.$postSlug);
-        if ( $query->have_posts() ) {
-            $query->the_post();
-            ob_start();
-            if (get_post_type() == 'photo_album') {
-                $format = 'gallery';
-            } else {
-                $format = get_post_format();
-            }
-            get_template_part( 'card', $format ); 
-            $result .= ob_get_clean();
-        } else {
-            $result .= "Unrecognized post " . $postSlug;
-        }
-    }
-
-    if ($args['end'] == 1) {
-        $result .= "</div>";
-    }
-
-    /* Restore original Post Data */
-    wp_reset_postdata(); 
-
-    return $result;
-
-}
-add_shortcode('j3preview', 'j3PostPreviewShortCode');
-
 function j3HelpBox () 
 {
     echo '<h3>Shortcodes</h3>
         <ul>
             <li> <tt>j3recent</tt> -> argument tag="tagName". Displays previews of 
             recent posts with that tag.
-            <li> <tt>j3preview</tt> -> post="postSlug", page="pageSlug", posts="postSlugA,postSlugB", pages="pageSlugA,pageSlugB", start=1, end=1<br>
-            shows a preview of one or more pages or posts. The previews must be 
-            contained in a div. By default the short code will generate the 
-            start and end of that div. Either can be turned off for chaining 
-            multiple calls to this shortcode.
         </ul>
         <h3>Making a Gallery</h3>
         <ol>
-            <li>Make a post
+            <li>Make a "photo album"
             <li>upload media
             <li>add [gallery] to the post text
             <li>set a featured image
