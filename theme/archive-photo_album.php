@@ -8,6 +8,7 @@ get_header(); ?>
 
 <div class="main"><!-- safari appears to not support main-->
 <?php 
+// TODO add title saying "Photos" and then the category or tag
 if ( have_posts() ) { 
     j3PageNav("", "", $standalone = true);
     echo '<div class="hgroup hasPage">';
