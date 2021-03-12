@@ -354,7 +354,7 @@ function j3RecentPosts($atts) {
         return "No tag specified";
     }
     
-    $tagTerm = get_term_by('name', $args['tag'], 'post_tag');
+    $tagTerm = get_term_by('slug', $args['tag'], 'post_tag');
     if (! $tagTerm ) {
         return "Bad tag specified";
     }
@@ -370,6 +370,7 @@ function j3RecentPosts($atts) {
 
     $query = new WP_Query(array(
         'tag' => $args['tag'],
+        'post_type' => array('post', 'photo_album'),
         'posts_per_page' => $displayNum ,
         'tax_query' => $taxOnlyStd ));
 
@@ -380,7 +381,12 @@ function j3RecentPosts($atts) {
         while ( $query->have_posts() ) {
                 $query->the_post();
                 ob_start();
-                get_template_part( 'card', get_post_format() ); 
+                if (get_post_type() == 'photo_album') {
+                    $format = 'gallery';
+                } else {
+                    $format = get_post_format();
+                }
+                get_template_part( 'card', $format ); 
                 $result .= ob_get_clean();
         }
 
@@ -400,97 +406,16 @@ function j3RecentPosts($atts) {
 }
 add_shortcode('j3recent', 'j3RecentPosts');
 
-/* TODO : css formatting not quite right after removing date. Also check 
- * excerpt length. 
- * Also, document arguments */
-function j3PostPreviewShortCode($atts) {
-    $args = shortcode_atts( array(
-        'post' => "",
-        'page' => "",
-        'posts' => "",
-        'pages' => "",
-        'start' => 1,
-        'end' => 1,
-    ), $atts );
-
-    if ($args['post'] == "" and $args['page'] == ""
-        and $args['posts'] == "" and $args['pages'] == "") {
-        return "j3preview: must specify either 'post' or 'page' slug";
-    }
-
-    if ( $args['pages'] != "" ) {
-        $pageNames = explode(",", $args['pages']);
-    } else {
-        $pageNames = array();
-    }
-    if ( $args['page'] != "" ) {
-        array_push($pageNames, $args['page']);
-    }
-    if ( $args['posts'] != "" ) {
-        $postNames = explode(",", $args['posts']);
-    } else {
-        $postNames = array();
-    }
-    if ( $args['post'] != "" ) {
-        array_push($postNames, $args['post']);
-    }
-
-    $result = "";
-    if ($args['start'] == 1) {
-        $result .= '<div class="hasStack trippleStack">';
-    }
-    /* WP_Query accepts a list of post ids post__in, but it doesn't accept a 
-     * list of post slugs. Since slugs are more user friendly, manually 
-     * iterating over individual slugs. */
-    foreach ($pageNames as $pageSlug) {
-        $query = new WP_Query('pagename='.$pageSlug);
-        if ( $query->have_posts() ) {
-            $query->the_post();
-            $result .= j3PagePreview($echo=False);
-        } else {
-            $result .= "Unrecognized page " . $pageSlug;
-        }
-    }
-
-    foreach ($postNames as $postSlug) {
-        $query = new WP_Query('name='.$postSlug);
-        if ( $query->have_posts() ) {
-            $query->the_post();
-            ob_start();
-            get_template_part( 'card', get_post_format() ); 
-            $result .= ob_get_clean();
-        } else {
-            $result .= "Unrecognized post " . $postSlug;
-        }
-    }
-
-    if ($args['end'] == 1) {
-        $result .= "</div>";
-    }
-
-    /* Restore original Post Data */
-    wp_reset_postdata(); 
-
-    return $result;
-
-}
-add_shortcode('j3preview', 'j3PostPreviewShortCode');
-
 function j3HelpBox () 
 {
     echo '<h3>Shortcodes</h3>
         <ul>
             <li> <tt>j3recent</tt> -> argument tag="tagName". Displays previews of 
             recent posts with that tag.
-            <li> <tt>j3preview</tt> -> post="postSlug", page="pageSlug", posts="postSlugA,postSlugB", pages="pageSlugA,pageSlugB", start=1, end=1<br>
-            shows a preview of one or more pages or posts. The previews must be 
-            contained in a div. By default the short code will generate the 
-            start and end of that div. Either can be turned off for chaining 
-            multiple calls to this shortcode.
         </ul>
         <h3>Making a Gallery</h3>
         <ol>
-            <li>Make a post
+            <li>Make a "photo album"
             <li>upload media
             <li>add [gallery] to the post text
             <li>set a featured image
@@ -522,7 +447,10 @@ function j3IsGalleryFormat($query = '')
         $query = $wp_query;
     }
 
-    if ( $query->get("post_format") 
+    if ( $query->get("post_type")
+        && $query->get("post_type") == 'photo_album') {
+        return true;
+    } elseif ( $query->get("post_format")
         && $query->get("post_format") == 'post-format-gallery') {
         return true;
     } else {
@@ -540,6 +468,18 @@ function j3StdPhotosQuery( ) {
     return $tag_not_special;
 }
 
+
+/* From
+ * https://wordpress.stackexchange.com/questions/67003/is-there-a-reason-why-pages-are-not-publicly-queryable
+ */
+function fix_page_query() {
+    if ( post_type_exists( 'page' ) ) {
+        global $wp_post_types;
+        $wp_post_types['page']->publicly_queryable = true;
+    }
+}
+add_action( 'init', 'fix_page_query', 1 );
+
 /* special archives */
 /* http://www.billerickson.net/customize-the-wordpress-query/ */
 function j3Query( $query ) {
@@ -556,6 +496,7 @@ function j3Query( $query ) {
         || (function_exists("j3_date_is_archive")
         && j3_date_is_archive( )) ) {
         // Display all posts on the same page
+        $query->set( 'post_type', array( 'post', 'photo_album' ) );
         $query->set( 'posts_per_page', -1);
         $query->set('order', 'ASC');
         $tax_not_image = array( array(
@@ -574,6 +515,10 @@ function j3Query( $query ) {
                 'operator' => 'NOT IN',
             ) );
         $query->set( 'tax_query', array($taxOnlyStd) );
+    } elseif ( $query->is_search ) {
+        if (get_query_var('post_type', 'attachment') == 'attachment') {
+            $query->set( 'post_status', array( 'publish', 'inherit' ) );
+        }
     }
 }
 add_action( 'pre_get_posts', 'j3Query');
@@ -755,12 +700,6 @@ function j3GalleryFilter($content, $attr)
     return $output;
 }
 add_filter('post_gallery', 'j3GalleryFilter', 10, 2);
-
-function add_query_vars_filter( $vars ){
-    $vars[] = "display_post";
-    return $vars;
-}
-add_filter( 'query_vars', 'add_query_vars_filter' );
 
 
 function add_size_to_images($content) {

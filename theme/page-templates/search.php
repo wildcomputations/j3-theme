@@ -11,7 +11,7 @@ pages.
 function autoCheck($meta, $label)
 {
     echo '<label>
-        <input type="checkbox" ' . $meta 
+        <input type="radio" ' . $meta 
         . ' onChange="this.form.submit()">'
         . $label . '
         </label><br>';
@@ -23,6 +23,7 @@ function generateCategoryCheckboxes()
     https://codex.wordpress.org/WordPress_Query_Vars
     these need to generate a query like ?cat=1,2 
  */
+    autoCheck('name="cat" value="" ' . checked(true, false), "All");
     $categories = get_categories();
     foreach ($categories as $cat) {
         autoCheck('name="cat" value="'
@@ -34,15 +35,19 @@ function generateCategoryCheckboxes()
 
 function generatePostTypes()
 {
+    autoCheck('name="post_type" value="" ' . checked(true, false), "All");
     autoCheck('name="post_type" value="post" '
         . checked("post", get_query_var("post_type"), false),
             "Trip Reports");
-    autoCheck('name="post_format" value="gallery" '
-        . checked("post-format-gallery", get_query_var("post_format"), false),
-        "Photo Albums");
+    autoCheck('name="post_type" value="photo_album" '
+        . checked("photo_album", get_query_var("post_type"), false),
+            "Photo Albums");
     autoCheck('name="post_type" value="page" '
         . checked("page", get_query_var("post_type"), false),
             "Pages");
+    autoCheck('name="post_type" value="attachment" '
+        . checked("attachment", get_query_var("post_type"), false),
+            "Photos");
 }
 
 function searchmap()
@@ -59,7 +64,11 @@ function searchmap()
 <?php
 }
 
-/*print_r($wp_query->query_vars);*/
+/*
+echo "<pre>";
+print_r($wp_query->query_vars);
+echo "</pre>";
+ */
 get_header(); ?>
 
 <div class="main"><!-- safari appears to not support main-->
@@ -94,7 +103,15 @@ if ( have_posts() ) {
 ?>
 <div class="hgroup hasPage">
     <div class="rightContent">
-<?php get_template_part( 'excerpt', get_post_format() ); ?>
+<?php
+        if (get_post_type() == 'photo_album') {
+            $format = 'gallery';
+        } elseif (get_post_type() == 'attachment') {
+            $format = 'image';
+        } else {
+            $format = get_post_format();
+        }
+get_template_part( 'excerpt', $format ); ?>
     </div> <!-- rightContent -->
 </div> <!-- hgroup -->
 

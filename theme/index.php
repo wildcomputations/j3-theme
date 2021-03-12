@@ -27,7 +27,15 @@ if ( have_posts() ) {
 ?>
 <div class="hgroup hasPage">
     <div class="rightContent">
-<?php get_template_part( 'excerpt', get_post_format() ); ?>
+<?php
+        if (get_post_type() == 'photo_album') {
+            $format = 'gallery';
+        } elseif (get_post_type() == 'attachment') {
+            $format = 'image';
+        } else {
+            $format = get_post_format();
+        }
+ get_template_part( 'excerpt', $format ); ?>
     </div> <!-- rightContent -->
 </div> <!-- hgroup -->
 

@@ -6,16 +6,10 @@
 function j3RandomPhoto( $category=NULL )
 {
     $rand_post_args = array(
-        'post_type' => 'post',
+        'post_type' => 'photo_album',
         'orderby' => 'rand',
         'tax_query' => array(
-            'relation' => 'AND',
-            array(
-                'taxonomy' => 'post_format',
-                'field' => 'slug',
-                'terms' => array( 'post-format-gallery' )
-            ),
-            j3StdPhotosQuery()
+            j3StdPhotosQuery(),
         ),
         'posts_per_page' => 1
     );
@@ -84,16 +78,7 @@ function j3CtaBox()
 function j3RecentGalleries( $category=NULL, $tag=NULL )
 {
     $args = array(
-        'post_type' => 'post',
-        'tax_query' => array(
-            'relation' => 'AND',
-            array(
-                'taxonomy' => 'post_format',
-                'field' => 'slug',
-                'terms' => array( 'post-format-gallery' )
-            ),
-            j3StdPhotosQuery(),
-        ),
+        'post_type' => 'photo_album',
         'posts_per_page' => 7
     );
     if (! is_null($category)) {
@@ -108,10 +93,26 @@ function j3RecentGalleries( $category=NULL, $tag=NULL )
         while ( $query->have_posts() ) {
                 $query->the_post();
                 set_query_var('display_post', 'summary');
-                get_template_part( 'card', get_post_format() ); 
+                if (get_post_type() == 'photo_album') {
+                    $format = 'gallery';
+                } else {
+                    $format = get_post_format();
+                }
+                get_template_part( 'card', $format ); 
+        }
+        $photos_url = get_post_type_archive_link('photo_album');
+        if (! is_null($category)) {
+            $photos_url = add_query_arg('cat', 
+                $category,
+                $photos_url);
+        }
+        if (! is_null($tag)) {
+            $photos_url = add_query_arg('tag',
+                $tag,
+                $photos_url);
         }
         echo '<div class="albumText">
-            <a href="' . get_post_format_link(get_post_format())
+            <a href="' . $photos_url
             . '">More Photos ...</a>
                 </div>';
         /* Restore original Post Data */

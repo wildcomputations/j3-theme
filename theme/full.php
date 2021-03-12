@@ -4,6 +4,8 @@
  */
 require 'full-functions.php';
 
+// TODO attachment pages should link to their parent
+
 if (!function_exists('j3ContentArticle') ) :
 
 

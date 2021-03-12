@@ -34,7 +34,7 @@ function j3GalleryLinks() {
         echo $trip_date_html;
     }
     echo '<li><a href="';
-    echo get_post_format_link( get_post_format() );
+    echo get_post_type_archive_link('photo_album');
     echo '">Explore all photo albums</a></li>';
     if ($catHtml) {
         echo $catHtml;

@@ -23,7 +23,7 @@ function one_day($day, $month, $year)
     $first_gallery_image = NULL;
     $first_post_image = NULL;
     while (!empty(get_post()) && j3_date_post("Y-m-d") == $compr_date) {
-        if (get_post_format() == "gallery" ) {
+        if (get_post_format() == "gallery" || get_post_type() == "photo_album") {
             $display = 'Album: <a href="' . get_permalink() . '">';
             $display .= get_the_title();
             $display .= '</a><br>';
@@ -285,7 +285,12 @@ if ( have_posts() ) {
         }
         $prev_year = $new_year;
         $prev_month = $new_month;
-        get_template_part( 'card', get_post_format() ); 
+        if (get_post_type() == 'photo_album') {
+            $format = 'gallery';
+        } else {
+            $format = get_post_format();
+        }
+        get_template_part( 'card', $format ); 
     } ?>
     </div> <!-- month -->
 </div> <!-- rightContent -->
