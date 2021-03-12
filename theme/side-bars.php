@@ -79,9 +79,6 @@ function j3RecentGalleries( $category=NULL, $tag=NULL )
 {
     $args = array(
         'post_type' => 'photo_album',
-        'tax_query' => array(
-            j3StdPhotosQuery(),
-        ),
         'posts_per_page' => 7
     );
     if (! is_null($category)) {
