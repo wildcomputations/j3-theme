@@ -12,6 +12,8 @@ Version: 1.0
 Author URI: http://j3.org/
  */
 
+// TODO: add quick menu widgets
+
 /*****************************************************************
  * API Functions that themes can call                            *
  *****************************************************************/
