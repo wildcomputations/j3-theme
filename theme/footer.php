@@ -102,7 +102,7 @@ if (!is_front_page() and is_singular()) {?>
                   echo '<a class="rssLink" href="';
                   bloginfo('rss2_url');
                   echo '" title="Subscribe to all posts" rel="nofollow">All topics RSS feed</a>';
-                } else if (!j3IsFancyPhoto()) {
+                } else {
                   echo '<a class="rssLink" href="';
                   bloginfo('rss2_url');
                   echo '" title="Subscribe" rel="nofollow">RSS feed</a>';

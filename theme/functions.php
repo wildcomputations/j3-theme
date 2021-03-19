@@ -542,10 +542,6 @@ function j3ArchiveExcerpt( $length ) {
 }
 add_filter('excerpt_length', 'j3ArchiveExcerpt');
 
-function j3IsFancyPhoto() {
-    return is_single() && get_post_format() == "image" ;
-}
-
 function j3GalleryGetAttachments($attr)
 {
     $post = get_post();
