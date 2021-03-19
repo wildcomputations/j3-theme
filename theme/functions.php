@@ -619,7 +619,7 @@ function j3GalleryFilter($content, $attr)
     ), $attr));
 
     $showOnly = get_option('j3GalleryShowOnly', -1);
-    if (get_post_format() == "gallery" ) {
+    if (get_post_format() == "gallery" || get_post_type() == 'photo_album') {
         // show entire gallery on gallery pages
         $showOnly = -1; 
     }
