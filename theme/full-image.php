@@ -5,12 +5,15 @@
 require 'full-functions.php';
 if (has_post_thumbnail()) {
     $trip_date = j3_date_post('M j, Y');
-    $img_code = get_the_post_thumbnail(null, "full");
+    $img_code = get_the_post_thumbnail(null, "full",
+        // this class looses out to .wp-post-image which is added by default
+        array('class' => 'wp-image'));
     $post_link = "";
 } elseif (get_post_type() == 'attachment') {
     $parent_obj = get_post(wp_get_post_parent_id(get_the_ID()));
     $trip_date = j3_date_post('M j, Y', $parent_obj);
-    $img_code = wp_get_attachment_image( get_the_ID(), 'full', "");
+    $img_code = wp_get_attachment_image( get_the_ID(), 'full', "",
+        array('class' => 'wp-image'));
     $post_link = "<a href=" . get_permalink($parent_obj) .
         ">" . get_the_title($parent_obj) . "</a>";
 } else {
