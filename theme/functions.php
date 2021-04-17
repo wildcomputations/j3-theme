@@ -73,7 +73,7 @@ function j3AddExternals() {
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
-        array(), "4.15" );
+        array(), "4.16" );
     wp_enqueue_style('j3BaseStyle');
 
     wp_register_style( 'fontAwesome',
@@ -88,7 +88,7 @@ function j3AddExternals() {
         wp_enqueue_style('photoswipe');
         wp_register_style( 'lightbox-skin',
             $styleDir . '/lightbox-skin.css',
-            array(), "0.1" );
+            array(), "0.2" );
         wp_enqueue_style('lightbox-skin');
     }
 
@@ -541,10 +541,6 @@ function j3ArchiveExcerpt( $length ) {
     }
 }
 add_filter('excerpt_length', 'j3ArchiveExcerpt');
-
-function j3IsFancyPhoto() {
-    return is_single() && get_post_format() == "image" ;
-}
 
 function j3GalleryGetAttachments($attr)
 {

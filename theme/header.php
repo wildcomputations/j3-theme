@@ -26,15 +26,11 @@ function j3Header()
 {
 ?>
         <header>
-<?php if (!j3IsFancyPhoto() ) {
-            the_custom_logo();
-} ?>
+<?php the_custom_logo(); ?>
             <h1 class="siteTitle"><a href="<?php echo home_url(); ?>"><?php bloginfo( 'name' ); ?></a></h2>
             <br>
             <h2><?php bloginfo( 'description' ); ?></h2>
-<?php if (!j3IsFancyPhoto() ) : ?>
             <?php j3MainNav(); ?>
-<?php endif; ?>
         </header>
 <?php
 }

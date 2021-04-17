@@ -477,7 +477,8 @@ a.pswp__share--download:hover {
   opacity: 0; }
 
 .pswp__ui--idle .pswp__button--arrow--left,
-.pswp__ui--idle .pswp__button--arrow--right {
+.pswp__ui--idle .pswp__button--arrow--right,
+.pswp__ui--idle .pswp__caption {
   opacity: 0; }
 
 /*
@@ -485,7 +486,7 @@ a.pswp__share--download:hover {
 	e.g. when user taps to toggle visibility of controls
 */
 .pswp__ui--hidden .pswp__top-bar,
-/*.pswp__ui--hidden .pswp__caption,*/
+.pswp__ui--hidden .pswp__caption,
 .pswp__ui--hidden .pswp__button--arrow--left,
 .pswp__ui--hidden .pswp__button--arrow--right {
   /* Force paint & create composition layer for controls. */

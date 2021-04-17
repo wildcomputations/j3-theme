@@ -1,9 +1,5 @@
 <?php
 
-function j3IsFancyPhoto()
-{
-    return false;
-}
 function wp_nav_menu( $args )
 {
 ?>

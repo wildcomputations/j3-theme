@@ -23,15 +23,6 @@ function j3ContentArticle() {
     echo '</article>';
 }
 
-function j3ContentComments()
-{
-    if (comments_open()) {
-        echo '<article class="subPage" id="commentsSection">';
-        comments_template();
-        echo '</article>';
-    }
-}
-
 function j3SkipToComments()
 {
     $num_comments = get_comments_number();
