@@ -2,28 +2,44 @@
 /**
  * @package j3Custom
  */
+require 'full-functions.php';
 if (has_post_thumbnail()) {
-    the_post_thumbnail("full", array('class' => 'displayPhoto'));
+    $trip_date = j3_date_post('M j, Y');
+    $img_code = get_the_post_thumbnail(null, "full");
+    $post_link = "";
 } elseif (get_post_type() == 'attachment') {
-    echo wp_get_attachment_image( get_the_ID(), 'full',
-        "",
-        array('class' => 'attachment-full size-full wp-post-image displayPhoto')
-    );
+    $parent_obj = get_post(wp_get_post_parent_id(get_the_ID()));
+    $trip_date = j3_date_post('M j, Y', $parent_obj);
+    $img_code = wp_get_attachment_image( get_the_ID(), 'full', "");
+    $post_link = "<a href=" . get_permalink($parent_obj) .
+        ">" . get_the_title($parent_obj) . "</a>";
 } else {
-    echo "Image needs photo";
+    $trip_date ="";
+    $img_code = "<p>Image needs photo</p>";
+    $post_link = "";
 }
 
-echo '<div class="displayPhoto photoData">
-        <p>';
+
+echo '<article class="visualPage">';
+echo '<h3>Photo: ';
 the_title();
-echo '</p><p class="author">Photographer: ';
+echo '</h3><p>';
+if (!empty($post_link)) {
+    echo '<p>This picture is from: ' . $post_link . '</p>';
+}
+echo '<p class="date"><b>Photographer:</b> ';
 the_author();
 echo '</p>';
-$trip_date = j3_date_post('M j, Y');
 if (!empty($trip_date)) {
-    echo '<p class="date">' . $trip_date . '</p>';
+    echo '<p class="date"><b>Date:</b> ' . $trip_date . '</p>';
 }
-echo '</div>';
+echo $img_code;
+echo '</article>';
 
-/* TODO: Add comments, and link back to main post if attachment */
+echo '<div class="hgroup hasPage">';
+echo '<div class="rightContent">';
+j3ContentComments();
+echo '</div> <!-- rightContent -->';
+echo '</div> <!-- hgroup -->';
+
 ?>

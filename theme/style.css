@@ -1579,7 +1579,6 @@ article .date {
 article .date b {
     color: black;
     font-family: 'Helvetica', sans-serif;
-    margin: 0 0.5em;
     font-weight: normal;
 }
 
@@ -1615,16 +1614,6 @@ article > p {
 
 .displayPhoto.visualPage p {
     padding: 0.5em;
-}
-
-.photoData p {
-    float: left;
-    text-align: left;
-    margin: 10px;
-}
-.photoData .date, .photoData .author{
-    text-align: right;
-    float: none;
 }
 
 article p {

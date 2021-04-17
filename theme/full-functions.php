@@ -73,4 +73,14 @@ function j3ArticleFooter() {
     echo '</div></div>';
 }
 
+function j3ContentComments()
+{
+    if (comments_open()) {
+        echo '<article class="subPage" id="commentsSection">';
+        comments_template();
+        echo '</article>';
+    }
+}
+
+
 endif; // function declarations
