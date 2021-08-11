@@ -516,7 +516,7 @@ function j3Query( $query ) {
             ) );
         $query->set( 'tax_query', array($taxOnlyStd) );
     } elseif ( $query->is_search ) {
-        if (get_query_var('post_type', 'attachment') == 'attachment') {
+        if (get_query_var('post_type', 'all') == 'attachment') {
             $query->set( 'post_status', array( 'publish', 'inherit' ) );
         }
     }
