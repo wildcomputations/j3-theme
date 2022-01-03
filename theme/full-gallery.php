@@ -24,24 +24,6 @@ function j3GalleryFull()
     }
 }
 
-function j3GalleryLinks() {
-    $catHtml = j3AsideCategories();
-    $trip_date_html = j3AsideCalendar();
-    echo '<div class="linkBlock">
-              <h1>Read More</h1>
-              <ul>';
-    if ($trip_date_html) {
-        echo $trip_date_html;
-    }
-    echo '<li><a href="';
-    echo get_post_type_archive_link('photo_album');
-    echo '">Explore all photo albums</a></li>';
-    if ($catHtml) {
-        echo $catHtml;
-    }
-    echo '</ul></div> <!--linkBlock-->';
-}
-
 endif;
 ?>
 
@@ -51,8 +33,13 @@ endif;
             j3GalleryFull();
         ?>
     </div> <!-- rightContent -->
-    <aside>
-<?php j3GalleryLinks(); ?>
+    <aside class=leftBar>
+<?php 
+      j3AsideSkipToComments();
+      j3AsideArticleLinks(); 
+      j3AsideMapLinks();
+      j3AsideCtaWidgets();
+?>
     </aside>
 </div> <!-- hgroup -->
 

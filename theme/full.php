@@ -23,60 +23,6 @@ function j3ContentArticle() {
     echo '</article>';
 }
 
-function j3SkipToComments()
-{
-    $num_comments = get_comments_number();
-    if (comments_open() || $num_comments > 0) {
-        echo '<div class="linkBlock">';
-        echo '<h1>Comments</h1>';
-        echo '<p><a href="#commentsSection">';
-        if ($num_comments > 0) {
-            echo 'Skip to comments (' . get_comments_number() . ')';
-        } else {
-            echo 'Leave a comment';
-        }
-        echo '</a></p></div><!--linkBlock-->';
-    }
-}
-
-function j3ArticleLinks() {
-    $catHtml = j3AsideCategories();
-    $trip_date_html = j3AsideCalendar();
-    if ( $catHtml || $trip_date_html ) {
-        echo '<div class="linkBlock">
-                  <h1>Read More</h1>
-                  <ul>';
-        if ($trip_date_html) {
-            echo $trip_date_html;
-        }
-        if ($catHtml) {
-            echo $catHtml;
-        }
-        echo '</ul></div> <!--linkBlock-->';
-    }
-}
-
-function j3MapLinks() {
-    if (! is_plugin_active("travelers-map/travelers-map.php") ) return;
-    if (! metadata_exists(get_post_type(), get_the_ID(), '_latlngmarker') ) return;
-    echo '<div class="linkBlock">';
-    echo '<h1>Nearby Trips</h1>';
-    /*echo do_shortcode(
-        '[travelers-map height=220px init_maxzoom=13 centered_on_this=true disable_clustering=true]');*/
-    echo do_shortcode(
-        '[travelers-map height=220px init_maxzoom=13 centered_on_this=true max_cluster_radius=1]');
-    echo '</div>';
-}
-
-function j3CtaWidgets()
-{
-    if ( is_active_sidebar('cta_box') ) {
-        echo '<div class="linkBlock">';
-        dynamic_sidebar( 'cta_box' );
-        echo '</div> <!-- linkBlock -->';
-    }
-}
-
 endif; // function declarations
 
 if ( post_password_required() ) {
@@ -97,15 +43,15 @@ if ( post_password_required() ) {
 ?>
     <aside class=leftBar>
         <?php 
-            j3SkipToComments();
-            j3ArticleLinks();
-            j3MapLinks();
+            j3AsideSkipToComments();
+            j3AsideArticleLinks();
+            j3AsideMapLinks();
             if(function_exists('echo_crp')) {
 echo '<div class="linkBlock">';
 echo_crp();
 echo '</div><!--linkBlock-->';
             }
-            j3CtaWidgets()
+            j3AsideCtaWidgets()
 ?>
     </aside>
 <?php 

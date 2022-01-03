@@ -1,25 +1,24 @@
 <?php
 
-if (!function_exists('j3AsideCategories') ) :
+if (!function_exists('j3AsideArticleLinks') ) :
 
-function j3AsideCategories() {
+function _j3CategoryList() {
     $categories = get_the_category();
     $result = "";
-    $intro = "Latest";
+    $intro = "<b>Category:</b> ";
     foreach ( $categories as $category ) {
         if ($category->term_id == 1) {
             continue;
         }
-        $result .= '<li><a href="'
+        $result .= '<li>' . $intro . '<a href="'
             . esc_url( get_category_link( $category->term_id ) )
-            . '">' . $intro . ' ' . $category->name
-            .' reports</a></li>';
-        $intro = "Or the latest";
+            . '">' . $category->name
+            .'</a></li>';
     }
     return $result;
 }
 
-function j3AsideCalendar() {
+function _j3DateTag() {
     if ( function_exists("j3_date_post") ) {
         $trip_date = j3_date_post("F Y");
     } else {
@@ -28,14 +27,77 @@ function j3AsideCalendar() {
     if ( $trip_date ) {
         $year = j3_date_post("Y");
         $month = j3_date_post("m");
-        $trip_date_html = '<li><a href="'.j3_date_get_month_link($year, $month)
-            . '"/>Trips in ' . $trip_date
+        $trip_date_html = '<li><b>Date:</b> <a href="'.j3_date_get_month_link($year, $month)
+            . '"/>' . $trip_date
             . '</a></li>';
     } else {
         $trip_date_html = "";
     }
     return $trip_date_html;
 }
+
+function j3AsideArticleLinks() {
+    $catHtml = _j3CategoryList();
+    $trip_date_html = _j3DateTag();
+    $post_type = get_post_type();
+    $post_type_html = '<li><b>Type:</b> <a href="'
+        . get_post_type_archive_link($post_type)
+        . '">' . get_post_type_object($post_type)->labels->singular_name
+        . '</a></li>';
+
+    echo '<div class="linkBlock">
+              <h1>Read More</h1>
+              <ul>';
+    if ($trip_date_html) {
+        echo $trip_date_html;
+    }
+    if ($catHtml) {
+        echo $catHtml;
+    }
+    echo $post_type_html;
+    echo '</ul></div> <!--linkBlock-->';
+}
+
+function j3AsideSkipToComments()
+{
+    $num_comments = get_comments_number();
+    if (comments_open() || $num_comments > 0) {
+        echo '<div class="linkBlock">';
+        echo '<h1>Comments</h1>';
+        echo '<p><a href="#commentsSection">';
+        if ($num_comments > 0) {
+            echo 'Skip to comments (' . get_comments_number() . ')';
+        } else {
+            echo 'Leave a comment';
+        }
+        echo '</a></p></div><!--linkBlock-->';
+    }
+}
+
+function j3AsideMapLinks() {
+    if (! is_plugin_active("travelers-map/travelers-map.php") ) return;
+    if (! metadata_exists("post", get_the_ID(), '_latlngmarker') ) return;
+    $long_name = get_post_type_object(get_post_type())->label;
+    echo '<div class="linkBlock">';
+    echo '<h1>Nearby ' . $long_name . '</h1>';
+    echo do_shortcode(
+        '[travelers-map height=220px init_maxzoom=13 centered_on_this=true '
+        . 'max_cluster_radius=1 '
+        . 'post_types=' . get_post_type()
+        . ']');
+    echo '<br><p><a href="' . get_search_link() . '">All markers</a></p>';
+    echo '</div>';
+}
+
+function j3AsideCtaWidgets()
+{
+    if ( is_active_sidebar('cta_box') ) {
+        echo '<div class="linkBlock">';
+        dynamic_sidebar( 'cta_box' );
+        echo '</div> <!-- linkBlock -->';
+    }
+}
+
 
 function j3ArticleHead($include_author, $subhead='') {
     echo '<div class="articleHead"><h1><a href="' . get_permalink() . '">';
