@@ -85,7 +85,7 @@ function j3AsideMapLinks() {
         . 'max_cluster_radius=1 '
         . 'post_types=' . get_post_type()
         . ']');
-    echo '<br><p><a href="' . get_search_link() . '">All markers</a></p>';
+    echo '<br><p><a href="' . get_site_url(null, "?s=") . '">All markers</a></p>';
     echo '</div>';
 }
 
