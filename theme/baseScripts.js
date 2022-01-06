@@ -203,6 +203,7 @@ function makeOpenLightbox(items, gallery_id, index) {
             galleryUID: gallery_id,
             index: index,
             loop: false,
+            timeToIdle:600000,
         };
 
         // Initializes and opens PhotoSwipe
