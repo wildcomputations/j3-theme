@@ -670,14 +670,18 @@ function j3GalleryFilter($content, $attr, $instance)
             <{$icontag} class='gallery-icon'>
             $link
             </{$icontag}>";
-        if ( $captiontag && trim($attachment->post_excerpt) ) {
+        if ( $captiontag ) {
             // todo: instead populate the comments link in json using the
             // restful API.
             // Note: this only gets the comments link for short code
             // galleries. It doesn't add it to Blocks galleries.
             $output .= "
-                <{$captiontag} class='wp-caption-text gallery-caption'>
-                " . wptexturize($attachment->post_excerpt) . "
+                <{$captiontag} class='wp-caption-text gallery-caption'>";
+            if (trim($attachment->post_excerpt)) {
+                $output .= "
+                " . wptexturize($attachment->post_excerpt);
+            }
+            $output .= "
                 <a href='" . get_permalink($id, false) . "'
                  class='attachment-permalink'>-- Comments&nbsp;(" .
                 get_comments_number($id) . ")</a>
