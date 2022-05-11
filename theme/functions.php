@@ -69,11 +69,11 @@ function j3AddExternals() {
     }
     wp_enqueue_script('j3Scripts', 
         $templateDir."/baseScripts.js",
-        array('jquery'), "2.7", true);
+        array('jquery'), "2.8", true);
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
-        array(), "4.17" );
+        array(), "4.18" );
     wp_enqueue_style('j3BaseStyle');
 
     wp_register_style( 'fontAwesome',
@@ -599,12 +599,8 @@ function j3GalleryGetAttachments($attr)
     return $attachments;
 }
 
-function j3GalleryFilter($content, $attr)
+function j3GalleryFilter($content, $attr, $instance)
 {
-    // Give each gallery on the page a unique id
-    static $instance = 0;
-    $instance++;
-
     $post = get_post();
     extract(shortcode_atts(array(
         'id'         => $post->ID,
@@ -675,9 +671,16 @@ function j3GalleryFilter($content, $attr)
             $link
             </{$icontag}>";
         if ( $captiontag && trim($attachment->post_excerpt) ) {
+            // todo: instead populate the comments link in json using the
+            // restful API.
+            // Note: this only gets the comments link for short code
+            // galleries. It doesn't add it to Blocks galleries.
             $output .= "
                 <{$captiontag} class='wp-caption-text gallery-caption'>
                 " . wptexturize($attachment->post_excerpt) . "
+                <a href='" . get_permalink($id, false) . "'
+                 class='attachment-permalink'>-- Comments&nbsp;(" .
+                get_comments_number($id) . ")</a>
                 </{$captiontag}>";
         }
         $output .= "</{$itemtag}>";
@@ -695,7 +698,7 @@ function j3GalleryFilter($content, $attr)
 
     return $output;
 }
-add_filter('post_gallery', 'j3GalleryFilter', 10, 2);
+add_filter('post_gallery', 'j3GalleryFilter', 10, 3);
 
 
 function add_size_to_images($content) {

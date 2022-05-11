@@ -4,7 +4,7 @@
  *
  * @package j3Custom
  */
-if (!is_front_page() and is_singular()) {?>
+if (!is_front_page() and !is_attachment() and is_singular()) {?>
 
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

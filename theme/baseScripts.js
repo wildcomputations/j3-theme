@@ -284,11 +284,14 @@ function galleryInit() {
         all_gallery_items[gallery.attr('id')] = items;
 
         /* modify all the links to open the gallery lightbox */
-        var links = gallery.find('a');
-        for (var j = 0; j < links.length; ++j) {
-            jQuery(links[j]).click(
-                makeOpenLightbox(items, gallery.attr('id'), j)
-            );
+        var links = gallery.find('a').not('.figcaption').not('.gallery-caption');
+        for (var j = 0; j < pictures.length; ++j) {
+            var links = jQuery(pictures[j]).find('a');
+            if (links.length > 0) {
+                jQuery(links[0]).click(
+                    makeOpenLightbox(items, gallery.attr('id'), j)
+                );
+            }
         }
     }
     return all_gallery_items;

@@ -642,6 +642,13 @@ small .rssLink:before {
     background-color: white;
 }
 
+.attachment-permalink {
+    display: none;
+}
+.pswp .attachment-permalink {
+    display: inline;
+}
+
 aside {
     padding: 80px 0px 0px 0px;
     text-align: center;
