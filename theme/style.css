@@ -1577,16 +1577,19 @@ article p:last-child {
     margin-bottom : 2.5em;
 }
 
-article .date {
+article .signature {
     color: #888;
     line-height: 1.3em;
     font-family: 'Pinselschrift', 'Times', serif;
+    font-size: larger;
 }
-article .date b {
-    color: black;
+article .date {
+    color: #888;
     font-family: 'Helvetica', sans-serif;
     font-weight: normal;
+    line-height: 1.3;
 }
+/* todo .articleFooter */
 
 article ul, article ol {
     list-style-type: initial;
@@ -1607,7 +1610,7 @@ article ol {
 article li {
     margin: 0.2em 0;
 }
-article > p {
+p {
     margin-top: 1rem;
     margin-bottom: 1rem;
     line-height:1.4;
@@ -1616,19 +1619,22 @@ article > p {
     clear: both;
     margin-top:1em;
     text-align: right;
+
+    color: #888;
+    line-height: 1.3em;
+    font-family: 'Pinselschrift', 'Times', serif;
 }
 
 .displayPhoto.visualPage p {
     padding: 0.5em;
 }
 
-article p {
+p {
     word-wrap: break-word;
 
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
     hyphens: auto;
-    margin-top: 0.5em;
 }
 
 .commentBlock .comment-meta {

@@ -23,7 +23,7 @@ function j3Setup() {
 	add_theme_support( 'automatic-feed-links' );
 
         // support html5
-	add_theme_support( 'html5' );
+	add_theme_support( 'html5', array('search-form', 'comment-form', 'comment-list') );
 
         // not modifying the title
         add_theme_support( 'title-tag' );
@@ -73,7 +73,7 @@ function j3AddExternals() {
 
     $styleDir = get_stylesheet_directory_uri();
     wp_register_style( 'j3BaseStyle', $styleDir . '/style.css', 
-        array(), "4.18" );
+        array(), "4.19" );
     wp_enqueue_style('j3BaseStyle');
 
     wp_register_style( 'fontAwesome',

@@ -112,27 +112,29 @@ function j3ArticleHead($include_author, $subhead='') {
         $trip_date = NULL;
     }
     if (!empty($trip_date) || $include_author) {
-        echo '<div class="date">';
         if (!empty($trip_date)) {
-            echo '<b>' . $trip_date . '</b><br>';
+            echo '<div class="date">';
+            echo $trip_date;
+            echo '</div>';
         }
         if ($include_author) {
+            echo '<div class="signature">';
             echo get_the_author();
+            echo '</div>';
         }
-        echo '</div>';
     }
     echo "</div>";
 }
 
 function j3ArticleFooter() {
-    echo '<div class="articleFooter"><div class="date">Written ' . get_the_date();
+    echo '<div class="articleFooter">Written ' . get_the_date();
     $u_time = get_the_time('U');
     $u_modified_time = get_the_modified_time('U');
     if ($u_modified_time >= $u_time + 86400) {
         echo ", updated ";
         the_modified_date();
     }
-    echo '</div></div>';
+    echo '</div>';
 }
 
 function j3ContentComments()

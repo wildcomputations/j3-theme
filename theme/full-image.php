@@ -30,11 +30,8 @@ echo '</h3><p>';
 if (!empty($post_link)) {
     echo '<p>This picture is from: ' . $post_link . '</p>';
 }
-echo '<p class="date"><b>Photographer:</b> ';
-the_author();
-echo '</p>';
 if (!empty($trip_date)) {
-    echo '<p class="date"><b>Date:</b> ' . $trip_date . '</p>';
+    echo '<p class="date">Date: ' . $trip_date . '</p>';
 }
 echo $img_code;
 echo '</article>';
