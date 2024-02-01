@@ -685,6 +685,11 @@ aside {
 .linkBlock ul {
     list-style: inside square;
 }
+.linkBlock .stackPaper > *,
+.linkBlock .stackPaper:before,
+.linkBlock .stackPaper:after {
+    margin-left: 0px;
+}
 
 aside.mini {
     display: none;
