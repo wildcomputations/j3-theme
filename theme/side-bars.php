@@ -24,6 +24,7 @@ function j3RandomPhoto( $category=NULL )
         );
     }
 
+    // Get the gallery post
     $query_parent = new WP_Query( $rand_post_args );
     $parent_id = False;
     if (! $query_parent->have_posts()
@@ -37,33 +38,46 @@ function j3RandomPhoto( $category=NULL )
         $query_parent->the_post();
         $parent_id = get_post()->ID;
         $parent_name = get_post()->post_name;
-        $parent_url = get_permalink($parent_id);
     }
     wp_reset_postdata(); 
 
-    if ($parent_id) {
-        $args = array(
-            'post_parent' => $parent_id,
-            'posts_per_page' => 1,
-            'post_status' => 'inherit',
-            'post_type' => 'attachment',
-            'post_mime_type' =>'image',
-            'orderby' => 'rand',
-        );
-
-        $query = new WP_Query( $args );
-        if ($query->have_posts()) {
-            $query->the_post();
-            echo '<div class="displayPhoto dualShadow">';
-            echo '<a href="';
-            echo esc_url( $parent_url );
-            echo '" class="photoLink">';
-            echo wp_get_attachment_image(get_post()->ID, 'large');
-            echo '</a>';
-            echo '</div>';
-        }
-        wp_reset_postdata(); 
+    if (! $parent_id) {
+        return;
     }
+
+    $args = array(
+        'post_parent' => $parent_id,
+        'posts_per_page' => 1,
+        'post_status' => 'inherit',
+        'post_type' => 'attachment',
+        'post_mime_type' =>'image',
+        'orderby' => 'rand',
+    );
+
+    // use back references from galleries. From j3gallery plugin
+    $full_post_id = $parent_id;
+    if (function_exists('j3gallery_get_referrers')) {
+        $referring_ids = j3gallery_get_referrers($parent_id);
+        if ( $referring_ids) {
+            // making an assumption here
+            $full_post_id = $referring_ids[0];
+        }
+    }
+    $parent_url = get_permalink($full_post_id);
+
+    // Find a specific photo
+    $query = new WP_Query( $args );
+    if ($query->have_posts()) {
+        $query->the_post();
+        echo '<div class="displayPhoto dualShadow">';
+        echo '<a href="';
+        echo esc_url( $parent_url );
+        echo '" class="photoLink">';
+        echo wp_get_attachment_image(get_post()->ID, 'large');
+        echo '</a>';
+        echo '</div>';
+    }
+    wp_reset_postdata(); 
 }
 
 function j3CtaBox()

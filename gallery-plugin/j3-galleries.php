@@ -12,16 +12,14 @@ Version: 2.0
 Author URI: http://j3.org/
  */
 
-// TODO: add quick menu widgets
-
-// Remaining work for version 2.0
-// - release notes saying added reference metadata
-// - add a public API function for the theme to call to get all posts which
-// refer to a gallery
-
 /*****************************************************************
  * API Functions that themes can call                            *
  *****************************************************************/
+
+function j3gallery_get_referrers($post) {
+    $post = get_post( $post );
+    return get_post_meta($post->ID, '_j3gallery_reference_cache');
+}
 
 /*****************************************************************
  * Internal plugin implementations                               *
