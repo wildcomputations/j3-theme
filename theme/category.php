@@ -15,7 +15,24 @@ if (j3IsGalleryFormat()) {
 
 require 'side-bars.php';
 
-function j3TopicTitle() {
+function j3TopicTitle($category) {
+    $parent_slugs = array_diff(
+        explode('|',
+        get_category_parents($category->term_id, False, '|', True)),
+        [$category->slug, '']
+    );
+    if ( $parent_slugs ) {
+        echo '<h4 class="topicTitle">';
+        $links = array();
+        foreach ( $parent_slugs as $slug) {
+            $parent = get_category_by_slug($slug);
+            $url = get_category_link($parent);
+            array_push($links,
+                '<a href="' . $url . '">'
+                . $parent->name . '</a>');
+        }
+        echo implode(' / ', $links) . '</h3>';
+    }
     echo '<h1 class="topicTitle">';
     single_cat_title(); 
     echo '</h1>';
@@ -75,7 +92,7 @@ $is_house = $fullCat->slug == "house";
 ?>
 <div class="main twoColumn">
     <div class="leftColumn">
-<?php j3TopicTitle(); ?>
+<?php j3TopicTitle($fullCat); ?>
     </div>
     <div class="rightColumn">
 <?php 

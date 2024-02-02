@@ -1662,8 +1662,12 @@ p {
 .calendarTitle,
 .topicTitle {
     color: gray; 
-    font-size: 2rem;
     font-weight: normal;
+}
+
+h1.calendarTitle,
+h1.topicTitle {
+    font-size: 2rem;
 }
 
 .albumExcerpt .date {

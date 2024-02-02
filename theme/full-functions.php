@@ -6,14 +6,29 @@ function _j3CategoryList() {
     $categories = get_the_category();
     $result = "";
     $intro = "<b>Category:</b> ";
-    foreach ( $categories as $category ) {
-        if ($category->term_id == 1) {
-            continue;
+    $done_slugs = array();
+    while ( $categories ) {
+        $parents_todo = array();
+        foreach ( $categories as $category ) {
+            if ($category->term_id == 1) {
+                continue;
+            }
+            $result .= '<li>' . $intro . '<a href="'
+                . esc_url( get_category_link( $category->term_id ) )
+                . '">' . $category->name
+                .'</a></li>';
+            array_push($done_slugs, $category->slug);
+            $parents_todo += explode('|',
+                get_category_parents($category->term_id, False, '|', True));
         }
-        $result .= '<li>' . $intro . '<a href="'
-            . esc_url( get_category_link( $category->term_id ) )
-            . '">' . $category->name
-            .'</a></li>';
+        $categories = array();
+        $parents_todo = array_unique($parents_todo);
+        foreach ( array_diff($parents_todo, $done_slugs) as $slug) {
+            if ( $slug ) {
+                array_push($categories, get_category_by_slug($slug));
+            }
+        }
+        print("<br>");
     }
     return $result;
 }
