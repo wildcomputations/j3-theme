@@ -7,28 +7,29 @@ function _j3CategoryList() {
     $result = "";
     $intro = "<b>Category:</b> ";
     $done_slugs = array();
-    while ( $categories ) {
-        $parents_todo = array();
-        foreach ( $categories as $category ) {
-            if ($category->term_id == 1) {
-                continue;
-            }
-            $result .= '<li>' . $intro . '<a href="'
-                . esc_url( get_category_link( $category->term_id ) )
-                . '">' . $category->name
-                .'</a></li>';
-            array_push($done_slugs, $category->slug);
-            $parents_todo += explode('|',
-                get_category_parents($category->term_id, False, '|', True));
+    foreach ( $categories as $category ) {
+        if ($category->term_id == 1) {
+            continue;
         }
-        $categories = array();
-        $parents_todo = array_unique($parents_todo);
-        foreach ( array_diff($parents_todo, $done_slugs) as $slug) {
-            if ( $slug ) {
-                array_push($categories, get_category_by_slug($slug));
-            }
+        $hierarchy = explode('|',
+            get_category_parents($category->term_id, False, '|', True));
+        $last = array_pop($hierarchy);
+        if (!empty($last)) {
+            // it seems to always be empty, but just in case
+            array_push($hierarchy, $last);
         }
-        print("<br>");
+        $pieces = [];
+        foreach ($hierarchy as $cat_slug) {
+            $hcat = get_category_by_slug($cat_slug);
+            array_push($pieces,
+                '<a href="'
+                . esc_url( get_category_link( $hcat->term_id ) )
+                . '">' . $hcat->name
+                .'</a>');
+        }
+        $result .= '<li>' . $intro 
+            . implode(' > ', $pieces)
+            . '</li>';
     }
     return $result;
 }
@@ -61,7 +62,7 @@ function j3AsideArticleLinks() {
         . '</a></li>';
 
     echo '<div class="linkBlock">
-              <h1>Read More</h1>
+              <h1>More By</h1>
               <ul>';
     if ($trip_date_html) {
         echo $trip_date_html;

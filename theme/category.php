@@ -80,6 +80,26 @@ function description()
 {
     echo '<article class="visualPage">';
     echo category_description();
+
+    // Print sub categories
+
+    $current_category = get_queried_object(); // Get the current category
+    $child_categories = get_terms(array(
+        'taxonomy' => $current_category->taxonomy,
+        'parent'   => $current_category->term_id,
+    ));
+
+    if ($child_categories) {
+        echo '<p>Sub categories: ';
+
+        foreach ($child_categories as $child_category) {
+            $category_link = get_category_link($child_category->term_id);
+            echo '<a href="' . esc_url($category_link) . '">' . esc_html($child_category->name) . '</a>, ';
+        }
+
+        echo '</p>';
+    }
+
     echo '</article>';
 }
 
