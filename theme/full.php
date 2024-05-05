@@ -4,9 +4,36 @@
  */
 require 'full-functions.php';
 
-// TODO attachment pages should link to their parent
-
 if (!function_exists('j3ContentArticle') ) :
+
+// bread crumb navigation
+function j3BreadCrumbs() {
+    // Use a callback registration to let different post types and plugins have their own breadcrumbs
+    // TODO attachment pages should link to their parent
+    // TODO put photo album parent links here too
+    global $post;
+
+    if (get_post_type() != 'page') {
+        return;
+    }
+
+    $ancestors = get_post_ancestors($post->ID);
+    if (count($ancestors) == 0) return;
+    $crumbs = "";
+    foreach ($ancestors as $ancestor_id) {
+        $crumbs = '<a href="' . get_permalink($ancestor_id)
+            . '">' . get_the_title($ancestor_id)
+            . '</a> > ' . $crumbs;
+    }
+    $crumbs .= get_the_title();
+?>
+<div class="hgroup">
+    <p class="breadcrumbs">
+        <?php echo $crumbs; ?>
+    </p>
+</div>
+<?php
+}
 
 
 // Everything that goes in the article
@@ -34,8 +61,9 @@ if ( post_password_required() ) {
 	return;
 }
 ?>
+<?php j3BreadCrumbs(); ?>
 <div class="hgroup hasPage">
-    <div class="rightContent">
+     <div class="rightContent">
         <?php j3ContentArticle(); ?>
     </div> <!-- rightContent -->
 <?php
